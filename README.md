@@ -3,6 +3,7 @@
 ## Your own VR movie theater for Jellyfin
 
 ![Logo of JellyVR](JellyVR_Logo.png)
+![Development Roadmap of JellyVR](JellyVR_Roadmap.png)
 
 ![Logo of unreal engine](https://img.shields.io/badge/Unreal%20Engine-0E1128?logo=unrealengine)
 ![Logo of meta](https://img.shields.io/badge/Meta%20Quest-0467DF?logo=meta)
