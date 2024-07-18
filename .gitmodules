@@ -1,0 +1,3 @@
+[submodule "unreal-mpv"]
+	path = unreal-mpv
+	url = git@github.com:VersaYT/unreal-mpv.git
