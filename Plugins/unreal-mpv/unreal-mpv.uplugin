@@ -1,0 +1,17 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "unreal-mpv",
+	"Description": "implementation of mpv player for unreal",
+	"Category": "Media",
+	"CreatedBy": "Versa",
+	"CreatedByURL": "https://github.com/VersaYT",
+	"DocsURL": "https://github.com/VersaYT/unreal-mpv",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/VersaYT/unreal-mpv",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": false
+}
