@@ -12,6 +12,9 @@
 JellyVR is your personal movie theater for Jellyfin, made in Unreal Engine 5 with C++.
 
 ---
+## Development Update - 25/03/25
+
+> Hi everyone, I'm glad to see interest in the project. The implementation of MPV in Unreal has proven to be quite a challenge (mainly due to incompatibilities in C++ toolchains), so the project has been switched to Godot Engine. The port of MPV in Godot (which is at the heart of Jellyfin) is well on its way. You can expect a first alpha build for Android OpenXR (Quest/Pico) in 2 to 3 months.
 
 ### FAQ
 
