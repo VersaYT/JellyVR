@@ -5,11 +5,13 @@
 ![Logo of JellyVR](JellyVR_Logo.png)
 ![Development Roadmap of JellyVR](JellyVR_Roadmap.png)
 
-![Logo of unreal engine](https://img.shields.io/badge/Unreal%20Engine-0E1128?logo=unrealengine)
+![Logo of Godot Engine](https://img.shields.io/badge/Godot%20Engine-478CBF?logo=godotengine&logoColor=white)
+![Logo of mpv](https://img.shields.io/badge/MPV-691F69?logo=mpv&logoColor=white)
+![Logo of linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
 ![Logo of meta](https://img.shields.io/badge/Meta%20Quest-0467DF?logo=meta)
 
 ---
-JellyVR is your personal movie theater for Jellyfin, made in Unreal Engine 5 with C++.
+JellyVR is your personal movie theater for Jellyfin, made in Godot Engine 4.4 with C++.
 
 ---
 ## Development Update - 25/03/25
