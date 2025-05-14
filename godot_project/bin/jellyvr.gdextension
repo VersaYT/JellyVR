@@ -1,0 +1,6 @@
+[configuration]
+compatibility_minimum = "4.4"
+entry_symbol = "jellyvr_client_library_init"
+
+[libraries]
+linux = "res://bin/libjellyvr.linux.so"
