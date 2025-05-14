@@ -1,7 +1,0 @@
-/home/versaroumane/Documents/dev/godot/JellyVR/CMakeFiles/jellyvr.dir
-/home/versaroumane/Documents/dev/godot/JellyVR/CMakeFiles/edit_cache.dir
-/home/versaroumane/Documents/dev/godot/JellyVR/CMakeFiles/rebuild_cache.dir
-/home/versaroumane/Documents/dev/godot/JellyVR/godot-cpp-build/CMakeFiles/generate_bindings.dir
-/home/versaroumane/Documents/dev/godot/JellyVR/godot-cpp-build/CMakeFiles/godot-cpp.dir
-/home/versaroumane/Documents/dev/godot/JellyVR/godot-cpp-build/CMakeFiles/edit_cache.dir
-/home/versaroumane/Documents/dev/godot/JellyVR/godot-cpp-build/CMakeFiles/rebuild_cache.dir

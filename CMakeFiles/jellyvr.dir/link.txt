@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -s -shared -Wl,-soname,libjellyvr.linux.so -o godot_project/bin/libjellyvr.linux.so CMakeFiles/jellyvr.dir/native/src/jellyvr/Auth.cpp.o CMakeFiles/jellyvr.dir/native/src/jellyvr/JellyvrClient.cpp.o CMakeFiles/jellyvr.dir/native/src/jellyvr/register_types.cpp.o  bin/libgodot-cpp.linux.template_debug.x86_64.a /usr/lib/x86_64-linux-gnu/libcurl.so 

@@ -4,6 +4,7 @@
 
 /godot-cpp-build
 /bin
+/CMakeFiles
 
 cmake_install.cmake
 CMakeCache.txt
