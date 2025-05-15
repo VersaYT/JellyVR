@@ -2,9 +2,10 @@
 .godot/
 /android/
 
-/godot-cpp-build
-/bin
-/CMakeFiles
+godot-cpp-build/
+bin/
+CMakeFiles/
+_deps/
 
 cmake_install.cmake
 CMakeCache.txt

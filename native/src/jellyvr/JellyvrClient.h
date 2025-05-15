@@ -17,7 +17,7 @@ public:
     Ref<Auth> auth();
 
     const std::string& get_server_url() const;
-    void set_server_url(const std::string& url);
+    void set_server_url(String url);
 private:
     Ref<Auth> m_auth;
     std::string server_url;

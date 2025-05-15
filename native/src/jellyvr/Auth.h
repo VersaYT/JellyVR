@@ -17,9 +17,9 @@ public:
     Auth();
     ~Auth();
 
-    bool _ping(const String& url);
+    String ping(String url);
 
-    bool login(std::string name, std::string passw);
+    bool login(const String& name, const String& passw);
     bool logout();
     const User& get_user() const {return *m_user;}
 

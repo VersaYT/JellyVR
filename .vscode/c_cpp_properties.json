@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/engine/**",
+                "${workspaceFolder}/_deps/nlohmann_json-src/include",
                 "${workspaceFolder}/engine/godot-cpp/include",
                 "${workspaceFolder}/engine/godot-cpp/gen/include"
             ],
