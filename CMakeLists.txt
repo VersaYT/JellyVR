@@ -2,11 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 project(jellyvr)
 include(FetchContent)
 
-configure_file(
-    ${CMAKE_SOURCE_DIR}/version.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/version.h
-)
-
 FetchContent_Declare(
   nlohmann_json
   GIT_REPOSITORY https://github.com/nlohmann/json.git
@@ -35,6 +30,10 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
 include(GitVersion)
 get_version_from_git()
+configure_file(
+    ${CMAKE_SOURCE_DIR}/version.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/version.h
+)
 
 # Godot-cpp binding
 set(GODOTCPP_DISABLE_EXCEPTIONS OFF CACHE BOOL "Enable exception handling in godot-cpp" FORCE)
