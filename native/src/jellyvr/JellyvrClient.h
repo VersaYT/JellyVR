@@ -7,7 +7,7 @@
 
 using namespace godot;
 
-class JellyvrClient : public RefCounted {
+class JellyvrClient : public RefCounted, public IServerProvider{
     GDCLASS(JellyvrClient, RefCounted)
 
 public:
@@ -16,7 +16,7 @@ public:
 
     Ref<Auth> auth();
 
-    const std::string& get_server_url() const;
+    std::string get_server_url() const override;
     void set_server_url(String url);
 private:
     Ref<Auth> m_auth;

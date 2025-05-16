@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.15)
 project(jellyvr)
 include(FetchContent)
 
+configure_file(
+    ${CMAKE_SOURCE_DIR}/version.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/version.h
+)
+
 FetchContent_Declare(
   nlohmann_json
   GIT_REPOSITORY https://github.com/nlohmann/json.git
@@ -26,6 +31,10 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 else()
     message(FATAL_ERROR "Unsupported platform")
 endif()
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
+include(GitVersion)
+get_version_from_git()
 
 # Godot-cpp binding
 set(GODOTCPP_DISABLE_EXCEPTIONS OFF CACHE BOOL "Enable exception handling in godot-cpp" FORCE)
@@ -52,10 +61,11 @@ find_package(CURL REQUIRED)
 # Compiler settings
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_options(${PROJECT_NAME} PRIVATE -fexceptions)
-target_include_directories(${PROJECT_NAME} PRIVATE ${GODOT_CPP_PATH}/include)
-target_include_directories(${PROJECT_NAME} PRIVATE src)
 target_include_directories(${PROJECT_NAME}
   PRIVATE
+    ${GODOT_CPP_PATH}/include
+    src
+    ${CMAKE_CURRENT_BINARY_DIR}
     ${nlohmann_json_SOURCE_DIR}/include/nlohmann
 )
 

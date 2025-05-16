@@ -4,6 +4,7 @@
 
 JellyvrClient::JellyvrClient() {
     m_auth.instantiate();
+    m_auth->set_server_provider(this);
 }
 JellyvrClient::~JellyvrClient() {
     fprintf(stdout, "freeing jellyvr client");
@@ -18,7 +19,7 @@ Ref<Auth> JellyvrClient::auth() {
     return m_auth;
 }
 
-const std::string& JellyvrClient::get_server_url() const{
+std::string JellyvrClient::get_server_url() const{
     return server_url;
 }
 
