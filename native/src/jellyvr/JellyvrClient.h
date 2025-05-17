@@ -3,6 +3,7 @@
 
 #include <godot_cpp/classes/ref_counted.hpp>
 #include "Auth.h"
+#include "AppConfig.h"
 #include <string>
 
 using namespace godot;

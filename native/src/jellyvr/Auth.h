@@ -8,6 +8,7 @@
 #include <optional>
 #include <string>
 #include "network/IserverProvider.h"
+#include "AppConfig.h"
 
 using namespace godot;
 
@@ -24,7 +25,7 @@ public:
 
     String ping(String url);
 
-    bool login(String Username, String Pw);
+    bool login(String Username, String Pw, Ref<AppConfig> config);
     bool logout();
     const User& get_user() const {return *m_user;}
 

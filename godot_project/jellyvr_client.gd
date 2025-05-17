@@ -3,6 +3,7 @@ extends Node
 func _ready():
 	var client = JellyvrClient.new();
 	var auth = client.auth();
+	var config = AppConfig.new();
 	
-	client.set_server_url("http://192.168.1.118:30013");
-	auth.login("Admin", "23755804");
+	client.set_server_url("url here");
+	auth.login("test", "test", config);

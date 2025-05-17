@@ -12,6 +12,7 @@ using namespace godot;
 void initialize_jellyvr_client_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
         ClassDB::register_class<Auth>();
+		ClassDB::register_class<AppConfig>();
 		return;
 	}
 

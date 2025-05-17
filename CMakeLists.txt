@@ -31,8 +31,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
 include(GitVersion)
 get_version_from_git()
 configure_file(
-    ${CMAKE_SOURCE_DIR}/version.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/version.h
+    ${CMAKE_SOURCE_DIR}/native/src/jellyvr/include/version.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/native/src/jellyvr/include/version.h
 )
 
 # Godot-cpp binding
