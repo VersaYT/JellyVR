@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://df8gyx56gl5bm"]
+
+[ext_resource type="Script" uid="uid://cfm43dak3vnwm" path="res://UI/Scenes/login/public_user_button.gd" id="1_bhn6d"]
+[ext_resource type="Texture2D" uid="uid://covjdv57ucjvd" path="res://UI/assets/img/dicebear_00.png" id="2_0uv8g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bhn6d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0uv8g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_myv4c"]
+
+[sub_resource type="Theme" id="Theme_myv4c"]
+Button/styles/hover = SubResource("StyleBoxEmpty_bhn6d")
+Button/styles/normal = SubResource("StyleBoxEmpty_0uv8g")
+Button/styles/pressed = SubResource("StyleBoxEmpty_myv4c")
+
+[node name="PublicUserButton" type="Button"]
+custom_minimum_size = Vector2(100, 110)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_myv4c")
+script = ExtResource("1_bhn6d")
+
+[node name="container" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="profile_pic" type="TextureRect" parent="container"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("2_0uv8g")
+expand_mode = 2
+
+[node name="username" type="Label" parent="container"]
+layout_mode = 2
+
+[connection signal="pressed" from="." to="." method="_on_button_pressed"]

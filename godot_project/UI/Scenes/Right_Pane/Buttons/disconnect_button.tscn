@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://x66r4x60vcs4"]
+
+[ext_resource type="FontFile" uid="uid://lw3l5qectmfk" path="res://UI/assets/fonts/Manrope/static/Manrope-Regular.ttf" id="1_f264w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f264w"]
+bg_color = Color(0.639222, 0.165859, 0.145423, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hspwr"]
+bg_color = Color(0.792157, 0.227451, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_f264w"]
+Button/font_sizes/font_size = 12
+Button/fonts/font = ExtResource("1_f264w")
+Button/styles/hover = SubResource("StyleBoxFlat_f264w")
+Button/styles/normal = SubResource("StyleBoxFlat_hspwr")
+
+[node name="DisconnectButton" type="Button"]
+custom_minimum_size = Vector2(86, 26)
+offset_right = 86.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_f264w")
+text = "Disconnect"

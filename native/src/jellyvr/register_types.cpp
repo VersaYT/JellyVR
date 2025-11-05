@@ -1,7 +1,10 @@
 #include "register_types.h"
 
 #include "JellyvrClient.h"
-#include "Auth.h"
+#include "network/Json.h"
+#include "network/Auth.h"
+#include "network/NetworkConfig.h"
+#include "AppConfig.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -11,10 +14,12 @@ using namespace godot;
 
 void initialize_jellyvr_client_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
-        ClassDB::register_class<Auth>();
-		ClassDB::register_class<AppConfig>();
 		return;
 	}
+	ClassDB::register_class<Auth>();
+	ClassDB::register_class<AppConfig>();
+	ClassDB::register_class<NetworkConfig>();
+	ClassDB::register_class<Json>();
 
 	GDREGISTER_RUNTIME_CLASS(JellyvrClient);
 }

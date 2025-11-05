@@ -6,28 +6,45 @@
 
 using namespace godot;
 
-class AppConfig : public RefCounted {
+class AppConfig : public RefCounted{
     GDCLASS(AppConfig, RefCounted);
-
+    
 public:
     AppConfig();
-    ~AppConfig();
+    virtual ~AppConfig() override;
+
+    void initPaths();
+    void initialize();
+
+    String get_access_token() const {return AccessToken;}
+    String get_device_id() const {return DeviceId;}
+    String get_server_id() const {return ServerId;}
+    String get_user_id() const {return UserId;}
+    String get_username() const {return UserName;}
+
+
+    void set_access_token(String token) {AccessToken = token;}
+    void set_device_id(String device_id) {DeviceId = device_id;}
+    void set_server_id(String server_id) {ServerId = server_id;}
+    void set_user_id(String user_id) {UserId = user_id;}
+    void set_username(String username) {UserName = username;}
+
+    String ConfigPath;
+    String CachePath;
+    String LogsPath;
+    String ConfigFilePath;
+private:
 
     String AccessToken;
     String DeviceId;
     String ServerId;
     String UserId;
     String UserName;
-private:
+
+    bool initConfigFile();
 
 protected:
-    static void _bind_methods() {
-        ADD_PROPERTY(PropertyInfo(Variant::STRING, "AccessToken"), "", "");
-        ADD_PROPERTY(PropertyInfo(Variant::STRING, "DeviceId"), "", "");
-        ADD_PROPERTY(PropertyInfo(Variant::STRING, "ServerId"), "", "");
-        ADD_PROPERTY(PropertyInfo(Variant::STRING, "UserId"), "", "");
-        ADD_PROPERTY(PropertyInfo(Variant::STRING, "UserName"), "", "");
-    }
+    static void _bind_methods();
 
 };
 

@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://b341nl0g3w1ls"]
+
+[ext_resource type="FontFile" uid="uid://lw3l5qectmfk" path="res://UI/assets/fonts/Manrope/static/Manrope-Regular.ttf" id="1_ok4d2"]
+[ext_resource type="Script" uid="uid://dj18ynr7gnfx2" path="res://UI/Scenes/Settings/NavButton/nav_button.gd" id="2_3yevy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3yevy"]
+bg_color = Color(0.145098, 0.321569, 0.772549, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 6.0
+expand_margin_top = 4.0
+expand_margin_right = 6.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2u5sc"]
+bg_color = Color(0.168429, 0.352178, 0.814231, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 6.0
+expand_margin_top = 4.0
+expand_margin_right = 6.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u7gst"]
+bg_color = Color(0.0846815, 0.220128, 0.574243, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 6.0
+expand_margin_top = 4.0
+expand_margin_right = 6.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3yevy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ukps"]
+bg_color = Color(0.194404, 0.203899, 0.203899, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 6.0
+expand_margin_top = 4.0
+expand_margin_right = 6.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ku5ol"]
+bg_color = Color(0.14902, 0.156863, 0.156863, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 6.0
+expand_margin_top = 4.0
+expand_margin_right = 6.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="Theme" id="Theme_ok4d2"]
+Button/font_sizes/font_size = 13
+Button/fonts/font = ExtResource("1_ok4d2")
+Button/styles/active = SubResource("StyleBoxFlat_3yevy")
+Button/styles/active_click = SubResource("StyleBoxFlat_2u5sc")
+Button/styles/active_hover = SubResource("StyleBoxFlat_u7gst")
+Button/styles/focus = SubResource("StyleBoxEmpty_3yevy")
+Button/styles/hover = SubResource("StyleBoxFlat_4ukps")
+Button/styles/normal = SubResource("StyleBoxFlat_ku5ol")
+Button/styles/pressed = SubResource("StyleBoxFlat_ku5ol")
+
+[node name="NavButton" type="Button"]
+anchors_preset = -1
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_ok4d2")
+script = ExtResource("2_3yevy")
+
+[connection signal="pressed" from="." to="." method="_on_button_pressed"]

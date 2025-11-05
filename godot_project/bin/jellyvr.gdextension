@@ -4,3 +4,8 @@ entry_symbol = "jellyvr_client_library_init"
 
 [libraries]
 linux = "res://bin/libjellyvr.linux.so"
+
+[dependencies]
+linux = [
+    "res://bin/libgodot_mpv.linux.template_debug.x86_64.so"
+]

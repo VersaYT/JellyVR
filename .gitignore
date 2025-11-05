@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+godot_project/addons
 
 godot-cpp-build/
 bin/

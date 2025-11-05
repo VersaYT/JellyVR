@@ -1,31 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5r02e0k4den2"]
+[gd_scene load_steps=11 format=3 uid="uid://b5r02e0k4den2"]
 
-[ext_resource type="Script" uid="uid://5tyodmbj7qp5" path="res://jellyvr_client.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://5tyodmbj7qp5" path="res://jellyvr_client.gd" id="1_lquwl"]
+[ext_resource type="PackedScene" uid="uid://d4g5781plgnd4" path="res://mesh/Vip_seat.blend" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://de7yqxe8g7eul" path="res://UI/UI.tscn" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bqst0hyg1e03x" path="res://xr_player.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bq2tsw0vgujtj" path="res://UI/Scenes/Right_Pane/UI.tscn" id="6_272bh"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0xm2m"]
-size = Vector2(4.6, 2.46)
+size = Vector2(10.515, 4.94)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ig7tw"]
-size = Vector2(4.78, 6.495)
+size = Vector2(21.045, 18.47)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0xm2m"]
+data = PackedVector3Array(10.5225, 0, 9.235, -10.5225, 0, 9.235, 10.5225, 0, -9.235, -10.5225, 0, 9.235, -10.5225, 0, -9.235, 10.5225, 0, -9.235)
 
 [sub_resource type="Environment" id="Environment_7dm0k"]
 
 [node name="JellyVR" type="Node3D"]
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("1_ig7tw")
+script = ExtResource("1_lquwl")
 
 [node name="Screen" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.13473, -0.990882, 0, 0.990882, -0.13473, 0, 1.49687, -2.3192)
+transform = Transform3D(0.999845, -0.017608, -0.000241277, -3.31995e-10, 0.0137004, -0.999906, 0.0176097, 0.999751, 0.0136982, 0, 2.85374, -8.21873)
 mesh = SubResource("PlaneMesh_0xm2m")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37761, 0.355688)
 
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="Floor" type="MeshInstance3D" parent="Environment"]
 mesh = SubResource("PlaneMesh_ig7tw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_0xm2m")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_7dm0k")
@@ -36,3 +44,26 @@ light_energy = 0.15
 shadow_enabled = true
 shadow_bias = 0.03
 shadow_blur = 1.5
+
+[node name="Vip_seat" parent="Environment" instance=ExtResource("2_0xm2m")]
+transform = Transform3D(-0.998924, 0, 0.0463743, 0, 1, 0, -0.0463743, 0, -0.998924, -0.00115171, 0.291944, 0.108414)
+
+[node name="XROrigin3D" parent="." instance=ExtResource("5_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.518475, 0)
+
+[node name="UI" parent="." instance=ExtResource("6_7mycd")]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 1.71828, -2)
+screen_size = Vector2(679, 406)
+scene = ExtResource("5_7mycd")
+viewport_size = Vector2(679, 406)
+unshaded = true
+filter = false
+scene_properties_keys = PackedStringArray("UI.gd")
+
+[node name="Right_Pane" parent="." instance=ExtResource("6_7mycd")]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.433721, 1.73034, -1.99467)
+screen_size = Vector2(184, 384)
+scene = ExtResource("6_272bh")
+viewport_size = Vector2(184, 384)
+unshaded = true
+scene_properties_keys = PackedStringArray()

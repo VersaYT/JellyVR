@@ -11,6 +11,7 @@ var stop_button: Button
 var debug_level = 0;
 
 func _ready():
+
 	
 	print("Initializing MPV video player...")
 	
@@ -91,41 +92,41 @@ func _on_texture_updated(texture):
 	else:
 		print("ERROR: Screen mesh not found when updating texture or texture is null")
 		
-func setup_ui():
-	# Create a simple UI for controlling playback (optional)
-	var ui_container = VBoxContainer.new()
-	ui_container.position = Vector2(20, 20)
-	add_child(ui_container)
-	
-	var button_container = HBoxContainer.new()
-	ui_container.add_child(button_container)
-	
-	# Play button
-	play_button = Button.new()
-	play_button.text = "Play"
-	play_button.pressed.connect(_on_play_button_pressed)
-	button_container.add_child(play_button)
-	
-	# Pause button
-	pause_button = Button.new()
-	pause_button.text = "Pause"
-	pause_button.pressed.connect(_on_pause_button_pressed)
-	button_container.add_child(pause_button)
-	
-	# Stop button
-	stop_button = Button.new()
-	stop_button.text = "Stop"
-	stop_button.pressed.connect(_on_stop_button_pressed)
-	button_container.add_child(stop_button)
-
-func _on_play_button_pressed():
-	mpv_player.play()
-
-func _on_pause_button_pressed():
-	mpv_player.pause()
-
-func _on_stop_button_pressed():
-	mpv_player.stop()
+#func setup_ui():
+	## Create a simple UI for controlling playback (optional)
+	#var ui_container = VBoxContainer.new()
+	#ui_container.position = Vector2(20, 20)
+	#add_child(ui_container)
+	#
+	#var button_container = HBoxContainer.new()
+	#ui_container.add_child(button_container)
+	#
+	## Play button
+	#play_button = Button.new()
+	#play_button.text = "Play"
+	#play_button.pressed.connect(_on_play_button_pressed)
+	#button_container.add_child(play_button)
+	#
+	## Pause button
+	#pause_button = Button.new()
+	#pause_button.text = "Pause"
+	#pause_button.pressed.connect(_on_pause_button_pressed)
+	#button_container.add_child(pause_button)
+	#
+	## Stop button
+	#stop_button = Button.new()
+	#stop_button.text = "Stop"
+	#stop_button.pressed.connect(_on_stop_button_pressed)
+	#button_container.add_child(stop_button)
+#
+#func _on_play_button_pressed():
+	#mpv_player.play()
+#
+#func _on_pause_button_pressed():
+	#mpv_player.pause()
+#
+#func _on_stop_button_pressed():
+	#mpv_player.stop()
 
 func _process(delta):
 	# Add a periodic check to ensure things are working

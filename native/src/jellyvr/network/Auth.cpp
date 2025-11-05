@@ -1,21 +1,25 @@
 #include "Auth.h"
 #include <curl/curl.h>
 #include <stdio.h>
-#include "utils/Network.h"
+#include "../utils/Network.h"
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <nlohmann/json.hpp>
 #include <regex>
-#include "include/config.h"
-#include "include/version.h"
-#include "utils/ConfigPath.h"
+#include "../include/config.h"
+#include "../AppConfig.h"
+#include "../include/version.h"
+#include "../utils/Array.h"
 #include <fstream>
+#include <godot_cpp/variant/variant.hpp>
+
 
 using namespace godot;
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-Auth::Auth() {
-    fprintf(stdout, "Auth constructor called");
+Auth::Auth() 
+: is_logged_in(false) {
+    UtilityFunctions::print("Auth constructor called");
 }
 
 Auth::~Auth() {
@@ -25,21 +29,37 @@ Auth::~Auth() {
 void Auth::_bind_methods() {
     ClassDB::bind_method(D_METHOD("ping", "url"), &Auth::ping);
     ClassDB::bind_method(D_METHOD("login", "Username", "Pw"), &Auth::login);
+    ClassDB::bind_method(D_METHOD("logout"), &Auth::logout);
+    ClassDB::bind_method(D_METHOD("get_public_users"), &Auth::get_public_users);
+    ClassDB::bind_method(D_METHOD("get_user_profile_pic"), &Auth::get_user_profile_pic);
+    ClassDB::bind_method(D_METHOD("get_is_logged_in"), &Auth::get_is_logged_in);
+    ClassDB::bind_method(D_METHOD("_on_json_request_completed"), &Auth::_on_json_request_completed);
+    ADD_SIGNAL(MethodInfo("error_occurred", PropertyInfo(Variant::STRING, "message")));
 }
 
-void Auth::set_server_provider(IServerProvider* provider) {
-    server_provider = provider;
+void Auth::_on_json_request_completed(Variant data, Ref<Json> json) {
+    UtilityFunctions::print("Freeing json request");
+    json_requests.erase(json);
 }
 
-bool Auth::login(String Username, String Pw, Ref<AppConfig> config) {
+bool Auth::get_is_logged_in() {
+    return is_logged_in;
+}
+
+void Auth::set_is_logged_in(bool value) {
+    is_logged_in = value;
+}
+
+bool Auth::login(String Username, String Pw, Ref<AppConfig> config, Ref<NetworkConfig> network_config) {
+
     CURL *curl;
     CURLcode result;
     long http_code = 0;
     std::regex protocol_regex(R"(https?://)");
-    std::string DeviceId = config->DeviceId.utf8().get_data();
+    std::string DeviceId = config->get_device_id().utf8().get_data();
     std::string response;
     std::string endpoint_str = "/Users/AuthenticateByName";
-    std::string server_url = server_provider->get_server_url();
+    std::string server_url = network_config->get_server_url().utf8().get_data();
     std::string host_name = std::regex_replace(server_url, std::regex(R"(https?://)"), "");
 
     std::string c_full_url = server_url + endpoint_str;
@@ -62,15 +82,9 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config) {
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
-    std::string authorization_header = ("Authorization: MediaBrowser ");
-    authorization_header.append("Client=\"").append(CLIENT_NAME).append("\", ");
-    authorization_header.append("Version=\"").append(PROJECT_VERSION).append("\", ");
-    authorization_header.append("DeviceId=\"").append(DeviceId).append("\", ");
-    authorization_header.append("Device=\"").append(DEVICE_NAME).append("\" ");
-
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, authorization_header.c_str());
+    headers = curl_slist_append(headers, network_config->get_authorization_header().utf8().get_data());
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
     result = curl_easy_perform(curl);
@@ -86,7 +100,7 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config) {
         if (!response.empty()) {
             json parsed_response = json::parse(response);
 
-            fs::path config_file_path = getConfigPath("JellyVR");
+            fs::path config_file_path = config->ConfigFilePath.utf8().get_data();
 
             std::ifstream file_in(config_file_path);
             if (!file_in.is_open()) {
@@ -115,12 +129,12 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config) {
             file_out << j.dump(4);
             file_out.close();
 
-            config->AccessToken = String::utf8(access_token.c_str());
-            config->UserId = String::utf8(user_id.c_str());
-            config->UserName = String::utf8(user_name.c_str());
-            config->ServerId = String::utf8(server_id.c_str());
+            config->set_access_token(String::utf8(access_token.c_str()));
+            config->set_user_id(String::utf8(user_id.c_str()));
+            config->set_username(String::utf8(user_name.c_str()));
+            config->set_server_id(String::utf8(server_id.c_str()));
 
-            UtilityFunctions::print(config->UserName);
+            set_is_logged_in(true);
         } else {
             UtilityFunctions::print("Empty response received");
             return false;
@@ -137,7 +151,67 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config) {
     return true;
 }
 
-String Auth::ping(String url) {
+bool Auth::logout(Ref<AppConfig> config) {
+    fs::path config_file_path = config->ConfigFilePath.utf8().get_data();
+
+    std::ifstream file_in(config_file_path);
+    if (!file_in.is_open()) {
+        std::cerr << "Failed to open config.json\n";
+        return false;
+    }
+    json j;
+    file_in >> j;
+    file_in.close();
+
+    j["User"]["AccessToken"] = "";
+
+    std::ofstream file_out(config_file_path);
+    if (!file_out.is_open()) {
+        std::cerr << "Failed to open config.json for writing\n";
+        return false;
+    }
+    file_out << j.dump(4);
+    file_out.close();
+
+    config->set_access_token("");
+    set_is_logged_in(false);
+    UtilityFunctions::print("Logout was successfull");
+
+    return true;
+}
+
+Ref<Json> Auth::get_public_users(Node *node, Ref<NetworkConfig> network_config) {
+    std::string server_url = network_config->get_server_url().utf8().get_data();
+    UtilityFunctions::print(server_url.c_str());
+    std::string endpoint_str = "/Users/Public";
+    std::string c_full_url = "http://" + server_url + endpoint_str;
+    String full_url = c_full_url.c_str();
+
+    Ref<Json> json = memnew(Json(node, network_config));
+    json_requests.push_back(json);
+    json->connect("request_completed_signal", Callable(this, "_on_json_request_completed").bind(json));
+    json->json_get_request(full_url);
+
+    return json;
+}
+
+Ref<Json> Auth::get_user_profile_pic(Node *node, String user_id, Ref<NetworkConfig> network_config) {
+    std::string server_url = network_config->get_server_url().utf8().get_data();
+    UtilityFunctions::print(server_url.c_str());
+    String endpoint_str = "/UserImage?userId=" + user_id + "&tag=true&format=Webp";
+    std::string c_full_url = "http://" + server_url + endpoint_str.utf8().get_data();
+    String full_url = c_full_url.c_str();
+
+    Ref<Json> json = memnew(Json(node, network_config));
+    json_requests.push_back(json);
+    json->connect("request_completed_signal", Callable(this, "_on_json_request_completed").bind(json));
+    json->json_get_request(full_url);
+
+    return json;
+}
+
+
+bool Auth::ping(String url) {
     CURL *curl;
     CURLcode result;
     String endpoint_str = "/System/Info/Public";
@@ -148,7 +222,7 @@ String Auth::ping(String url) {
     curl = curl_easy_init();
     if(curl == NULL) {
         UtilityFunctions::print("HTTP request failed");
-        return "";
+        return false;
     }
 
     curl_easy_setopt(curl, CURLOPT_URL, (url + endpoint_str).utf8().get_data());
@@ -159,8 +233,9 @@ String Auth::ping(String url) {
 
     if (result != CURLE_OK) {
         UtilityFunctions::print(curl_easy_strerror(result));
+        emit_signal("error_occurred", curl_easy_strerror(result));
         curl_easy_cleanup(curl);
-        return "";
+        return false;
     }
 
     try {
@@ -170,26 +245,34 @@ String Auth::ping(String url) {
                 std::string productName = j["ProductName"];
                     if(std::regex_search(productName, pattern)) {
                         UtilityFunctions::print("Jellyfin server found");
-                        return url.utf8().get_data();
+                        return true;
                     } else {
                         UtilityFunctions::print("The url is not a valid Jellyfin server");
+                        emit_signal("error_occurred", "The url is not a valid Jellyfin server");
+                        return false;
                     }
             } else {
                 UtilityFunctions::print("Response does not contain 'productName' field");
+                emit_signal("error_occurred", "Response does not contain 'productName' field");
+                return false;
             }
         } else {
             UtilityFunctions::print("Empty response received");
+            emit_signal("error_occurred", "Empty response received");
+            return false;
         }
     } catch (const json::parse_error& e) {
         UtilityFunctions::print("JSON parse error: ", String(e.what()));
+        emit_signal("error_occurred", String(e.what()));
         curl_easy_cleanup(curl);
-        return "";
+        return false;
     } catch (const std::exception& e) {
         UtilityFunctions::print("Exception in JSON handling: ", String(e.what()));
+        emit_signal("error_occurred", String(e.what()));
         curl_easy_cleanup(curl);
-        return "";
+        return false;
     }
 
     curl_easy_cleanup(curl);
-    return "";
+    return false;
 }

@@ -1,0 +1,107 @@
+[gd_scene load_steps=14 format=3 uid="uid://2rtg4veqruxo"]
+
+[ext_resource type="FontFile" uid="uid://bwen4jt3xt1hi" path="res://UI/assets/fonts/Manrope/static/Manrope-ExtraBold.ttf" id="1_qrbo4"]
+[ext_resource type="Script" uid="uid://dusydcvgukkh5" path="res://UI/Scenes/Right_Pane/Buttons/button.gd" id="2_0mbik"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mbik"]
+bg_color = Color(0.145098, 0.321569, 0.772549, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fw67"]
+bg_color = Color(0.116825, 0.279519, 0.70241, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1fq6"]
+bg_color = Color(0.26341, 0.456653, 0.912732, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lq7y7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qrbo4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofqh0"]
+bg_color = Color(0.226708, 0.226707, 0.226707, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrbo4"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4m3aj"]
+bg_color = Color(0.0768359, 0.0768358, 0.0768358, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lq7y7"]
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="Theme" id="Theme_qrbo4"]
+Button/styles/active = SubResource("StyleBoxFlat_0mbik")
+Button/styles/active_click = SubResource("StyleBoxFlat_5fw67")
+Button/styles/active_hover = SubResource("StyleBoxFlat_v1fq6")
+Button/styles/disabled = SubResource("StyleBoxEmpty_lq7y7")
+Button/styles/focus = SubResource("StyleBoxEmpty_qrbo4")
+Button/styles/hover = SubResource("StyleBoxFlat_ofqh0")
+Button/styles/normal = SubResource("StyleBoxFlat_qrbo4")
+Button/styles/pressed = SubResource("StyleBoxFlat_4m3aj")
+Label/font_sizes/font_size = 12
+Label/fonts/font = ExtResource("1_qrbo4")
+Panel/styles/panel = SubResource("StyleBoxFlat_lq7y7")
+
+[sub_resource type="ImageTexture" id="ImageTexture_lq7y7"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(86, 86)
+offset_right = 86.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_qrbo4")
+script = ExtResource("2_0mbik")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+z_index = 2
+layout_mode = 0
+offset_right = 86.0
+offset_bottom = 86.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="icon" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture = SubResource("ImageTexture_lq7y7")
+stretch_mode = 3
+
+[node name="label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="." to="." method="_on_button_pressed"]

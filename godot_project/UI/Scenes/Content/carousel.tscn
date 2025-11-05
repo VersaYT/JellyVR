@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4str2mfwgo50"]
+
+[ext_resource type="Script" uid="uid://c1rc5c5yhgxt8" path="res://UI/Scenes/Content/content_rating.gd" id="1_7l7k8"]
+[ext_resource type="Script" uid="uid://y3q0d1pjnlm1" path="res://UI/Scenes/Content/stars.gd" id="2_e7q06"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7oufj"]
+bg_color = Color(0.18359, 0.18359, 0.18359, 1)
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="Theme" id="Theme_7oufj"]
+Panel/styles/panel = SubResource("StyleBoxFlat_7oufj")
+
+[node name="Carousel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 621.0
+offset_bottom = 235.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_7oufj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -304.0
+offset_top = -108.0
+offset_right = 304.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="content_infos" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="title" type="Label" parent="HBoxContainer/VBoxContainer/content_infos"]
+layout_mode = 2
+
+[node name="categories" type="Label" parent="HBoxContainer/VBoxContainer/content_infos"]
+layout_mode = 2
+
+[node name="description" type="Label" parent="HBoxContainer/VBoxContainer/content_infos"]
+layout_mode = 2
+
+[node name="rating" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/content_infos"]
+z_index = 20
+custom_minimum_size = Vector2(80, 12)
+layout_mode = 2
+theme_override_constants/separation = 3
+script = ExtResource("1_7l7k8")
+
+[node name="stars" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/content_infos/rating"]
+layout_mode = 2
+theme_override_constants/separation = 3
+script = ExtResource("2_e7q06")
+
+[node name="score" type="Label" parent="HBoxContainer/VBoxContainer/content_infos/rating"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content_cover" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 621.0
+offset_bottom = 235.0

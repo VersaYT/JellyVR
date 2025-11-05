@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvkgknrb4ucdw"]
+
+[ext_resource type="Script" uid="uid://w0ppi6jcbkqg" path="res://UI/Scenes/settings.gd" id="1_gtejx"]
+[ext_resource type="Script" uid="uid://sq3ko7h1yl3u" path="res://UI/Scenes/nav_items.gd" id="1_ldop3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojodv"]
+bg_color = Color(0.188235, 0.196078, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_ldop3"]
+Panel/styles/panel = SubResource("StyleBoxFlat_ojodv")
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchor_right = 0.589
+anchor_bottom = 0.627
+offset_right = 0.471924
+offset_bottom = -0.296021
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_ldop3")
+script = ExtResource("1_gtejx")
+
+[node name="navbar_panel" type="Panel" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 28.0
+offset_top = 28.0
+offset_right = 651.0
+offset_bottom = 62.0
+metadata/_edit_lock_ = true
+
+[node name="nav_items" type="HBoxContainer" parent="."]
+z_index = 2
+layout_mode = 0
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 643.0
+offset_bottom = 58.0
+theme_override_constants/separation = 20
+script = ExtResource("1_ldop3")
+metadata/_edit_lock_ = true

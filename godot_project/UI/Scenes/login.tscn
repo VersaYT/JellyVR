@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfac7ulaqldf4"]
+
+[ext_resource type="Script" uid="uid://bh33rfyw8f34a" path="res://UI/Scenes/login.gd" id="1_3wh28"]
+[ext_resource type="Theme" uid="uid://dp1fbfgsvq6ea" path="res://UI/base_theme.tres" id="1_xcshp"]
+
+[node name="login" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 679.0
+offset_bottom = 406.0
+script = ExtResource("1_3wh28")
+
+[node name="public_users_container" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 48.0
+offset_right = 593.0
+offset_bottom = 163.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="connection_buttons_container" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 172.0
+offset_right = 492.0
+offset_bottom = 212.0
+
+[node name="Button" type="Button" parent="connection_buttons_container"]
+custom_minimum_size = Vector2(300, 27)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xcshp")
+text = "Connect with password"

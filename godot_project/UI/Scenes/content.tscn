@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcgdny3lxd4b0"]
+
+[ext_resource type="Script" uid="uid://dw4gm8w2onmar" path="res://UI/Scenes/content.gd" id="1_8jtsr"]
+[ext_resource type="PackedScene" uid="uid://b4str2mfwgo50" path="res://UI/Scenes/Content/carousel.tscn" id="2_aeafd"]
+
+[node name="Content" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 679.0
+offset_bottom = 406.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_8jtsr")
+
+[node name="Carousel" parent="." instance=ExtResource("2_aeafd")]
+offset_left = 32.0
+offset_right = 653.0

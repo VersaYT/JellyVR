@@ -1,0 +1,114 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwbw7gt2ltphr"]
+
+[ext_resource type="Texture2D" uid="uid://c2pdy7wngwmja" path="res://UI/assets/img/spinner/Spinner_dot.png" id="1_gpv8n"]
+
+[sub_resource type="Animation" id="Animation_5o1yp"]
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("suspense_spinner/dot0:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("suspense_spinner/dot1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(21, 0), Vector2(21, -10), Vector2(21, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("suspense_spinner/dot2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(42, 0), Vector2(42, -10), Vector2(42, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ikqpm"]
+resource_name = "spinner"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("suspense_spinner/dot0:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(390, -258), Vector2(390, -276), Vector2(390, -258)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("suspense_spinner/dot1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.6, 0.89),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(411, -258), Vector2(411, -276), Vector2(411, -258)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("suspense_spinner/dot2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6, 0.88, 1.18),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(432, -258), Vector2(432, -276), Vector2(432, -258)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n7lku"]
+_data = {
+&"RESET": SubResource("Animation_5o1yp"),
+&"spinner": SubResource("Animation_ikqpm")
+}
+
+[node name="suspense_spinner" type="Node2D"]
+z_index = 4
+scale = Vector2(0.8, 0.8)
+
+[node name="dot0" type="Sprite2D" parent="."]
+texture = ExtResource("1_gpv8n")
+
+[node name="dot1" type="Sprite2D" parent="."]
+position = Vector2(21, 0)
+texture = ExtResource("1_gpv8n")
+
+[node name="dot2" type="Sprite2D" parent="."]
+position = Vector2(42, 0)
+texture = ExtResource("1_gpv8n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_n7lku")
+}
+autoplay = "RESET"
+playback_auto_capture = false
+speed_scale = 2.048

@@ -1,0 +1,129 @@
+[gd_scene load_steps=13 format=3 uid="uid://c16n0qiliktgd"]
+
+[ext_resource type="Script" uid="uid://eup4otbdkq14" path="res://UI/Scenes/server_connect.gd" id="1_c0m4i"]
+[ext_resource type="Theme" uid="uid://dp1fbfgsvq6ea" path="res://UI/base_theme.tres" id="1_f3535"]
+[ext_resource type="Texture2D" uid="uid://dt240080b47di" path="res://UI/assets/img/logo_141x126.png" id="2_c0m4i"]
+[ext_resource type="FontFile" uid="uid://bwen4jt3xt1hi" path="res://UI/assets/fonts/Manrope/static/Manrope-ExtraBold.ttf" id="3_xhikt"]
+[ext_resource type="Texture2D" uid="uid://cy1yva16umc0" path="res://UI/assets/img/icon.svg" id="4_evfhh"]
+[ext_resource type="Script" uid="uid://dhfgdbyivdaxh" path="res://UI/scripts/error_message.gd" id="6_xhikt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_adnai"]
+font = ExtResource("3_xhikt")
+font_color = Color(0.913725, 0.913725, 0.913725, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhikt"]
+bg_color = Color(0.185309, 0.372885, 0.839076, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evfhh"]
+bg_color = Color(0.145098, 0.321569, 0.772549, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_2kbfo"]
+Button/constants/h_separation = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("3_xhikt")
+Button/icons/icon = ExtResource("4_evfhh")
+Button/styles/hover = SubResource("StyleBoxFlat_xhikt")
+Button/styles/normal = SubResource("StyleBoxFlat_evfhh")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ikqpm"]
+
+[sub_resource type="Theme" id="Theme_5o1yp"]
+Label/colors/font_color = Color(1, 0.3, 0.3, 1)
+Label/fonts/font = ExtResource("3_xhikt")
+Label/styles/normal = SubResource("StyleBoxEmpty_ikqpm")
+
+[node name="server_connect" type="Control"]
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+offset_right = 679.0
+offset_bottom = 406.0
+script = ExtResource("1_c0m4i")
+
+[node name="Host name" type="Label" parent="."]
+layout_mode = 2
+offset_left = 206.0
+offset_top = 238.0
+offset_right = 526.0
+offset_bottom = 261.0
+theme = ExtResource("1_f3535")
+text = "Host name"
+
+[node name="url_input_field" type="LineEdit" parent="."]
+layout_mode = 2
+offset_left = 221.0
+offset_top = 259.0
+offset_right = 465.0
+offset_bottom = 290.0
+theme = ExtResource("1_f3535")
+
+[node name="url info" type="Label" parent="."]
+layout_mode = 2
+offset_left = 206.0
+offset_top = 294.0
+offset_right = 526.0
+offset_bottom = 317.0
+theme = ExtResource("1_f3535")
+text = "192.168.1.1:8096 or https://myserver.com"
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.5
+offset_top = -147.0
+offset_right = 67.5
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_f3535")
+texture = ExtResource("2_c0m4i")
+stretch_mode = 2
+
+[node name="Connect to the server" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.5
+offset_top = -5.0
+offset_right = 82.5
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_f3535")
+text = "Connect to the server"
+label_settings = SubResource("LabelSettings_adnai")
+
+[node name="Connect" type="Button" parent="."]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 328.0
+offset_right = 401.0
+offset_bottom = 361.0
+theme = SubResource("Theme_2kbfo")
+text = "Connect"
+
+[node name="error_message" type="Label" parent="."]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 365.0
+offset_right = 270.0
+offset_bottom = 388.0
+theme = SubResource("Theme_5o1yp")
+script = ExtResource("6_xhikt")
+
+[connection signal="pressed" from="Connect" to="." method="_on_connect_pressed"]

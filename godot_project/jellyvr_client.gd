@@ -1,9 +1,10 @@
 extends Node
 
+var xr_interface = XRInterface;
 func _ready():
-	var client = JellyvrClient.new();
-	var auth = client.auth();
-	var config = AppConfig.new();
+	xr_interface = XRServer.find_interface("OpenXR")
 	
-	client.set_server_url("url here");
-	auth.login("test", "test", config);
+	if xr_interface and xr_interface.is_initialized():
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+		
+	get_viewport().use_xr = true;

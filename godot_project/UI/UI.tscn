@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://de7yqxe8g7eul"]
+
+[ext_resource type="Script" uid="uid://dejvjcaxnfp6t" path="res://UI/UI.gd" id="1_ikqpm"]
+[ext_resource type="Theme" uid="uid://dp1fbfgsvq6ea" path="res://UI/base_theme.tres" id="1_tg164"]
+[ext_resource type="Texture2D" uid="uid://dt240080b47di" path="res://UI/assets/img/logo_141x126.png" id="3_q0uhn"]
+
+[node name="UI" type="Control"]
+custom_minimum_size = Vector2(679, 406)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 679.0
+offset_bottom = 406.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ikqpm")
+
+[node name="ui_panel" type="Panel" parent="."]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tg164")
+
+[node name="Logo" type="TextureRect" parent="."]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tg164")
+texture = ExtResource("3_q0uhn")
+expand_mode = 2
+stretch_mode = 4
