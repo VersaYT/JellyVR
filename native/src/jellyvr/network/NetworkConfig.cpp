@@ -21,13 +21,22 @@ String NetworkConfig::get_authorization_header() {
 }
 
 void NetworkConfig::set_authorization_header(String DeviceId) {
-    std::string authorization_header = ("Authorization: MediaBrowser ");
-    authorization_header.append("Client=\"").append(CLIENT_NAME).append("\", ");
-    authorization_header.append("Version=\"").append(PROJECT_VERSION).append("\", ");
-    authorization_header.append("DeviceId=\"").append(DeviceId.utf8().get_data()).append("\", ");
-    authorization_header.append("Device=\"").append(DEVICE_NAME).append("\" ");
+    std::string auth_header = ("Authorization: MediaBrowser ");
+    auth_header.append("Client=\"").append(CLIENT_NAME).append("\", ");
+    auth_header.append("Version=\"").append(PROJECT_VERSION).append("\", ");
+    auth_header.append("DeviceId=\"").append(DeviceId.utf8().get_data()).append("\", ");
+    auth_header.append("Device=\"").append(DEVICE_NAME).append("\"");
 
-    this->authorization_header = String(authorization_header.c_str());
+    this->authorization_header = String(auth_header.c_str());
+}
+
+void NetworkConfig::set_token_in_auth_header(String token) {
+    std::string auth_header = this->authorization_header.utf8().get_data();
+    auth_header.append(", Token=\"").append(token.utf8().get_data()).append("\"");
+
+    UtilityFunctions::print(auth_header.c_str());
+
+    this->authorization_header = String(auth_header.c_str());
 }
 
 void NetworkConfig::_bind_methods() {

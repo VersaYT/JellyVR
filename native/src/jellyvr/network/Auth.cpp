@@ -133,6 +133,7 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config, Ref<NetworkC
             config->set_user_id(String::utf8(user_id.c_str()));
             config->set_username(String::utf8(user_name.c_str()));
             config->set_server_id(String::utf8(server_id.c_str()));
+            network_config->set_token_in_auth_header(access_token.c_str());
 
             set_is_logged_in(true);
         } else {

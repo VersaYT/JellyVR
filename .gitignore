@@ -11,3 +11,8 @@ _deps/
 cmake_install.cmake
 CMakeCache.txt
 Makefile
+
+#WIP files
+
+native/src/jellyvr/network/Carousel.h
+native/src/jellyvr/network/Carousel.cpp

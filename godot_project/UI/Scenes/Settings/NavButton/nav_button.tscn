@@ -72,7 +72,6 @@ Button/styles/normal = SubResource("StyleBoxFlat_ku5ol")
 Button/styles/pressed = SubResource("StyleBoxFlat_ku5ol")
 
 [node name="NavButton" type="Button"]
-anchors_preset = -1
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

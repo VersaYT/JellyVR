@@ -64,20 +64,25 @@ void Json::_on_request_completed(int result, int response_code, PackedStringArra
 
     Variant parsed = JSON::parse_string(body_str);
 
-    Array raw_array = parsed;
-    Array dict_array;
+    if(parsed.get_type() == Variant::DICTIONARY) {
+        emit_signal("request_completed_signal", parsed);
+    } else {
+        Array raw_array = parsed;
+        Array dict_array;
 
-    for (int i = 0; i < raw_array.size(); i++) {
-        Variant item = raw_array[i];
-        if (item.get_type() == Variant::DICTIONARY) {
-            dict_array.append(item); // Append Dictionary to Array
-        } else {
-            UtilityFunctions::printerr("Warning: JSON array contains non-dictionary element at index ", i);
+
+        for (int i = 0; i < raw_array.size(); i++) {
+            Variant item = raw_array[i];
+            if (item.get_type() == Variant::DICTIONARY) {
+                dict_array.append(item); // Append Dictionary to Array
+            } else {
+                UtilityFunctions::printerr("Warning: JSON array contains non-dictionary element at index ", i);
+            }
         }
+    
+        this->request_result = dict_array;
+        emit_signal("request_completed_signal", dict_array);
     }
- 
-    this->request_result = dict_array;
-    emit_signal("request_completed_signal", dict_array);
 }
     else if(headers_dict["Content-Type"] == "image/webp") {
         Ref<Image> image = memnew(Image);

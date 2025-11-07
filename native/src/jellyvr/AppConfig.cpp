@@ -95,4 +95,6 @@ void AppConfig::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_server_id"), &AppConfig::get_server_id);
     ClassDB::bind_method(D_METHOD("get_user_id"), &AppConfig::get_user_id);
     ClassDB::bind_method(D_METHOD("get_username"), &AppConfig::get_username);
+    ClassDB::bind_method(D_METHOD("set_collection_folders"), &AppConfig::set_collection_folders);
+    ClassDB::bind_method(D_METHOD("get_collection_folders"), &AppConfig::get_collection_folders);
 }

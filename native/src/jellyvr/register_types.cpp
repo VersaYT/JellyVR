@@ -4,6 +4,7 @@
 #include "network/Json.h"
 #include "network/Auth.h"
 #include "network/NetworkConfig.h"
+#include "network/JellyAPI.h"
 #include "AppConfig.h"
 
 #include <gdextension_interface.h>
@@ -19,6 +20,7 @@ void initialize_jellyvr_client_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Auth>();
 	ClassDB::register_class<AppConfig>();
 	ClassDB::register_class<NetworkConfig>();
+	ClassDB::register_class<JellyAPI>();
 	ClassDB::register_class<Json>();
 
 	GDREGISTER_RUNTIME_CLASS(JellyvrClient);

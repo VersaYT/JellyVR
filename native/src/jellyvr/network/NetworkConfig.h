@@ -22,6 +22,7 @@ public:
     void set_authorization_header(String DeviceId);
     String get_server_url();
     String get_authorization_header();
+    void set_token_in_auth_header(String token);
 
     static void _bind_methods();
 };

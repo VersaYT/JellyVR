@@ -3,6 +3,7 @@
 
 #include <godot_cpp/classes/ref_counted.hpp>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/classes/node.hpp>
 
 using namespace godot;
 
@@ -15,6 +16,9 @@ public:
 
     void initPaths();
     void initialize();
+
+    void set_collection_folders(Array collection) {collection_folders = collection;}
+    Array get_collection_folders() const {return collection_folders;}
 
     String get_access_token() const {return AccessToken;}
     String get_device_id() const {return DeviceId;}
@@ -40,6 +44,8 @@ private:
     String ServerId;
     String UserId;
     String UserName;
+
+    Array collection_folders;
 
     bool initConfigFile();
 
