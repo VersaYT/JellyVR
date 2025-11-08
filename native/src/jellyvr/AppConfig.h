@@ -33,6 +33,8 @@ public:
     void set_user_id(String user_id) {UserId = user_id;}
     void set_username(String username) {UserName = username;}
 
+    void set_config_value(PackedStringArray keys, String value);
+
     String ConfigPath;
     String CachePath;
     String LogsPath;

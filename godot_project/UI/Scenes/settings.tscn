@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvkgknrb4ucdw"]
+[gd_scene load_steps=6 format=3 uid="uid://dvkgknrb4ucdw"]
 
 [ext_resource type="Script" uid="uid://w0ppi6jcbkqg" path="res://UI/Scenes/settings.gd" id="1_gtejx"]
 [ext_resource type="Script" uid="uid://sq3ko7h1yl3u" path="res://UI/Scenes/nav_items.gd" id="1_ldop3"]
+[ext_resource type="Script" uid="uid://8achlferjwto" path="res://UI/Scenes/settings_ui_loader.gd" id="3_svxn0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojodv"]
 bg_color = Color(0.188235, 0.196078, 0.2, 1)
@@ -45,3 +46,11 @@ offset_bottom = 58.0
 theme_override_constants/separation = 20
 script = ExtResource("1_ldop3")
 metadata/_edit_lock_ = true
+
+[node name="settings_container" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 79.0
+offset_right = 651.0
+offset_bottom = 378.0
+script = ExtResource("3_svxn0")

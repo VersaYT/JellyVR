@@ -37,39 +37,36 @@ void AppConfig::initPaths() {
 bool AppConfig::initConfigFile() {
     fs::path config_file_path = this->ConfigFilePath.utf8().get_data();
     UtilityFunctions::print(this->ConfigFilePath);
+    json config;
 
     std::ifstream file(config_file_path);
 
     // generate a new id if config file doesnt exist
     if(!file) {
-        std::ofstream file(config_file_path);
-        if (!file) {
-            std::cerr << "Failed to create config file\n";
+        std::ifstream default_file("config/default_config.json");
+
+        if (!default_file) {
+            std::cerr << "Failed to open default config\n";
             return false;
         }
+        default_file >> config;
+
         std::random_device rd;
         std::mt19937 gen(rd());
         uuids::basic_uuid_random_generator<std::mt19937> uuid_gen{gen};
         uuids::uuid id = uuid_gen();
         std::string id_str = uuids::to_string(id);
 
-        std::string json_template =
-        "{\n"
-        "    \"User\": {\n"
-        "        \"AccessToken\": \"\",\n"
-        "        \"UserId\": \"\",\n"
-        "        \"UserName\": \"\",\n"
-        "        \"ServerId\": \"\",\n"
-        "        \"DeviceId\": \"" + id_str +"\"\n"
-        "    }\n"
-        "}";
-        file << json_template;
-        file.close();
-
+        config["User"]["DeviceId"] = id_str;
         DeviceId = String::utf8(id_str.c_str());
+
+        std::ofstream new_file(config_file_path);
+        new_file << config.dump(4);
+        new_file.close();
+
         return true;
     } else {
-    json config;
+
     try {
         file >> config;
     } catch (const json::parse_error& e) {
@@ -85,6 +82,26 @@ bool AppConfig::initConfigFile() {
     }
 }
 
+void AppConfig::set_config_value(PackedStringArray keys, String value) {
+    std::string c_value = value.utf8().get_data();
+
+    fs::path config_file_path = this->ConfigFilePath.utf8().get_data();
+    json config;
+    std::ifstream file(config_file_path);
+
+    file >> config;
+    json *current = &config;
+
+    for(int i = 0; i < keys.size(); i++) {
+        const std::string& key = keys[i].utf8().get_data();
+        if(i == keys.size() -1) {
+            (*current)[key] = value.utf8().get_data();
+        } else {
+            current = &((*current)[key]);
+        }
+    }
+}
+
 AppConfig::~AppConfig() {
     fprintf(stdout, "freeing up AppConfig");
 }
@@ -96,5 +113,6 @@ void AppConfig::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_user_id"), &AppConfig::get_user_id);
     ClassDB::bind_method(D_METHOD("get_username"), &AppConfig::get_username);
     ClassDB::bind_method(D_METHOD("set_collection_folders"), &AppConfig::set_collection_folders);
+    ClassDB::bind_method(D_METHOD("set_config_value", "keys", "value"), &AppConfig::set_config_value);
     ClassDB::bind_method(D_METHOD("get_collection_folders"), &AppConfig::get_collection_folders);
 }

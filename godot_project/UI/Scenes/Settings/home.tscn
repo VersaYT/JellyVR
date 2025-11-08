@@ -1,9 +1,38 @@
-[gd_scene format=3 uid="uid://dboqcrs5xkv2p"]
+[gd_scene load_steps=3 format=3 uid="uid://dboqcrs5xkv2p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jljc2"]
+
+[sub_resource type="Theme" id="Theme_kf0rx"]
+Panel/styles/panel = SubResource("StyleBoxFlat_jljc2")
 
 [node name="Home" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchor_right = 0.540799
+anchor_bottom = 0.46142
+theme = SubResource("Theme_kf0rx")
+metadata/_edit_use_anchors_ = true
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 81.0
+offset_right = 249.0
+offset_bottom = 112.0
+selected = 0
+item_count = 4
+popup/item_0/text = "Recently Added Movies"
+popup/item_0/id = 0
+popup/item_1/text = "Recently Added Tv Shows"
+popup/item_1/id = 1
+popup/item_2/text = "Recently Added Anime"
+popup/item_2/id = 2
+popup/item_3/text = "Recently Added (all collections)"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 48.0
+offset_right = 170.0
+offset_bottom = 71.0
+text = "Carousel content"

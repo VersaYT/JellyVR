@@ -29,7 +29,7 @@ func _on_ui_change(data: UIStateData) -> void:
 	else:
 		logo.visible = false;
 
-func _load_ui(data: UIStateData):
+func _load_ui(data):
 	if $ui_panel.get_child_count() > 0:
 		$ui_panel.get_child(0).queue_free()
 
