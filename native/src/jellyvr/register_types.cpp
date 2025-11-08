@@ -7,6 +7,9 @@
 #include "network/JellyAPI.h"
 #include "AppConfig.h"
 
+#include "config/Settings.h"
+#include "config/Home.h"
+
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
@@ -22,6 +25,8 @@ void initialize_jellyvr_client_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<NetworkConfig>();
 	ClassDB::register_class<JellyAPI>();
 	ClassDB::register_class<Json>();
+	ClassDB::register_class<Settings>();
+	ClassDB::register_class<Home>();
 
 	GDREGISTER_RUNTIME_CLASS(JellyvrClient);
 }

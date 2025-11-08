@@ -4,6 +4,10 @@
 #include <godot_cpp/variant/string.hpp>
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/classes/ref_counted.hpp>
+#include "../AppConfig.h"
+#include <nlohmann/json.hpp>
+#include <filesystem>
+#include <fstream>
 
 using namespace godot;
 

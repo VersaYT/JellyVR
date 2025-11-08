@@ -1,0 +1,17 @@
+{
+    "User": {
+        "AccessToken": "",
+        "UserId": "",
+        "UserName": "",
+        "ServerId": "",
+        "DeviceId": ""
+    },
+    "Network": {
+        "ServerUrl": ""
+    },
+    "Settings": {
+        "Home": {
+            "CarouselContentSelector": 0
+        }
+    }
+}

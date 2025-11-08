@@ -9,6 +9,7 @@
                 "${workspaceFolder}/native/src/jellyvr/utils",
                 "${workspaceFolder}/native/src/jellyvr/include",
                 "${workspaceFolder}/native/src/jellyvr/network",
+                "${workspaceFolder}/native/src/jellyvr/config",
                 "${workspaceFolder}/engine/**",
                 "${workspaceFolder}/_deps/nlohmann_json-src/include",
                 "${workspaceFolder}/engine/godot-cpp/include",

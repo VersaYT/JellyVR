@@ -2,6 +2,12 @@
 #include <string>
 #include "../include/config.h"
 #include "../include/version.h"
+#include <godot_cpp/classes/project_settings.hpp>
+#include <godot_cpp/variant/string.hpp>
+
+using json = nlohmann::json;
+using namespace std;
+namespace fs = std::filesystem;
 
 NetworkConfig::NetworkConfig() {
 }
@@ -12,6 +18,23 @@ NetworkConfig::~NetworkConfig() {
 
 void NetworkConfig::set_server_url(String url) {
     this->server_url = url;
+    
+    String user_dir = ProjectSettings::get_singleton()->globalize_path("user://");
+    String ConfigFilePath = user_dir + "Config/" + "JellyVR.json";
+
+    fs::path config_file_path = ConfigFilePath.utf8().get_data();
+    json config;
+    std::ifstream file(config_file_path);
+    file >> config;
+    file.close();
+
+    config["Network"]["ServerUrl"] = url.utf8().get_data();
+
+    std::ofstream updated_file(ConfigFilePath.utf8().get_data());
+
+    updated_file << config.dump(4);
+
+    updated_file.close();
 }
 String NetworkConfig::get_server_url() {
     return this->server_url;

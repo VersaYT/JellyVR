@@ -4,6 +4,7 @@
 #include <godot_cpp/classes/ref_counted.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/node.hpp>
+#include "config/Settings.h"
 
 using namespace godot;
 
@@ -16,6 +17,9 @@ public:
 
     void initPaths();
     void initialize();
+
+    void set_settings(Ref<Settings> new_settings) {settings = new_settings;}
+    Ref<Settings> get_settings() {return settings;}
 
     void set_collection_folders(Array collection) {collection_folders = collection;}
     Array get_collection_folders() const {return collection_folders;}
@@ -33,13 +37,16 @@ public:
     void set_user_id(String user_id) {UserId = user_id;}
     void set_username(String username) {UserName = username;}
 
-    void set_config_value(PackedStringArray keys, String value);
+    void set_config_value(PackedStringArray keys, Variant value);
 
     String ConfigPath;
     String CachePath;
     String LogsPath;
     String ConfigFilePath;
+
 private:
+
+    Ref<Settings> settings;
 
     String AccessToken;
     String DeviceId;

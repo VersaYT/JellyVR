@@ -7,6 +7,9 @@
 #include "network/NetworkConfig.h"
 #include <string>
 #include "network/Json.h"
+#include <nlohmann/json.hpp>
+#include <filesystem>
+#include <fstream>
 
 using namespace godot;
 
@@ -17,7 +20,7 @@ private:
     Ref<Auth> auth;
     Ref<AppConfig> appConfig;
     Ref<NetworkConfig> networkConfig;
-    Ref<Json> json;
+    // Ref<Json> json;
 public:
     JellyvrClient();
     virtual ~JellyvrClient() override;
@@ -25,7 +28,10 @@ public:
     Ref<Auth> get_Auth() const { return auth; }
     Ref<AppConfig> get_AppConfig() const { return appConfig; }
     Ref<NetworkConfig> get_NetworkConfig() const { return networkConfig; }
-    // Ref<Json> get_Json() const { return json; }
+
+    // void _ready();
+
+    void populate_settings_from_config_file();
 
 protected:
 	static void _bind_methods();

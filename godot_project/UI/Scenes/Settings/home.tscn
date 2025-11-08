@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dboqcrs5xkv2p"]
+[gd_scene load_steps=4 format=3 uid="uid://dboqcrs5xkv2p"]
+
+[ext_resource type="Script" uid="uid://btfvbnfn61364" path="res://UI/Scenes/Settings/home.gd" id="1_kf0rx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jljc2"]
 
@@ -10,9 +12,10 @@ layout_mode = 3
 anchor_right = 0.540799
 anchor_bottom = 0.46142
 theme = SubResource("Theme_kf0rx")
+script = ExtResource("1_kf0rx")
 metadata/_edit_use_anchors_ = true
 
-[node name="OptionButton" type="OptionButton" parent="."]
+[node name="carousel_content_selector" type="OptionButton" parent="."]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 81.0
@@ -36,3 +39,5 @@ offset_top = 48.0
 offset_right = 170.0
 offset_bottom = 71.0
 text = "Carousel content"
+
+[connection signal="item_selected" from="carousel_content_selector" to="." method="_on_carousel_content_selector_item_selected"]

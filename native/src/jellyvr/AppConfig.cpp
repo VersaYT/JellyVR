@@ -14,6 +14,7 @@ using json = nlohmann::json;
 namespace fs = std::filesystem;
 
 AppConfig::AppConfig() {
+    settings.instantiate();
     initPaths();
     initConfigFile();
 }
@@ -47,6 +48,7 @@ bool AppConfig::initConfigFile() {
 
         if (!default_file) {
             std::cerr << "Failed to open default config\n";
+            UtilityFunctions::printerr("Failed to open default config");
             return false;
         }
         default_file >> config;
@@ -82,9 +84,8 @@ bool AppConfig::initConfigFile() {
     }
 }
 
-void AppConfig::set_config_value(PackedStringArray keys, String value) {
-    std::string c_value = value.utf8().get_data();
-
+void AppConfig::set_config_value(PackedStringArray keys, Variant value) {
+    
     fs::path config_file_path = this->ConfigFilePath.utf8().get_data();
     json config;
     std::ifstream file(config_file_path);
@@ -95,11 +96,29 @@ void AppConfig::set_config_value(PackedStringArray keys, String value) {
     for(int i = 0; i < keys.size(); i++) {
         const std::string& key = keys[i].utf8().get_data();
         if(i == keys.size() -1) {
-            (*current)[key] = value.utf8().get_data();
+            switch (value.get_type())
+            {
+                case Variant::Type::STRING: {
+                    godot::String gstr = value.operator godot::String();
+                    (*current)[key] = gstr.utf8().get_data();
+                    break;
+                }
+                case Variant::Type::INT: {
+                    int g_int = value;
+                    (*current)[key] = g_int;
+                    break;
+                }
+            }   
         } else {
             current = &((*current)[key]);
         }
     }
+
+    std::ofstream updated_file(config_file_path);
+
+    updated_file << config.dump(4);
+
+    updated_file.close();
 }
 
 AppConfig::~AppConfig() {
@@ -112,7 +131,10 @@ void AppConfig::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_server_id"), &AppConfig::get_server_id);
     ClassDB::bind_method(D_METHOD("get_user_id"), &AppConfig::get_user_id);
     ClassDB::bind_method(D_METHOD("get_username"), &AppConfig::get_username);
-    ClassDB::bind_method(D_METHOD("set_collection_folders"), &AppConfig::set_collection_folders);
+    ClassDB::bind_method(D_METHOD("set_settings", "settings"), &AppConfig::set_settings);
+    ClassDB::bind_method(D_METHOD("get_settings"), &AppConfig::get_settings);
+    ClassDB::bind_method(D_METHOD("set_collection_folders", "collection"), &AppConfig::set_collection_folders);
     ClassDB::bind_method(D_METHOD("set_config_value", "keys", "value"), &AppConfig::set_config_value);
     ClassDB::bind_method(D_METHOD("get_collection_folders"), &AppConfig::get_collection_folders);
+    ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "settings"), "set_settings", "get_settings");
 }

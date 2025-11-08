@@ -6,6 +6,9 @@ func _ready() -> void:
 	StateMachine.connect("UIChange", Callable(self, "_on_ui_change"));
 	
 	var data := UIStateData.new();
+	
+	print("url is:");
+	print(AppManager.network.get_server_url());
 
 	if AppManager.network.get_server_url() == "":
 		data.state = UIStateData.UIState.SERVER_CONNECT;
