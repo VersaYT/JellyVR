@@ -27,3 +27,26 @@ Ref<Json> JellyAPI::get_collection_folders(Node *node, Ref<AppConfig> app_config
 
     return json;
 }
+
+
+Ref<Json> JellyAPI::fetch_recently_added_items_from_collection(Node *node, String collection_id, int num_of_items, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config) {
+    if(num_of_items < 0 || num_of_items > 10) {
+        UtilityFunctions::printerr("Number of items requested too large to fetch recently added content");
+        Ref<Json> json = memnew(Json(node, network_config));
+        return json;
+    } else {
+        String http_url = "http://" + network_config->get_server_url();
+        String user_id = app_config->get_user_id();
+        String endpoint = "/Items?ParentId=" + collection_id + "&SortBy=DateCreated&SortOrder=Descending&Limit=" + num_of_items +"&Recursive=true&userId=" + user_id;
+        String full_url = http_url + endpoint;
+
+        Ref<Json> json = memnew(Json(node, network_config));
+        json_requests.push_back(json);
+        json->connect("request_completed_signal", Callable(this, "_on_json_request_completed").bind(json));
+        json->json_get_request(full_url);
+
+        return json;
+    }
+
+
+}

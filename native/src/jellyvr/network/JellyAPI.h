@@ -21,6 +21,8 @@ public:
 
     void _on_json_request_completed(Variant data, Ref<Json> json);
     Ref<Json> get_collection_folders(Node *node, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config);
+
+    Ref<Json> fetch_recently_added_items_from_collection(Node *node, String collection_id, int num_of_items, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config);
 };
 
 #endif

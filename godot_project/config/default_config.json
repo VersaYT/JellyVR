@@ -11,7 +11,8 @@
     },
     "Settings": {
         "Home": {
-            "CarouselContentSelector": 0
+            "CarouselContentSelector": 0,
+            "ActiveCarouselCollectionFolderId": ""
         }
     }
 }

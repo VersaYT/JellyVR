@@ -38,6 +38,7 @@ void JellyvrClient::populate_settings_from_config_file() {
     string url = config["Network"]["ServerUrl"];
 
     int carousel_content_selector = config["Settings"]["Home"]["CarouselContentSelector"];
+    string ActiveCarouselCollectionFolderId = config["Settings"]["Home"]["ActiveCarouselCollectionFolderId"];
 
     this->appConfig->set_access_token(access_token.c_str());
     this->appConfig->set_server_id(server_id.c_str());
@@ -52,7 +53,7 @@ void JellyvrClient::populate_settings_from_config_file() {
     Ref<Home> home = settings->get_home();
 
     home->set_CarouselContentSelector(carousel_content_selector);
-
+    home->set_ActiveCarouselCollectionFolderId(ActiveCarouselCollectionFolderId.c_str());
         // this needs implementing to check wether the token is still valid
     if(!access_token.empty()) {
         this->auth->set_is_logged_in(true);
