@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4str2mfwgo50"]
+[gd_scene load_steps=13 format=3 uid="uid://b4str2mfwgo50"]
 
+[ext_resource type="Script" uid="uid://bvumxhab133o1" path="res://UI/Scenes/Content/carousel.gd" id="1_03t0p"]
 [ext_resource type="Script" uid="uid://c1rc5c5yhgxt8" path="res://UI/Scenes/Content/content_rating.gd" id="1_7l7k8"]
-[ext_resource type="Script" uid="uid://y3q0d1pjnlm1" path="res://UI/Scenes/Content/stars.gd" id="2_e7q06"]
+[ext_resource type="FontFile" uid="uid://cxypnlshevtjb" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Bold.ttf" id="2_03t0p"]
+[ext_resource type="FontFile" uid="uid://05pmrxu1vcuv" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Regular.ttf" id="3_wp2hb"]
+[ext_resource type="FontFile" uid="uid://da0sanx10glca" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Medium.ttf" id="4_vi4sc"]
+[ext_resource type="FontFile" uid="uid://bt6wy1m0m76wy" path="res://UI/assets/fonts/Bowlby_One_SC/BowlbyOneSC-Regular.ttf" id="6_27utw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7oufj"]
 bg_color = Color(0.18359, 0.18359, 0.18359, 1)
@@ -11,6 +15,26 @@ corner_radius_bottom_left = 14
 [sub_resource type="Theme" id="Theme_7oufj"]
 Panel/styles/panel = SubResource("StyleBoxFlat_7oufj")
 
+[sub_resource type="Theme" id="Theme_4oowj"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("2_03t0p")
+
+[sub_resource type="Theme" id="Theme_gim0r"]
+Label/colors/font_color = Color(0.913725, 0.913725, 0.913725, 1)
+Label/font_sizes/font_size = 14
+Label/fonts/font = ExtResource("3_wp2hb")
+
+[sub_resource type="Theme" id="Theme_wjtev"]
+RichTextLabel/colors/default_color = Color(0.913725, 0.913725, 0.913725, 1)
+RichTextLabel/font_sizes/normal_font_size = 10
+RichTextLabel/fonts/normal_font = ExtResource("4_vi4sc")
+
+[sub_resource type="Theme" id="Theme_t5k0b"]
+Label/colors/font_color = Color(0.913725, 0.913725, 0.913725, 1)
+Label/font_sizes/font_size = 14
+Label/fonts/font = ExtResource("6_27utw")
+
 [node name="Carousel" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -19,52 +43,7 @@ offset_bottom = 235.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_7oufj")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -304.0
-offset_top = -108.0
-offset_right = 304.0
-offset_bottom = 108.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="content_infos" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="title" type="Label" parent="HBoxContainer/VBoxContainer/content_infos"]
-layout_mode = 2
-
-[node name="categories" type="Label" parent="HBoxContainer/VBoxContainer/content_infos"]
-layout_mode = 2
-
-[node name="description" type="Label" parent="HBoxContainer/VBoxContainer/content_infos"]
-layout_mode = 2
-
-[node name="rating" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/content_infos"]
-z_index = 20
-custom_minimum_size = Vector2(80, 12)
-layout_mode = 2
-theme_override_constants/separation = 3
-script = ExtResource("1_7l7k8")
-
-[node name="stars" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/content_infos/rating"]
-layout_mode = 2
-theme_override_constants/separation = 3
-script = ExtResource("2_e7q06")
-
-[node name="score" type="Label" parent="HBoxContainer/VBoxContainer/content_infos/rating"]
-layout_mode = 2
+script = ExtResource("1_03t0p")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
@@ -79,3 +58,57 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 621.0
 offset_bottom = 235.0
+
+[node name="content_infos" type="Control" parent="."]
+z_index = 10
+layout_mode = 2
+anchors_preset = 0
+offset_left = 6.5
+offset_top = 121.5
+offset_right = 256.5
+offset_bottom = 225.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="title" type="Label" parent="content_infos"]
+layout_mode = 2
+offset_left = 1.5
+offset_top = -25.5
+offset_right = 251.5
+offset_bottom = 4.5
+theme = SubResource("Theme_4oowj")
+
+[node name="categories" type="Label" parent="content_infos"]
+layout_mode = 2
+offset_left = 1.5
+offset_top = 6.5
+offset_right = 251.5
+offset_bottom = 29.5
+theme = SubResource("Theme_gim0r")
+
+[node name="description" type="RichTextLabel" parent="content_infos"]
+layout_mode = 2
+offset_left = 2.0
+offset_top = 31.0
+offset_right = 252.0
+offset_bottom = 77.0
+size_flags_vertical = 3
+theme = SubResource("Theme_wjtev")
+fit_content = true
+scroll_active = false
+
+[node name="rating" type="HBoxContainer" parent="content_infos"]
+z_index = 20
+custom_minimum_size = Vector2(80, 12)
+layout_mode = 2
+offset_left = 1.5
+offset_top = 78.5
+offset_right = 251.5
+offset_bottom = 101.5
+theme_override_constants/separation = 3
+script = ExtResource("1_7l7k8")
+
+[node name="score" type="Label" parent="content_infos/rating"]
+layout_mode = 2
+theme = SubResource("Theme_t5k0b")

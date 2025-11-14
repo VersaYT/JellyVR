@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5ul5kq1dwfce"]
+
+[ext_resource type="Script" uid="uid://y3q0d1pjnlm1" path="res://UI/Scenes/Content/stars.gd" id="1_dk1j2"]
+
+[node name="stars" type="HBoxContainer"]
+theme_override_constants/separation = 3
+script = ExtResource("1_dk1j2")

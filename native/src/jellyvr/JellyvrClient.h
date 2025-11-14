@@ -32,6 +32,7 @@ public:
     // void _ready();
 
     void populate_settings_from_config_file();
+    void clean_server_related_config();
 
 protected:
 	static void _bind_methods();

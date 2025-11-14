@@ -6,5 +6,5 @@ void Home::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_ActiveCarouselCollectionFolderId"), &Home::get_ActiveCarouselCollectionFolderId);
     ClassDB::bind_method(D_METHOD("set_ActiveCarouselCollectionFolderId", "id"), &Home::set_ActiveCarouselCollectionFolderId);
     ADD_PROPERTY(PropertyInfo(Variant::INT, "CarouselContentSelector"), "set_CarouselContentSelector", "get_CarouselContentSelector");
-
+    ADD_PROPERTY(PropertyInfo(Variant::STRING, "ActiveCarouselCollectionFolderId"), "set_ActiveCarouselCollectionFolderId", "get_ActiveCarouselCollectionFolderId");
 }

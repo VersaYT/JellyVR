@@ -10,13 +10,13 @@ class Home : public RefCounted {
     GDCLASS(Home, RefCounted);
 private:
     int CarouselContentSelector {0};
-    String ActiveCarouselCollectionFolderId;
+    String ActiveCarouselCollectionFolderId {""};
 public:
     int get_CarouselContentSelector() const {return CarouselContentSelector;}
     void set_CarouselContentSelector(int carousel_content_selector) {CarouselContentSelector = carousel_content_selector;}
 
-    void set_ActiveCarouselCollectionFolderId(String id) {ActiveCarouselCollectionFolderId = id;}
     String get_ActiveCarouselCollectionFolderId() {return ActiveCarouselCollectionFolderId;}
+    void set_ActiveCarouselCollectionFolderId(String id) {ActiveCarouselCollectionFolderId = id;}
 protected:
     static void _bind_methods();
 };

@@ -126,6 +126,7 @@ AppConfig::~AppConfig() {
 }
 
 void AppConfig::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("get_app_version"), &AppConfig::get_app_version);
     ClassDB::bind_method(D_METHOD("get_access_token"), &AppConfig::get_access_token);
     ClassDB::bind_method(D_METHOD("get_device_id"), &AppConfig::get_device_id);
     ClassDB::bind_method(D_METHOD("get_server_id"), &AppConfig::get_server_id);

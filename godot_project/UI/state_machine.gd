@@ -2,14 +2,17 @@ extends Node
 
 var current_state: UIStateData
 var current_settings_nav_state: NavBarUIStateData
+var current_ui_player_state: UIPlayerState
 
 signal UIChange(data: UIStateData)
 signal ActiveBtn(value: String)
 signal ActiveSettNavBarBtn(value: String)
 signal UIChangeSettNavBar(data: NavBarUIStateData)
+signal UIPlayerRequest(data: UIPlayerState)
 
 var ui_state = UIStateData.new();
 var nav_ui_state = NavBarUIStateData.new();
+var player_ui_state = UIPlayerState.new();
 
 func change_state(data: UIStateData):
 	match data.state:
@@ -57,3 +60,7 @@ func change_settings_nav_bar_state(data: NavBarUIStateData) -> void:
 			current_settings_nav_state = data;
 			emit_signal("UIChangeSettNavBar", data);
 			emit_signal("ActiveSettNavBarBtn", "Client");
+			
+func change_player_ui_state(data: UIPlayerState) ->void:
+			current_ui_player_state = data;
+			emit_signal("UIPlayerRequest", data);

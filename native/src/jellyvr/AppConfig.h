@@ -5,6 +5,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/node.hpp>
 #include "config/Settings.h"
+#include "include/version.h"
 
 using namespace godot;
 
@@ -29,6 +30,8 @@ public:
     String get_server_id() const {return ServerId;}
     String get_user_id() const {return UserId;}
     String get_username() const {return UserName;}
+
+    String get_app_version() {return PROJECT_VERSION;}
 
 
     void set_access_token(String token) {AccessToken = token;}

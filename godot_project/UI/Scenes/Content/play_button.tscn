@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkn6c3kikyedi"]
+
+[ext_resource type="Texture2D" uid="uid://dq5ywq26d7qyn" path="res://UI/assets/img/Content/carousel/play_icon.png" id="1_eqj63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3ww3"]
+bg_color = Color(0.25868, 0.268586, 0.273539, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.91, 0.91, 0.91, 0.054902)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqj63"]
+bg_color = Color(0.188235, 0.196078, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.91, 0.91, 0.91, 0.054902)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nupru"]
+bg_color = Color(0.309051, 0.320305, 0.325934, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.91, 0.91, 0.91, 0.054902)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="Theme" id="Theme_l3ww3"]
+Button/styles/hover = SubResource("StyleBoxFlat_l3ww3")
+Button/styles/normal = SubResource("StyleBoxFlat_eqj63")
+Button/styles/pressed = SubResource("StyleBoxFlat_nupru")
+
+[node name="PlayButton" type="Button"]
+z_index = 10
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_l3ww3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_eqj63")
+stretch_mode = 3

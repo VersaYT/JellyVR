@@ -23,3 +23,16 @@ func _on_users_received(users):
 		var user_profile_pic_request = AppManager.auth.get_user_profile_pic(request, user.Id, AppManager.network);
 		user_profile_pic_request.connect("received_image", Callable(self, "_on_received_profile_pic").bind(user, user_btn));
 		users_container.add_child(user_btn);
+
+
+func _on_connect_with_password_pressed() -> void:
+	var data := UIStateData.new();
+	data.state = UIStateData.UIState.LOGIN_WITH_PASSWORD;
+	StateMachine.change_state(data)
+
+
+func _on_change_server_pressed() -> void:
+	var data := UIStateData.new();
+	data.state = UIStateData.UIState.SERVER_CONNECT;
+	StateMachine.change_state(data)
+	AppManager.client.clean_server_related_config();

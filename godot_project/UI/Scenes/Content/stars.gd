@@ -4,8 +4,17 @@ var full_star_icon = preload("res://UI/assets/img/Content/carousel/star_full.png
 var half_star_icon = preload("res://UI/assets/img/Content/carousel/star_half.png");
 var empty_star_icon = preload("res://UI/assets/img/Content/carousel/star_empty.png");
 
+@export var score: float;
+
 func _ready() -> void:
-	match get_parent().score:
+	match score:
+		0.0:
+			for i in range(5):
+				var empty_star = TextureRect.new();
+				empty_star.texture = empty_star_icon;
+				empty_star.expand_mode = TextureRect.EXPAND_FIT_WIDTH;
+				empty_star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT;
+				add_child(empty_star);
 		0.5:
 			var half_star = TextureRect.new();
 			half_star.texture = half_star_icon;
@@ -18,7 +27,7 @@ func _ready() -> void:
 				empty_star.expand_mode = TextureRect.EXPAND_FIT_WIDTH;
 				empty_star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT;
 				add_child(empty_star);
-		1:
+		1.0:
 			var full_star = TextureRect.new();
 			full_star.texture = full_star_icon;
 			full_star.expand_mode = TextureRect.EXPAND_FIT_WIDTH;
@@ -49,7 +58,7 @@ func _ready() -> void:
 				empty_star.expand_mode = TextureRect.EXPAND_FIT_WIDTH;
 				empty_star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT;
 				add_child(empty_star);
-		2:
+		2.0:
 			for i in range(2):
 				var full_star = TextureRect.new();
 				full_star.texture = full_star_icon;
@@ -83,7 +92,7 @@ func _ready() -> void:
 				empty_star.expand_mode = TextureRect.EXPAND_FIT_WIDTH;
 				empty_star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT;
 				add_child(empty_star);
-		3:
+		3.0:
 			for i in range(3):
 				var full_star = TextureRect.new();
 				full_star.texture = full_star_icon;
@@ -117,7 +126,7 @@ func _ready() -> void:
 				empty_star.expand_mode = TextureRect.EXPAND_FIT_WIDTH;
 				empty_star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT;
 				add_child(empty_star);
-		4:
+		4.0:
 			for i in range(4):
 				var full_star = TextureRect.new();
 				full_star.texture = full_star_icon;
@@ -144,7 +153,7 @@ func _ready() -> void:
 			half_star.expand_mode = TextureRect.EXPAND_FIT_WIDTH;
 			half_star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT;
 			add_child(half_star);
-		5:
+		5.0:
 			for i in range(5):
 				var full_star = TextureRect.new();
 				full_star.texture = full_star_icon;

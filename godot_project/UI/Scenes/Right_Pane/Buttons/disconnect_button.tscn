@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://x66r4x60vcs4"]
+[gd_scene load_steps=6 format=3 uid="uid://x66r4x60vcs4"]
 
 [ext_resource type="FontFile" uid="uid://lw3l5qectmfk" path="res://UI/assets/fonts/Manrope/static/Manrope-Regular.ttf" id="1_f264w"]
+[ext_resource type="Script" uid="uid://ccvxx8uq6fit7" path="res://UI/Scenes/Right_Pane/Buttons/disconnect_button.gd" id="2_qkgbw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f264w"]
 bg_color = Color(0.639222, 0.165859, 0.145423, 1)
@@ -32,3 +33,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_f264w")
 text = "Disconnect"
+script = ExtResource("2_qkgbw")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

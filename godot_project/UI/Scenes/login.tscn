@@ -26,10 +26,21 @@ offset_top = 172.0
 offset_right = 492.0
 offset_bottom = 212.0
 
-[node name="Button" type="Button" parent="connection_buttons_container"]
+[node name="connect_with_password" type="Button" parent="connection_buttons_container"]
 custom_minimum_size = Vector2(300, 27)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_xcshp")
 text = "Connect with password"
+
+[node name="change_server" type="Button" parent="connection_buttons_container"]
+custom_minimum_size = Vector2(300, 27)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xcshp")
+text = "Change server"
+
+[connection signal="pressed" from="connection_buttons_container/connect_with_password" to="." method="_on_connect_with_password_pressed"]
+[connection signal="pressed" from="connection_buttons_container/change_server" to="." method="_on_change_server_pressed"]

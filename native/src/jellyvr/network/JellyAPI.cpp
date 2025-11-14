@@ -6,6 +6,9 @@ JellyAPI::JellyAPI() {};
 
 void JellyAPI::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_collection_folders", "user_id", "callback"), &JellyAPI::get_collection_folders);
+    ClassDB::bind_method(D_METHOD("fetch_item", "node", "item_id", "app_config", "network_config"), &JellyAPI::fetch_item);
+    ClassDB::bind_method(D_METHOD("fetch_recently_added_items_from_collection", "node", "collection_id", "num_of_items", "app_config", "network_config"), &JellyAPI::fetch_recently_added_items_from_collection);
+    ClassDB::bind_method(D_METHOD("fetch_backdrop", "node", "item_id", "app_config", "network_config"), &JellyAPI::fetch_backdrop);
     ClassDB::bind_method(D_METHOD("_on_json_request_completed"), &JellyAPI::_on_json_request_completed);
 }
 
@@ -37,7 +40,7 @@ Ref<Json> JellyAPI::fetch_recently_added_items_from_collection(Node *node, Strin
     } else {
         String http_url = "http://" + network_config->get_server_url();
         String user_id = app_config->get_user_id();
-        String endpoint = "/Items?ParentId=" + collection_id + "&SortBy=DateCreated&SortOrder=Descending&Limit=" + num_of_items +"&Recursive=true&userId=" + user_id;
+        String endpoint = "/Items?ParentId=" + collection_id + "&Fields=Overview,Genres&ExcludeItemTypes=Folder&SortBy=DateCreated&SortOrder=Descending&isPlayed=false&Limit=" + UtilityFunctions::str(num_of_items)  +"&Recursive=true&userId=" + user_id;
         String full_url = http_url + endpoint;
 
         Ref<Json> json = memnew(Json(node, network_config));
@@ -47,6 +50,33 @@ Ref<Json> JellyAPI::fetch_recently_added_items_from_collection(Node *node, Strin
 
         return json;
     }
-
-
 }
+
+Ref<Json> JellyAPI::fetch_item(Node *node, String item_id, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config) {
+        String http_url = "http://" + network_config->get_server_url();
+        String user_id = app_config->get_user_id();
+        String endpoint = "/Users/" + user_id + "/Items/" + item_id;
+        String full_url = http_url + endpoint;
+
+        Ref<Json> json = memnew(Json(node, network_config));
+        json_requests.push_back(json);
+        json->connect("request_completed_signal", Callable(this, "_on_json_request_completed").bind(json));
+        json->json_get_request(full_url);
+
+        return json;
+}
+
+Ref<Json> JellyAPI::fetch_backdrop(Node *node, String item_id, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config) {
+        String http_url = "http://" + network_config->get_server_url();
+        String user_id = app_config->get_user_id();
+        String endpoint = "/Items/" + item_id + "/Images/Backdrop?format=Webp&maxWidth=621&maxHeight=235";
+        String full_url = http_url + endpoint;
+
+        Ref<Json> json = memnew(Json(node, network_config));
+        json_requests.push_back(json);
+        json->connect("request_completed_signal", Callable(this, "_on_json_request_completed").bind(json));
+        json->json_get_request(full_url);
+
+        return json;
+}
+

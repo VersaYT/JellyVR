@@ -29,6 +29,7 @@ func find_dict_by_key_value(array, key, value):
 
 func populate_carousel_content_selector():
 	var collection_folders = AppManager.config.get_collection_folders();
+	print(AppManager.config.get_collection_folders());
 	var i = 0;
 	for collection in collection_folders:
 		carousel_content_selector.add_item(collection["Name"], i);
