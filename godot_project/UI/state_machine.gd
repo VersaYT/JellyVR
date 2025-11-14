@@ -1,12 +1,13 @@
 extends Node
 
-var current_state: UIStateData
+@export var current_state: UIStateData
 var current_settings_nav_state: NavBarUIStateData
 var current_ui_player_state: UIPlayerState
 
 signal UIChange(data: UIStateData)
 signal ActiveBtn(value: String)
 signal ActiveSettNavBarBtn(value: String)
+signal ToggleUiNavBar(value: bool)
 signal UIChangeSettNavBar(data: NavBarUIStateData)
 signal UIPlayerRequest(data: UIPlayerState)
 

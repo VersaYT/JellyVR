@@ -4,11 +4,14 @@ var jellyfin_api = JellyAPI.new();
 signal CollectionFolderIdSet;
 
 func _ready() -> void:
+	print("Content constructor called")
+	StateMachine.emit_signal("ToggleUiNavBar", true);
 	if !AppManager.config.get_collection_folders():
 		var request = Node.new();
 		add_child(request);
 		var collection_folders_list = jellyfin_api.get_collection_folders(request, AppManager.config, AppManager.network);
 		collection_folders_list.connect("request_completed_signal", Callable(self, "_on_collection_folders_received"));
+
 
 
 func _on_collection_folders_received(folders_collection) -> void:

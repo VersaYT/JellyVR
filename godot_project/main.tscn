@@ -47,12 +47,15 @@ shadow_blur = 1.5
 
 [node name="Vip_seat" parent="Environment" instance=ExtResource("2_0xm2m")]
 transform = Transform3D(-0.998924, 0, 0.0463743, 0, 1, 0, -0.0463743, 0, -0.998924, -0.00115171, 0.291944, 0.108414)
+visible = false
 
 [node name="XROrigin3D" parent="." instance=ExtResource("5_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.518475, 0)
 
-[node name="UI" parent="." instance=ExtResource("6_7mycd")]
-transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 1.71828, -2)
+[node name="UI" type="Node3D" parent="."]
+
+[node name="Main_Pane" parent="UI" instance=ExtResource("6_7mycd")]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
 screen_size = Vector2(679, 406)
 scene = ExtResource("5_7mycd")
 viewport_size = Vector2(679, 406)
@@ -60,10 +63,11 @@ unshaded = true
 filter = false
 scene_properties_keys = PackedStringArray("UI.gd")
 
-[node name="Right_Pane" parent="." instance=ExtResource("6_7mycd")]
-transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.433721, 1.73034, -1.99467)
-screen_size = Vector2(184, 384)
+[node name="Right_Pane" parent="UI" instance=ExtResource("6_7mycd")]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.4, 0.04, 0)
+visible = false
+screen_size = Vector2(102, 330)
 scene = ExtResource("6_272bh")
-viewport_size = Vector2(184, 384)
+viewport_size = Vector2(102, 330)
 unshaded = true
 scene_properties_keys = PackedStringArray()

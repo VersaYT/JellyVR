@@ -4,26 +4,26 @@
 [ext_resource type="Script" uid="uid://dlvxisn17avrq" path="res://UI/Scenes/Right_Pane/v_box_container.gd" id="2_xnvcs"]
 
 [node name="Ui" type="Control"]
-custom_minimum_size = Vector2(122, 384)
+custom_minimum_size = Vector2(102, 330)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 122.0
-offset_bottom = 384.0
+offset_right = 102.0
+offset_bottom = 330.0
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-offset_right = 122.0
-offset_bottom = 350.0
+offset_right = 102.0
+offset_bottom = 330.0
 theme = ExtResource("1_m6me2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(122, 350)
+custom_minimum_size = Vector2(102, 330)
 layout_mode = 0
 offset_right = 122.0
-offset_bottom = 350.0
+offset_bottom = 330.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(122, 0)
+custom_minimum_size = Vector2(102, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
