@@ -1,0 +1,171 @@
+[gd_scene load_steps=7 format=3 uid="uid://xqy4fhlaf2q3"]
+
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="1_su8ig"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="2_ibjlc"]
+
+[sub_resource type="GDScript" id="GDScript_xo176"]
+script/source = "extends Control
+
+
+func _ready():
+	$SmoothScrollContainer/Control/Button.grab_focus()
+
+
+func _on_h_slider_value_changed(value):
+	Engine.max_fps = $HSlider.value
+	$Label.text = \"FPS: \" + str($HSlider.value)
+"
+
+[sub_resource type="Resource" id="Resource_lssh0"]
+script = ExtResource("2_ibjlc")
+
+[sub_resource type="Resource" id="Resource_nvbjt"]
+script = ExtResource("2_ibjlc")
+
+[sub_resource type="GDScript" id="GDScript_xu50n"]
+script/source = "extends RichTextLabel
+
+var thread = Thread.new()
+
+var property_list
+var new_text := \"\"
+
+func _process(delta):
+	# Setting \"text\" will call queue_redraw() as well, which is not safe for multi-thread.
+	text = new_text
+
+func _ready():
+	var this_script = %SmoothScrollContainer.get_script()
+	property_list = this_script.get_script_property_list()
+	# Pass in SmoothScrollContainer as instance or it could be null in multi-thread.
+	thread.start(update_text.bind(%SmoothScrollContainer))
+	scroll_to_line(get_line_count())
+
+
+func update_text(ssc:ScrollContainer):
+	while true:
+		await get_tree().process_frame
+		new_text = \"\"
+		for propertyInfo in property_list:
+			var propertyName : String = propertyInfo.name
+			var propertyValue = ssc.call(\"get\", propertyName)
+			var propertyType = propertyInfo.usage
+			new_text += \"[color=green]%s:[/color] %s\\n\" % [propertyName, propertyValue] if propertyType == 4096 else \"[color=yellow]%s:[/color] %s\\n\" % [propertyName, propertyValue]
+"
+
+[node name="Example" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_xo176")
+
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 259.0
+offset_top = 147.0
+offset_right = 649.0
+offset_bottom = 393.0
+follow_focus = true
+script = ExtResource("1_su8ig")
+wheel_scroll_damper = SubResource("Resource_lssh0")
+dragging_scroll_damper = SubResource("Resource_nvbjt")
+debug_mode = true
+
+[node name="Control" type="Control" parent="SmoothScrollContainer"]
+custom_minimum_size = Vector2(0, 943)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SmoothScrollContainer/Control"]
+layout_mode = 0
+offset_right = 390.0
+offset_bottom = 246.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
+sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
+recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
+minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit 
+quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
+fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
+consequuntur! Commodi minima excepturi repudiandae velit hic maxime
+doloremque. Quaerat provident commodi consectetur veniam similique ad 
+earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo 
+fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore 
+suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
+modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
+totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
+quasi aliquam eligendi, placeat qui corporis!"
+fit_content = true
+
+[node name="Button" type="Button" parent="SmoothScrollContainer/Control"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 166.0
+offset_right = 155.0
+offset_bottom = 212.0
+mouse_filter = 1
+
+[node name="Button2" type="Button" parent="SmoothScrollContainer/Control"]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 369.0
+offset_right = 265.0
+offset_bottom = 415.0
+mouse_filter = 1
+
+[node name="Button3" type="Button" parent="SmoothScrollContainer/Control"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 487.0
+offset_right = 157.0
+offset_bottom = 533.0
+mouse_filter = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 719.0
+offset_top = 20.0
+offset_right = 1132.0
+offset_bottom = 628.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+bbcode_enabled = true
+text = "[Property values]"
+script = SubResource("GDScript_xu50n")
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 583.0
+offset_right = 703.0
+offset_bottom = 636.0
+max_value = 120.0
+value = 60.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 544.0
+offset_right = 487.0
+offset_bottom = 570.0
+text = "FPS: 60"
+
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

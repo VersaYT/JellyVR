@@ -23,7 +23,7 @@ public:
     Ref<Json> get_collection_folders(Node *node, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config);
 
     Ref<Json> fetch_recently_added_items_from_collection(Node *node, String collection_id, int num_of_items, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config);
-    Ref<Json> fetch_backdrop(Node *node, String tag, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config);
+    Ref<Json> fetch_item_image(Node *node, String item_id, String image_type, String width, String height, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config);
     Ref<Json> fetch_item(Node *node, String item_id, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config);
 };
 

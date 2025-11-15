@@ -54,6 +54,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.518475, 0)
 
 [node name="UI" type="Node3D" parent="."]
 
+[node name="Left_Pane" parent="UI" instance=ExtResource("6_7mycd")]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -0.431828, 0, 0)
+screen_size = Vector2(163, 406)
+viewport_size = Vector2(163, 406)
+scene_properties_keys = PackedStringArray()
+
 [node name="Main_Pane" parent="UI" instance=ExtResource("6_7mycd")]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
 screen_size = Vector2(679, 406)
@@ -65,7 +71,6 @@ scene_properties_keys = PackedStringArray("UI.gd")
 
 [node name="Right_Pane" parent="UI" instance=ExtResource("6_7mycd")]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.4, 0.04, 0)
-visible = false
 screen_size = Vector2(102, 330)
 scene = ExtResource("6_272bh")
 viewport_size = Vector2(102, 330)

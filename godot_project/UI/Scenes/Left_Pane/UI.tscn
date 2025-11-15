@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6eaxoth14gvy"]
+
+[ext_resource type="Theme" uid="uid://dp1fbfgsvq6ea" path="res://UI/base_theme.tres" id="1_hc052"]
+[ext_resource type="Texture2D" uid="uid://cq7tv0ctey626" path="res://UI/assets/img/left_pane/JellyVR.png" id="3_pprud"]
+
+[node name="Ui" type="Control"]
+custom_minimum_size = Vector2(163, 406)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 102.0
+offset_bottom = 330.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hc052")
+
+[node name="Logo" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 23.0
+offset_right = 124.0
+offset_bottom = 47.0
+texture = ExtResource("3_pprud")
+expand_mode = 2
+stretch_mode = 4

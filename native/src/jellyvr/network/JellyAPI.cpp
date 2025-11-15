@@ -8,7 +8,7 @@ void JellyAPI::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_collection_folders", "user_id", "callback"), &JellyAPI::get_collection_folders);
     ClassDB::bind_method(D_METHOD("fetch_item", "node", "item_id", "app_config", "network_config"), &JellyAPI::fetch_item);
     ClassDB::bind_method(D_METHOD("fetch_recently_added_items_from_collection", "node", "collection_id", "num_of_items", "app_config", "network_config"), &JellyAPI::fetch_recently_added_items_from_collection);
-    ClassDB::bind_method(D_METHOD("fetch_backdrop", "node", "item_id", "app_config", "network_config"), &JellyAPI::fetch_backdrop);
+    ClassDB::bind_method(D_METHOD("fetch_item_image", "node", "item_id", "image_type", "width", "height", "app_config", "network_config"), &JellyAPI::fetch_item_image);
     ClassDB::bind_method(D_METHOD("_on_json_request_completed"), &JellyAPI::_on_json_request_completed);
 }
 
@@ -66,10 +66,10 @@ Ref<Json> JellyAPI::fetch_item(Node *node, String item_id, Ref<AppConfig> app_co
         return json;
 }
 
-Ref<Json> JellyAPI::fetch_backdrop(Node *node, String item_id, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config) {
+Ref<Json> JellyAPI::fetch_item_image(Node *node, String item_id, String image_type, String width, String height, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config) {
         String http_url = "http://" + network_config->get_server_url();
         String user_id = app_config->get_user_id();
-        String endpoint = "/Items/" + item_id + "/Images/Backdrop?format=Webp&maxWidth=621&maxHeight=235";
+        String endpoint = "/Items/" + item_id + "/Images/" + image_type +"?format=Webp&maxWidth=" + width + "&maxHeight=" + height;
         String full_url = http_url + endpoint;
 
         Ref<Json> json = memnew(Json(node, network_config));

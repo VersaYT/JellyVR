@@ -1,0 +1,162 @@
+[gd_scene load_steps=18 format=3 uid="uid://dmsrqexdo6bef"]
+
+[ext_resource type="Script" uid="uid://b25ybadsgyac5" path="res://UI/Scenes/Content/Carousel/carousel_item.gd" id="1_1af2b"]
+[ext_resource type="FontFile" uid="uid://cxypnlshevtjb" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Bold.ttf" id="1_wjkus"]
+[ext_resource type="FontFile" uid="uid://05pmrxu1vcuv" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Regular.ttf" id="2_1af2b"]
+[ext_resource type="FontFile" uid="uid://da0sanx10glca" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Medium.ttf" id="3_c55xm"]
+[ext_resource type="Script" uid="uid://c1rc5c5yhgxt8" path="res://UI/Scenes/Content/content_rating.gd" id="4_hfpll"]
+[ext_resource type="FontFile" uid="uid://bt6wy1m0m76wy" path="res://UI/assets/fonts/Bowlby_One_SC/BowlbyOneSC-Regular.ttf" id="5_5uxxp"]
+[ext_resource type="FontFile" uid="uid://bxmpc2kl3fdrw" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Light.ttf" id="7_c55xm"]
+
+[sub_resource type="Gradient" id="Gradient_wp2hb"]
+colors = PackedColorArray(0, 0, 0, 0.396078, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g0cgg"]
+gradient = SubResource("Gradient_wp2hb")
+width = 621
+height = 235
+fill_from = Vector2(1, 0.537623)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_27utw"]
+texture = SubResource("GradientTexture2D_g0cgg")
+region_rect = Rect2(0, 0, 621, 235)
+
+[sub_resource type="Theme" id="Theme_hjhhe"]
+Panel/styles/panel = SubResource("StyleBoxTexture_27utw")
+
+[sub_resource type="Theme" id="Theme_o4mvm"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_wjkus")
+
+[sub_resource type="Theme" id="Theme_5snfd"]
+Label/colors/font_color = Color(0.913725, 0.913725, 0.913725, 1)
+Label/font_sizes/font_size = 14
+Label/fonts/font = ExtResource("2_1af2b")
+
+[sub_resource type="Theme" id="Theme_wnvlm"]
+RichTextLabel/colors/default_color = Color(0.913725, 0.913725, 0.913725, 1)
+RichTextLabel/font_sizes/normal_font_size = 10
+RichTextLabel/fonts/normal_font = ExtResource("3_c55xm")
+
+[sub_resource type="Theme" id="Theme_jpfoi"]
+Label/colors/font_color = Color(0.913725, 0.913725, 0.913725, 1)
+Label/font_sizes/font_size = 8
+Label/fonts/font = ExtResource("5_5uxxp")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfpll"]
+bg_color = Color(0.188, 0.196, 0.2, 0.682353)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_left = 8.0
+expand_margin_top = 4.0
+expand_margin_right = 8.0
+expand_margin_bottom = 4.0
+shadow_color = Color(0, 0, 0, 0.207843)
+shadow_size = 2
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="Theme" id="Theme_5uxxp"]
+Button/font_sizes/font_size = 12
+Button/fonts/font = ExtResource("7_c55xm")
+Button/styles/normal = SubResource("StyleBoxFlat_hfpll")
+
+[node name="CarouselItem" type="Control"]
+custom_minimum_size = Vector2(621, 235)
+layout_mode = 3
+offset_right = 621.0
+offset_bottom = 235.0
+mouse_filter = 2
+script = ExtResource("1_1af2b")
+
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 0
+offset_right = 621.0
+offset_bottom = 235.0
+mouse_filter = 2
+
+[node name="content_cover" type="TextureRect" parent="Panel"]
+layout_mode = 1
+offset_right = 621.0
+offset_bottom = 235.0
+mouse_filter = 2
+
+[node name="gradient" type="Panel" parent="Panel"]
+z_index = 2
+clip_contents = true
+layout_mode = 0
+offset_right = 621.0
+offset_bottom = 235.0
+mouse_filter = 2
+theme = SubResource("Theme_hjhhe")
+
+[node name="content_infos" type="Control" parent="."]
+z_index = 10
+layout_mode = 3
+anchors_preset = 0
+offset_left = 6.5
+offset_top = 121.5
+offset_right = 256.5
+offset_bottom = 225.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="title" type="Label" parent="content_infos"]
+layout_mode = 2
+offset_left = 1.5
+offset_top = -25.5
+offset_right = 251.5
+offset_bottom = 4.5
+theme = SubResource("Theme_o4mvm")
+
+[node name="categories" type="Label" parent="content_infos"]
+layout_mode = 2
+offset_left = 1.5
+offset_top = 6.5
+offset_right = 251.5
+offset_bottom = 29.5
+theme = SubResource("Theme_5snfd")
+
+[node name="description" type="RichTextLabel" parent="content_infos"]
+layout_mode = 2
+offset_left = 2.0
+offset_top = 31.0
+offset_right = 252.0
+offset_bottom = 77.0
+size_flags_vertical = 3
+mouse_filter = 2
+theme = SubResource("Theme_wnvlm")
+fit_content = true
+scroll_active = false
+visible_characters = 130
+
+[node name="rating" type="HBoxContainer" parent="content_infos"]
+z_index = 20
+custom_minimum_size = Vector2(80, 9)
+layout_mode = 2
+offset_left = 2.0
+offset_top = 90.0
+offset_right = 252.0
+offset_bottom = 103.0
+theme_override_constants/separation = 3
+script = ExtResource("4_hfpll")
+
+[node name="score" type="Label" parent="content_infos/rating"]
+layout_mode = 2
+theme = SubResource("Theme_jpfoi")
+
+[node name="trailer_button" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 0
+offset_left = 541.0
+offset_top = 199.0
+offset_right = 593.0
+offset_bottom = 214.0
+theme = SubResource("Theme_5uxxp")
+text = "TRAILER"
