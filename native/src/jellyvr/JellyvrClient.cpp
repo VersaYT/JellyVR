@@ -7,6 +7,8 @@ using namespace std;
 namespace fs = std::filesystem;
 
 JellyvrClient::JellyvrClient() {
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+
     UtilityFunctions::print("JellyVR constructor called");
     auth.instantiate();
     UtilityFunctions::print("Auth done");

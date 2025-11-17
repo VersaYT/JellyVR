@@ -7,6 +7,7 @@ var texture_update_count = 0
 var debug_level = 0;
 
 @export var content_item: Dictionary;
+@export var trailer_request: bool;
 @onready var mesh_instance_3d = get_parent().get_node("Screen");
 
 func _ready():
@@ -15,14 +16,14 @@ func _ready():
 	# Create the MPV player instance
 	mpv_player = MPVPlayer.new()
 	debug_level = mpv_player.get_debug_level();
-	
-	var headers_dict = {
-		"Authorization": "MediaBrowser Client=\"JellyVR\", Version=\"" + AppManager.config.get_app_version() + ", DeviceId=\"" + AppManager.config.get_device_id() + ", Device=\"JellyVR Client\", Token=\"" + AppManager.config.get_access_token() + "\""
-	}
-	
-	print(headers_dict_to_lavf(headers_dict));
-	
-	var url = "http://" + AppManager.network.get_server_url() + "/Videos/" + content_item["Id"] + "/stream?mediaSourceId=" + content_item["MediaSources"][0]["Id"] + "&tag=" + content_item["Etag"] + "&directPlay=true&container=mp4";
+	var headers_dict;
+	var url;
+	if not trailer_request:
+		headers_dict = {
+			"Authorization": "MediaBrowser Client=\"JellyVR\", Version=\"" + AppManager.config.get_app_version() + ", DeviceId=\"" + AppManager.config.get_device_id() + ", Device=\"JellyVR Client\", Token=\"" + AppManager.config.get_access_token() + "\""
+		}
+		print(headers_dict_to_lavf(headers_dict));
+		url = "http://" + AppManager.network.get_server_url() + "/Videos/" + content_item["Id"] + "/stream?mediaSourceId=" + content_item["MediaSources"][0]["Id"] + "&tag=" + content_item["Etag"] + "&directPlay=true&container=mp4";
 	
 	add_child(mpv_player)
 	
@@ -61,7 +62,10 @@ func _ready():
 	
 	# Load and play the video
 	print("Loading video file...")
-	mpv_player.load_file(url, headers_dict_to_lavf(headers_dict));
+	if not trailer_request:
+		mpv_player.load_file(url, headers_dict_to_lavf(headers_dict));
+	else:
+		mpv_player.load_file(content_item["RemoteTrailers"][0]["Url"], "");
 	mpv_player.play() 
 
 # This function is called whenever a new video frame is available

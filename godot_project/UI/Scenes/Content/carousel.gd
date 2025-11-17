@@ -10,6 +10,7 @@ var active_item_index := 0;
 var scroll_start : Vector2;
 var scroll_end : Vector2;
 var number_of_requested_items: int = 10;
+var first_item_logged = false;
 
 func _ready() -> void:
 	scroll_container.connect("scroll_started", Callable(self, "_on_scroll_started"));
@@ -23,6 +24,9 @@ func _ready() -> void:
 		content_dict.connect("request_completed_signal", Callable(self, "_on_content_received"));
 
 func _on_content_received(content):
+	if not first_item_logged:
+		print(content["Items"][0])
+		first_item_logged = true;
 	for item in content["Items"]:
 		var carousel_item = carousel_item_scene.instantiate();
 		carousel_item.item_ref = item;

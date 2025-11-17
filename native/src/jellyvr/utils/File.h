@@ -4,8 +4,15 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
+
+void extract_zip_to(const std::string& zip_path, const fs::path& out_dir);
 
 #if defined(_WIN32)
 #include <Windows.h>

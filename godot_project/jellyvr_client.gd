@@ -26,6 +26,7 @@ func _ready():
 func _on_player_request(data):
 	var godot_mpv = load("res://godot_mpv.gd");
 	var mpv = godot_mpv.new();
+	mpv.trailer_request = data.trailer_request;
 	mpv.content_item = data.item;
 	add_child(mpv);
 	

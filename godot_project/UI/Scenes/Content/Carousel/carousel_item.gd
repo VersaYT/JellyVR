@@ -24,13 +24,15 @@ func _ready() -> void:
 	categories_node.text = categories;
 	description_node.text = description;
 	score_node.text = score;
-	print(item_ref)
+	var trailer_button = $trailer_button;
 	var image_request_node = Node.new();
 	add_child(image_request_node);
 	var imageWidth = "621";
 	var imageHeight = "235";
 	var imageType : String;
 	var contentType = item_ref["Type"];
+	if item_ref.has("RemoteTrailers") and item_ref["RemoteTrailers"] != []:
+		trailer_button.visible = true;
 	
 	match contentType:
 		"Movie":
@@ -64,12 +66,18 @@ func _on_image_received(texture):
 	content_cover.texture = texture;
 
 func _on_play_btn_pressed(item):
-	print("button has been pressed");
 	var item_request_node = Node.new();
 	add_child(item_request_node);
 	
 	var item_request = jelly_api.fetch_item(item_request_node, item["Id"], AppManager.config, AppManager.network);
 	item_request.connect("request_completed_signal", Callable(self, "_on_item_received"));
+
+func _on_trailer_button_pressed():
+	var data = UIPlayerState.new();
+	data.play_state = UIPlayerState.PlayState.PLAY;
+	data.item = item_ref;
+	data.trailer_request = true;
+	StateMachine.change_player_ui_state(data);
 
 func _on_item_received(item):
 	var data = UIPlayerState.new();

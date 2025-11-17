@@ -6,6 +6,7 @@
 #include <godot_cpp/classes/node.hpp>
 #include "config/Settings.h"
 #include "include/version.h"
+#include "structs/AppConfig.h"
 
 using namespace godot;
 
@@ -32,6 +33,8 @@ public:
     String get_username() const {return UserName;}
 
     String get_app_version() {return PROJECT_VERSION;}
+    bool fetch_yt_dlp();
+    ReturnedData fetch_github_direct_download_link(std::string repo_path, std::string target_platform);
 
 
     void set_access_token(String token) {AccessToken = token;}
@@ -45,6 +48,8 @@ public:
     String ConfigPath;
     String CachePath;
     String LogsPath;
+    String BinPath;
+    String TmpPath;
     String ConfigFilePath;
 
 private:

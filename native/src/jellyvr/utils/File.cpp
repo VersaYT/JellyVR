@@ -1,8 +1,7 @@
 #include "File.h"
-#include <fstream>
-#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 #if defined(_WIN32)
 #include <Windows.h>

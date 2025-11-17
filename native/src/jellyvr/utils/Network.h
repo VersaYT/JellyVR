@@ -9,6 +9,7 @@
 using namespace godot;
 
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp);
+size_t WriteToFileCallback(void *buffer, size_t size, size_t nmemb, void *userp);
 
 Dictionary parse_headers_to_dict(const PackedStringArray &headers);
 

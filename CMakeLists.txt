@@ -42,6 +42,7 @@ add_subdirectory(${GODOT_CPP_PATH} godot-cpp-build)
 # Source files
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     native/src/jellyvr/*.cpp
+    native/src/jellyvr/third_party/zip/zip.c
     native/src/jellyvr/*.h
 )
 

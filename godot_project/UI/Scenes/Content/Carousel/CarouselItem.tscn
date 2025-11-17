@@ -66,6 +66,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_hfpll")
 [node name="CarouselItem" type="Control"]
 custom_minimum_size = Vector2(621, 235)
 layout_mode = 3
+anchors_preset = 0
 offset_right = 621.0
 offset_bottom = 235.0
 mouse_filter = 2
@@ -160,3 +161,5 @@ offset_right = 593.0
 offset_bottom = 214.0
 theme = SubResource("Theme_5uxxp")
 text = "TRAILER"
+
+[connection signal="pressed" from="trailer_button" to="." method="_on_trailer_button_pressed"]

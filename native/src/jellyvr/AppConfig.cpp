@@ -9,6 +9,14 @@
 #include <godot_cpp/classes/project_settings.hpp>
 #include <godot_cpp/variant/string.hpp>
 #include "include/config.h"
+#include"include/version.h"
+#include <curl/curl.h>
+#include "utils/Network.h"
+#include "utils/File.h"
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "third_party/zip/zip.h"
 
 using json = nlohmann::json;
 namespace fs = std::filesystem;
@@ -17,6 +25,7 @@ AppConfig::AppConfig() {
     settings.instantiate();
     initPaths();
     initConfigFile();
+    fetch_yt_dlp();
 }
 
 void AppConfig::initPaths() {
@@ -24,16 +33,152 @@ void AppConfig::initPaths() {
 
     this->ConfigPath = user_dir + "Config/";
     this->CachePath = user_dir + "Cache/";
-    this->LogsPath = user_dir + "Logs/";
+    this->BinPath = user_dir + "Bin/";
+    this->TmpPath = user_dir + "Tmp/";
 
     this->ConfigFilePath = this->ConfigPath + "JellyVR.json";
 
     fs::create_directories(this->ConfigPath.utf8().get_data());
     fs::create_directories(this->CachePath.utf8().get_data());
-    fs::create_directories(this->LogsPath.utf8().get_data());
+    fs::create_directories(this->BinPath.utf8().get_data());
+    fs::create_directories(this->TmpPath.utf8().get_data());
 }
 
+ReturnedData AppConfig::fetch_github_direct_download_link(std::string repo_path, std::string target_platform) {
+    CURL *curl;
+    CURLcode result;
+    long http_code = 0;
+    ReturnedData data;
+    
+    std::string response;
+    std::string full_url = "https://api.github.com/repos/" + repo_path + "/releases/latest";
 
+    data.download_link = "";
+    data.http_operation_success = false;
+    data.is_file_zip = false;
+
+    curl = curl_easy_init();
+    if(curl == NULL) {
+        UtilityFunctions::print("HTTP request failed");
+        return data;
+    }
+
+    curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    string user_agent = "JellyVR/";
+    user_agent += PROJECT_VERSION;
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, user_agent.c_str());
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+    result = curl_easy_perform(curl);
+    curl_easy_cleanup(curl);
+
+    if (result != CURLE_OK) {
+        UtilityFunctions::print(curl_easy_strerror(result));
+        emit_signal("error_occurred", curl_easy_strerror(result));
+        curl_easy_cleanup(curl);
+        return data;
+    }
+
+    json parsed_str = json::parse(response);
+    json packages_array = parsed_str["assets"];
+
+    for(auto& element : packages_array.items()) {
+        auto &obj = element.value();
+        std::string item_name_val = obj["name"];        
+        if(obj["name"] == target_platform) {
+            data.download_link = obj["browser_download_url"];
+            data.http_operation_success = true;
+            obj["content_type"] == "application/zip" ? data.is_file_zip = true : data.is_file_zip = false;
+            return data;
+        }
+    }
+    return data;
+}
+
+int on_extract_entry(const char *filename, void *arg) {
+    static int i = 0;
+    int n = *(int *)arg;
+    printf("Extracted: %s (%d of %d)\n", filename, ++i, n);
+
+    return 0;
+}
+
+bool AppConfig::fetch_yt_dlp() {
+    std::string win_target_str = "yt-dlp.exe";
+    std::string linux_target_str = "yt-dlp_linux.zip";
+    std::string android_target_str = "yt-dlp_linux_armv7l.zip";
+
+    std::string output_path = this->BinPath.utf8().get_data();
+    std::string tmp_file_path = this->TmpPath.utf8().get_data();
+    output_path += "yt-dlp/";
+    std::string response;
+    ReturnedData data;
+
+    #if defined(_WIN32)
+    data = fetch_github_direct_download_link("yt-dlp/yt-dlp", win_target_str);
+    tmp_file_path += win_target_str;
+    #elif defined(__ANDROID__)
+    data = fetch_github_direct_download_link("yt-dlp/yt-dlp", android_target_str);
+    tmp_file_path += android_target_str;
+    #elif defined(__linux__)
+    data = fetch_github_direct_download_link("yt-dlp/yt-dlp", linux_target_str);
+    tmp_file_path += linux_target_str;
+    #endif
+
+    if(data.http_operation_success == false) {
+        UtilityFunctions::print("error fetching yt-dlp direct link from github");
+    } else {
+        CURL *curl = curl_easy_init();
+        if (!curl) return false;
+        UtilityFunctions::print(tmp_file_path.c_str());
+
+        std::ofstream out(tmp_file_path.c_str(), std::ios::binary);
+        if (!out.is_open()) return false;
+
+        UtilityFunctions::print(data.download_link.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, data.download_link.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteToFileCallback);
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+        curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
+        
+        string user_agent = "JellyVR/";
+        user_agent += PROJECT_VERSION;
+        curl_easy_setopt(curl, CURLOPT_USERAGENT, user_agent.c_str());
+
+
+        CURLcode res = curl_easy_perform(curl);
+
+
+        if (res == CURLE_OK) {
+            UtilityFunctions::print("yt-dlp download was successfull");
+        } else {
+            UtilityFunctions::printerr(res);
+        }
+        out.close();
+        curl_easy_cleanup(curl);
+        UtilityFunctions::print(data.is_file_zip);
+        if(data.is_file_zip) {
+
+            int arg = 2;
+            zip_extract(tmp_file_path.c_str(), output_path.c_str(), on_extract_entry, &arg);
+        } else {
+            fs::rename(tmp_file_path, output_path + win_target_str);
+        }
+
+        #if defined(__linux__) || defined(__ANDROID__)
+            chmod(output_path.c_str(), 0755);
+        #endif
+
+        return res == CURLE_OK;
+    }
+    return false;
+}
 
 bool AppConfig::initConfigFile() {
     fs::path config_file_path = this->ConfigFilePath.utf8().get_data();

@@ -40,7 +40,7 @@ Ref<Json> JellyAPI::fetch_recently_added_items_from_collection(Node *node, Strin
     } else {
         String http_url = "http://" + network_config->get_server_url();
         String user_id = app_config->get_user_id();
-        String endpoint = "/Items?ParentId=" + collection_id + "&Fields=Overview,Genres&ExcludeItemTypes=Folder&SortBy=DateCreated&SortOrder=Descending&isPlayed=false&Limit=" + UtilityFunctions::str(num_of_items)  +"&Recursive=true&userId=" + user_id;
+        String endpoint = "/Items?ParentId=" + collection_id + "&Fields=Overview,Genres,RemoteTrailers&ExcludeItemTypes=Folder&SortBy=DateCreated&SortOrder=Descending&isPlayed=false&Limit=" + UtilityFunctions::str(num_of_items)  +"&Recursive=true&userId=" + user_id;
         String full_url = http_url + endpoint;
 
         Ref<Json> json = memnew(Json(node, network_config));

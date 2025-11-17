@@ -1,6 +1,7 @@
 #include <cstddef>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "Network.h"
 #include <vector>
 #include <stdint.h>
@@ -10,6 +11,12 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
 
     std::cout << "from write callback";
     return size * nmemb;
+}
+
+size_t WriteToFileCallback(void *buffer, size_t size, size_t nmemb, void *userp) {
+    std::ofstream* out = static_cast<std::ofstream*>(userp);
+    out->write(static_cast<char*>(buffer), size * nmemb);
+    return size * nmemb; 
 }
 
 using namespace godot;
