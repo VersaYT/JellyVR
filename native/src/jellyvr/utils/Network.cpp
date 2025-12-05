@@ -23,7 +23,7 @@ using namespace godot;
 
 Dictionary parse_headers_to_dict(const PackedStringArray &headers) {
     Dictionary header_dict;
-    UtilityFunctions::print("headers.size is" + headers.size());
+    // UtilityFunctions::print("headers.size is" + headers.size());
 
     for (int i = 0; i < headers.size(); i++) {
         String line = headers[i];

@@ -16,8 +16,6 @@ JellyvrClient::JellyvrClient() {
     UtilityFunctions::print("Appconfig done");
     networkConfig.instantiate();
     UtilityFunctions::print("NetworkConfig done");
-
-    populate_settings_from_config_file();
 }
 JellyvrClient::~JellyvrClient() {
     UtilityFunctions::print("Freeing JellyVRClient");
@@ -25,7 +23,6 @@ JellyvrClient::~JellyvrClient() {
 
 void JellyvrClient::populate_settings_from_config_file() {
     UtilityFunctions::print("populating settings from config file");
-
     fs::path config_file_path = this->appConfig->ConfigFilePath.utf8().get_data();
     json config;
     std::ifstream file(config_file_path);

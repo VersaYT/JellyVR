@@ -32,7 +32,8 @@ include(GitVersion)
 get_version_from_git()
 configure_file(
     ${CMAKE_SOURCE_DIR}/native/src/jellyvr/include/version.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/native/src/jellyvr/include/version.h
+    ${CMAKE_SOURCE_DIR}/native/src/jellyvr/include/version.h
+    @ONLY
 )
 
 # Godot-cpp binding
@@ -46,17 +47,84 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     native/src/jellyvr/*.h
 )
 
-# Output
-add_library(${PROJECT_NAME} SHARED ${SOURCES})
-target_link_libraries(${PROJECT_NAME}
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+
+    set(CURL_INCLUDE_DIR "/usr/include/x86_64-linux-gnu/curl")
+    set(CURL_LIBRARY "/lib/x86_64-linux-gnu/libcurl.so")
+
+    add_library(${PROJECT_NAME} SHARED ${SOURCES})
+    target_link_libraries(${PROJECT_NAME}
     PRIVATE
         godot-cpp
         CURL::libcurl
         nlohmann_json::nlohmann_json
-)
+    )
 
-# Add curl or other deps here
-find_package(CURL REQUIRED)
+    # Add curl or other deps here
+    find_package(CURL REQUIRED)
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+    OUTPUT_NAME ${PROJECT_NAME}.${PLATFORM}
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/godot_project/bin/
+    )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Android")
+
+    #
+    # Import libcurl (static)
+    #
+    add_library(curl STATIC IMPORTED)
+    set_target_properties(curl PROPERTIES
+        IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/curl/libcurl.a
+        INTERFACE_INCLUDE_DIRECTORIES
+            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/curl/include
+    )
+
+    #
+    # Import OpenSSL (static)
+    #
+    add_library(ssl STATIC IMPORTED)
+    set_target_properties(ssl PROPERTIES
+        IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/openssl/libssl.a
+        INTERFACE_INCLUDE_DIRECTORIES
+            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/openssl/include
+    )
+
+    add_library(crypto STATIC IMPORTED)
+    set_target_properties(crypto PROPERTIES
+        IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/openssl/libcrypto.a
+        INTERFACE_INCLUDE_DIRECTORIES
+            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/openssl/include
+    )
+
+    #
+    # Import your custom zlib (STATIC)
+    #
+    add_library(zlib STATIC IMPORTED)
+    set_target_properties(zlib PROPERTIES
+        IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/zlib/libz.a
+        INTERFACE_INCLUDE_DIRECTORIES
+            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/zlib/include
+    )
+    add_library(${PROJECT_NAME} SHARED ${SOURCES})
+    target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        godot-cpp
+        curl
+        ssl
+        crypto
+        zlib
+        nlohmann_json::nlohmann_json
+    )
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+    OUTPUT_NAME ${PROJECT_NAME}.${PLATFORM}
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/godot_project/bin/arm64/
+    )
+endif()
+
 
 # Compiler settings
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
@@ -70,7 +138,3 @@ target_include_directories(${PROJECT_NAME}
 )
 
 # Platform-specific settings
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    OUTPUT_NAME ${PROJECT_NAME}.${PLATFORM}
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/godot_project/bin/
-)

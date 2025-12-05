@@ -1,4 +1,5 @@
 function(get_version_from_git)
+    message(STATUS "Running get_version_from_git()")
     find_package(Git QUIET)
     if(NOT Git_FOUND)
         message(WARNING "Git not found")

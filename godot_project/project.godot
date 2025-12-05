@@ -16,7 +16,7 @@ curved_lines_2d/snap_to_pixel=false
 
 config/name="JellyVR"
 run/main_scene="uid://b5r02e0k4den2"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://cm6qyqf6w1ba7"
 
 [autoload]
@@ -37,6 +37,7 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
 anti_aliasing/quality/msaa_3d=2
 
 [xr]
@@ -44,3 +45,4 @@ anti_aliasing/quality/msaa_3d=2
 openxr/enabled=true
 openxr/reference_space=2
 shaders/enabled=true
+openxr/extensions/meta/color_space/starting_color_space=3

@@ -2,6 +2,7 @@ extends Node
 
 var xr_interface = XRInterface;
 @onready var UI : Node3D = $UI;
+@onready var Keyboard : Node3D = $UI/Keyboard;
 @onready var navbar: Node3D = $UI/Right_Pane;
 var XRCamera: XRCamera3D;
 var ui_offset_distance = 0.7;
@@ -34,7 +35,15 @@ func _on_button_pressed(name):
 	match name:
 		"menu_button":
 			open_close_menu()
-	
+		"by_button":
+			open_close_keyboard()
+
+func open_close_keyboard():
+	if Keyboard.visible == false and UI.visible == true:
+		Keyboard.visible = true;
+	else:
+		Keyboard.visible = false;
+
 func open_close_menu():
 	if UI.visible == false:
 		var ui_global_transform := Transform3D(XRCamera.global_basis, XRCamera.global_position)

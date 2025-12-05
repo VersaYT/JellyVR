@@ -17,8 +17,11 @@ public:
     AppConfig();
     virtual ~AppConfig() override;
 
+    void initSSL();
     void initPaths();
     void initialize();
+
+    void init();
 
     void set_settings(Ref<Settings> new_settings) {settings = new_settings;}
     Ref<Settings> get_settings() {return settings;}
@@ -33,6 +36,9 @@ public:
     String get_username() const {return UserName;}
 
     String get_app_version() {return PROJECT_VERSION;}
+    String get_yt_dlp_binary_name() {return yt_dlp_binary_name;}
+    void set_yt_dlp_binary_name(String name) {yt_dlp_binary_name = name;}
+
     bool fetch_yt_dlp();
     ReturnedData fetch_github_direct_download_link(std::string repo_path, std::string target_platform);
 
@@ -50,6 +56,7 @@ public:
     String LogsPath;
     String BinPath;
     String TmpPath;
+    String SSLPath;
     String ConfigFilePath;
 
 private:
@@ -63,6 +70,8 @@ private:
     String UserName;
 
     Array collection_folders;
+
+    String yt_dlp_binary_name;
 
     bool initConfigFile();
 

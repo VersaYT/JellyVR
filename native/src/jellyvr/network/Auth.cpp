@@ -1,5 +1,5 @@
 #include "Auth.h"
-#include <curl/curl.h>
+#include <curl.h>
 #include <stdio.h>
 #include "../utils/Network.h"
 #include <godot_cpp/variant/utility_functions.hpp>
@@ -94,7 +94,7 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config, Ref<NetworkC
     }
 
     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-    UtilityFunctions::print("HTTP response code: ", http_code);
+    // UtilityFunctions::print("HTTP response code: ", http_code);
 
     try {
         if (!response.empty()) {

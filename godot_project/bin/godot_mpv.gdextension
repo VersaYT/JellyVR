@@ -3,9 +3,13 @@ compatibility_minimum = "4.4"
 entry_symbol = "godot_mpv_library_init"
 
 [libraries]
-linux.debug.x86_64 = "res://bin/libgodot_mpv.linux.template_debug.x86_64.so",
+linux.debug.x86_64 = "res://bin/libgodot_mpv.linux.template_debug.x86_64.so"
+android.arm64 = "res://bin/arm64/libgodot_mpv.arm64.so"
 
 [dependencies]
 linux.debug.x86_64 = [
     "res://bin/libmpv.so"
+]
+android.arm64 = [
+    "res://bin/arm64/libmpv.so"
 ]

@@ -8,4 +8,6 @@ func _ready() -> void:
 	client = JellyvrClient.new()
 	auth = client.get_Auth()
 	config = client.get_AppConfig()
+	config.init();
+	client.populate_settings_from_config_file();
 	network = client.get_NetworkConfig()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5r02e0k4den2"]
+[gd_scene load_steps=12 format=3 uid="uid://b5r02e0k4den2"]
 
 [ext_resource type="Script" uid="uid://5tyodmbj7qp5" path="res://jellyvr_client.gd" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://d4g5781plgnd4" path="res://mesh/Vip_seat.blend" id="2_0xm2m"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bqst0hyg1e03x" path="res://xr_player.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bq2tsw0vgujtj" path="res://UI/Scenes/Right_Pane/UI.tscn" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://dgdb1texynduw" path="res://addons/godot-xr-tools/objects/virtual_keyboard.tscn" id="7_272bh"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0xm2m"]
 size = Vector2(10.515, 4.94)
@@ -53,9 +54,11 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.518475, 0)
 
 [node name="UI" type="Node3D" parent="."]
+visible = false
 
 [node name="Left_Pane" parent="UI" instance=ExtResource("6_7mycd")]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -0.431828, 0, 0)
+visible = false
 screen_size = Vector2(163, 406)
 viewport_size = Vector2(163, 406)
 scene_properties_keys = PackedStringArray()
@@ -71,8 +74,13 @@ scene_properties_keys = PackedStringArray("UI.gd")
 
 [node name="Right_Pane" parent="UI" instance=ExtResource("6_7mycd")]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.4, 0.04, 0)
+visible = false
 screen_size = Vector2(102, 330)
 scene = ExtResource("6_272bh")
 viewport_size = Vector2(102, 330)
 unshaded = true
 scene_properties_keys = PackedStringArray()
+
+[node name="Keyboard" parent="UI" instance=ExtResource("7_272bh")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.291, 0)
+scene_properties_keys = PackedStringArray("virtual_keyboard_2d.gd")

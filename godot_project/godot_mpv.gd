@@ -41,7 +41,7 @@ func _ready():
 			print("Creating new StandardMaterial3D...")
 			material = StandardMaterial3D.new()
 			mesh_instance_3d.set_surface_override_material(0, material)
-		else:
+		else:	
 			print("Using existing material: ", material)
 		
 		# Make sure the material is visible and properly configured
@@ -60,12 +60,14 @@ func _ready():
 	else:
 		print("ERROR: No MeshInstance3D named 'Screen' found in the scene")
 	
+	var user_path = ProjectSettings.globalize_path("user://")
+	var full_yt_dlp_path = user_path + "/Bin/yt-dlp/" + AppManager.config.yt_dlp_binary_name;
 	# Load and play the video
 	print("Loading video file...")
 	if not trailer_request:
-		mpv_player.load_file(url, headers_dict_to_lavf(headers_dict));
+		mpv_player.load_file(url, headers_dict_to_lavf(headers_dict), full_yt_dlp_path);
 	else:
-		mpv_player.load_file(content_item["RemoteTrailers"][0]["Url"], "");
+		mpv_player.load_file(content_item["RemoteTrailers"][0]["Url"], "", full_yt_dlp_path);
 	mpv_player.play() 
 
 # This function is called whenever a new video frame is available
