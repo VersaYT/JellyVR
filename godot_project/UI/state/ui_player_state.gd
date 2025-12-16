@@ -8,5 +8,7 @@ var item: Dictionary
 enum PlayState {
 	PLAY,
 	PAUSE,
+	STOP,
+	RESUME,
 	RESTART
 }

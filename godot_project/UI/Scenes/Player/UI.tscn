@@ -1,0 +1,134 @@
+[gd_scene load_steps=20 format=3 uid="uid://1iumicuygjxh"]
+
+[ext_resource type="Script" uid="uid://dmcl1h06bo3ld" path="res://UI/scripts/Player/ui.gd" id="1_74lpj"]
+[ext_resource type="FontFile" uid="uid://da0sanx10glca" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Medium.ttf" id="1_wdgx0"]
+[ext_resource type="FontFile" uid="uid://cxypnlshevtjb" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Bold.ttf" id="2_82f1m"]
+[ext_resource type="Texture2D" uid="uid://cnrqxaja0i0h7" path="res://UI/assets/img/Player/Pause.png" id="4_74lpj"]
+[ext_resource type="Texture2D" uid="uid://codyqj5r6fjpi" path="res://UI/assets/img/Player/Forward.png" id="4_82f1m"]
+[ext_resource type="Texture2D" uid="uid://by8nkkqdkixtt" path="res://UI/assets/img/Player/Rewind.png" id="5_ibgnd"]
+[ext_resource type="Texture2D" uid="uid://c0cqxvjtixot1" path="res://UI/assets/img/Player/progress_bg.png" id="6_n764f"]
+[ext_resource type="FontFile" uid="uid://05pmrxu1vcuv" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Regular.ttf" id="7_88yy7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_74lpj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88yy7"]
+bg_color = Color(0, 0, 0, 0.24313726)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_74lpj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mbmhl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_88yy7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kqgpq"]
+
+[sub_resource type="Theme" id="Theme_74lpj"]
+Button/styles/disabled = SubResource("StyleBoxTexture_74lpj")
+Button/styles/hover = SubResource("StyleBoxTexture_mbmhl")
+Button/styles/normal = SubResource("StyleBoxTexture_88yy7")
+Button/styles/pressed = SubResource("StyleBoxTexture_kqgpq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ibgnd"]
+
+[sub_resource type="Theme" id="Theme_n764f"]
+Button/icons/icon = ExtResource("4_82f1m")
+Button/styles/normal = SubResource("StyleBoxTexture_ibgnd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n764f"]
+
+[sub_resource type="Theme" id="Theme_88yy7"]
+Button/icons/icon = ExtResource("5_ibgnd")
+Button/styles/normal = SubResource("StyleBoxTexture_n764f")
+
+[node name="Ui" type="Control"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_74lpj")
+
+[node name="transparent_bg" type="Panel" parent="."]
+z_index = 1
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_74lpj")
+
+[node name="items_container" type="Control" parent="."]
+visible = false
+z_index = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="bg" type="Panel" parent="items_container"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_88yy7")
+
+[node name="now_playing" type="Label" parent="items_container"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 35.0
+offset_right = 286.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("1_wdgx0")
+theme_override_font_sizes/font_size = 40
+text = "now playing"
+
+[node name="content_title" type="Label" parent="items_container"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 85.0
+offset_right = 295.0
+offset_bottom = 135.0
+theme_override_fonts/font = ExtResource("2_82f1m")
+theme_override_font_sizes/font_size = 40
+text = "THE MOVIE"
+
+[node name="play_pause_button" type="Button" parent="items_container"]
+layout_mode = 0
+offset_left = 897.0
+offset_top = 479.0
+offset_right = 1025.0
+offset_bottom = 607.0
+theme = SubResource("Theme_74lpj")
+icon = ExtResource("4_74lpj")
+
+[node name="forward_button" type="Button" parent="items_container"]
+layout_mode = 0
+offset_left = 1024.0
+offset_top = 504.0
+offset_right = 1096.0
+offset_bottom = 576.0
+theme = SubResource("Theme_n764f")
+
+[node name="rewind_button" type="Button" parent="items_container"]
+layout_mode = 0
+offset_left = 832.0
+offset_top = 504.0
+offset_right = 904.0
+offset_bottom = 576.0
+theme = SubResource("Theme_88yy7")
+
+[node name="content_progress" type="TextureProgressBar" parent="items_container"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 988.0
+offset_right = 1726.0
+offset_bottom = 1028.0
+texture_under = ExtResource("6_n764f")
+
+[node name="content_elapsed_time" type="Label" parent="items_container"]
+layout_mode = 0
+offset_left = 1775.0
+offset_top = 974.0
+offset_right = 1867.0
+offset_bottom = 1019.0
+theme_override_fonts/font = ExtResource("7_88yy7")
+theme_override_font_sizes/font_size = 36
+text = "00:00"
+
+[connection signal="pressed" from="items_container/play_pause_button" to="." method="_on_play_pause_button_pressed"]

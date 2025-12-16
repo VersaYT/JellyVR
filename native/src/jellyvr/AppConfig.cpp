@@ -82,7 +82,7 @@ ReturnedData AppConfig::fetch_github_direct_download_link(std::string repo_path,
     // curl_easy_setopt(curl, CURLOPT_DEBUGDATA, nullptr);
     curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
-    curl_easy_setopt(curl, CURLOPT_CAINFO, "/data/data/com.versa_studio.jellyvr/files/SSL/cacert.pem");
+    curl_easy_setopt(curl, CURLOPT_CAINFO, cacert_file_path.utf8().get_data());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
@@ -181,7 +181,7 @@ bool AppConfig::fetch_yt_dlp() {
             // curl_easy_setopt(curl, CURLOPT_DEBUGFUNCTION, my_curl_debug_callback);
             // curl_easy_setopt(curl, CURLOPT_DEBUGDATA, nullptr);
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
-            curl_easy_setopt(curl, CURLOPT_CAINFO, "/data/data/com.versa_studio.jellyvr/files/SSL/cacert.pem");
+            curl_easy_setopt(curl, CURLOPT_CAINFO, cacert_file_path.utf8().get_data());
             curl_easy_setopt(curl, CURLOPT_URL, data.download_link.c_str());
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteToFileCallback);
             curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);

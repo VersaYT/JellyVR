@@ -5,6 +5,6 @@
 #define PROJECT_VERSION_MINOR 0
 #define PROJECT_VERSION_PATCH 12
 #define PROJECT_VERSION "0.0.12"
-#define FULL_VERSION "0.0.12+e2dd4f0"
+#define FULL_VERSION "0.0.12+e6fc37e"
 
 #endif

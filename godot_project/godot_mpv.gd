@@ -1,15 +1,14 @@
 extends Node3D
 
 # Store the MPV player as a class member to prevent garbage collection
-var mpv_player: MPVPlayer
+var mpv_player: MPVPlayer;
 var texture_update_count = 0
 
 var debug_level = 0;
 
 @export var content_item: Dictionary;
 @export var trailer_request: bool;
-@onready var mesh_instance_3d = get_parent().get_node("Screen");
-
+@onready var mesh_instance_3d = get_parent().get_node("Screen_Container/Screen");
 func _ready():
 	print("Initializing MPV video player...")
 	
@@ -70,6 +69,19 @@ func _ready():
 		mpv_player.load_file(content_item["RemoteTrailers"][0]["Url"], "", full_yt_dlp_path);
 	mpv_player.play() 
 
+func resume() -> void:
+	mpv_player.play();
+
+func pause() -> void:
+	mpv_player.pause();
+	
+func stop() -> void:
+	mpv_player.stop();
+	await get_tree().create_timer(1.0).timeout
+	var material = mesh_instance_3d.get_surface_override_material(0);
+	var texture = load("res://UI/assets/img/virtual_screen_no_content_bg.jpg");
+	material.albedo_texture = texture;
+	mesh_instance_3d.set_surface_override_material(0, material);
 # This function is called whenever a new video frame is available
 func _on_texture_updated(texture):
 	texture_update_count += 1

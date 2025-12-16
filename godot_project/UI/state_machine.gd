@@ -10,6 +10,7 @@ signal ActiveSettNavBarBtn(value: String)
 signal ToggleUiNavBar(value: bool)
 signal UIChangeSettNavBar(data: NavBarUIStateData)
 signal UIPlayerRequest(data: UIPlayerState)
+signal ToggleUIFloatingButtons(value: bool)
 
 var ui_state = UIStateData.new();
 var nav_ui_state = NavBarUIStateData.new();

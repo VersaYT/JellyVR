@@ -1,15 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5r02e0k4den2"]
+[gd_scene load_steps=15 format=3 uid="uid://b5r02e0k4den2"]
 
 [ext_resource type="Script" uid="uid://5tyodmbj7qp5" path="res://jellyvr_client.gd" id="1_lquwl"]
-[ext_resource type="PackedScene" uid="uid://d4g5781plgnd4" path="res://mesh/Vip_seat.blend" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://bplm2geut5pm1" path="res://UI/assets/img/virtual_screen_no_content_bg.jpg" id="2_kek77"]
+[ext_resource type="PackedScene" uid="uid://1iumicuygjxh" path="res://UI/Scenes/Player/UI.tscn" id="3_5vw27"]
 [ext_resource type="PackedScene" uid="uid://de7yqxe8g7eul" path="res://UI/UI.tscn" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bqst0hyg1e03x" path="res://xr_player.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bq2tsw0vgujtj" path="res://UI/Scenes/Right_Pane/UI.tscn" id="6_272bh"]
 [ext_resource type="PackedScene" uid="uid://dgdb1texynduw" path="res://addons/godot-xr-tools/objects/virtual_keyboard.tscn" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://c3e7se20aet5k" path="res://UI/Scenes/Player/FloatingButtons.tscn" id="8_5vw27"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_272bh"]
+shading_mode = 0
+albedo_texture = ExtResource("2_kek77")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0xm2m"]
-size = Vector2(10.515, 4.94)
+material = SubResource("StandardMaterial3D_272bh")
+size = Vector2(10.515, 5.63)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ig7tw"]
 size = Vector2(21.045, 18.47)
@@ -18,17 +25,32 @@ size = Vector2(21.045, 18.47)
 data = PackedVector3Array(10.5225, 0, 9.235, -10.5225, 0, 9.235, 10.5225, 0, -9.235, -10.5225, 0, 9.235, -10.5225, 0, -9.235, 10.5225, 0, -9.235)
 
 [sub_resource type="Environment" id="Environment_7dm0k"]
+background_mode = 1
+background_color = Color(0.03414992, 0.050872903, 0.092680395, 1)
 
 [node name="JellyVR" type="Node3D"]
 script = ExtResource("1_lquwl")
 
-[node name="Screen" type="MeshInstance3D" parent="."]
+[node name="Screen_Container" type="Node3D" parent="."]
 transform = Transform3D(0.999845, -0.017608, -0.000241277, -3.31995e-10, 0.0137004, -0.999906, 0.0176097, 0.999751, 0.0136982, 0, 2.85374, -8.21873)
+
+[node name="Screen" type="MeshInstance3D" parent="Screen_Container"]
+transform = Transform3D(1, 0, -1.4551915e-11, 0, 1, 0, 0, -9.313226e-10, 1.0000001, 0, 0, 0)
 mesh = SubResource("PlaneMesh_0xm2m")
+skeleton = NodePath("../..")
+
+[node name="PlayerUI" parent="Screen_Container" instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.02, 0)
+screen_size = Vector2(10.515, 5.63)
+scene = ExtResource("3_5vw27")
+viewport_size = Vector2(1920, 1080)
+unshaded = true
+scene_properties_keys = PackedStringArray("ui.gd")
 
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="Floor" type="MeshInstance3D" parent="Environment"]
+visible = false
 mesh = SubResource("PlaneMesh_ig7tw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Environment/Floor"]
@@ -45,10 +67,6 @@ light_energy = 0.15
 shadow_enabled = true
 shadow_bias = 0.03
 shadow_blur = 1.5
-
-[node name="Vip_seat" parent="Environment" instance=ExtResource("2_0xm2m")]
-transform = Transform3D(-0.998924, 0, 0.0463743, 0, 1, 0, -0.0463743, 0, -0.998924, -0.00115171, 0.291944, 0.108414)
-visible = false
 
 [node name="XROrigin3D" parent="." instance=ExtResource("5_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.518475, 0)
@@ -84,3 +102,11 @@ scene_properties_keys = PackedStringArray()
 [node name="Keyboard" parent="UI" instance=ExtResource("7_272bh")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.291, 0)
 scene_properties_keys = PackedStringArray("virtual_keyboard_2d.gd")
+
+[node name="PlayerUI_Floating_Buttons" parent="." instance=ExtResource("6_7mycd")]
+transform = Transform3D(0.005, 0, 0, 0, 0.004012838, 0.0029828057, 0, -0.0029828057, 0.004012838, 0, -0.58396184, -6.82322)
+visible = false
+screen_size = Vector2(730, 131)
+scene = ExtResource("8_5vw27")
+viewport_size = Vector2(730, 131)
+scene_properties_keys = PackedStringArray()

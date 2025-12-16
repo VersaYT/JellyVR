@@ -23,6 +23,7 @@ laser_length = 1
 
 [node name="MovementDirect" parent="XRController3D_left" instance=ExtResource("2_bnxs6")]
 strafe = true
+enabled = false
 
 [node name="XRController3D_right" type="XRController3D" parent="."]
 tracker = &"right_hand"
@@ -34,5 +35,7 @@ show_laser = 2
 laser_length = 1
 
 [node name="MovementTurn" parent="XRController3D_right" instance=ExtResource("4_ubp34")]
+enabled = false
 
 [node name="PlayerBody" parent="." instance=ExtResource("3_bnxs6")]
+motion_mode = 1

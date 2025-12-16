@@ -7,6 +7,9 @@ var xr_interface = XRInterface;
 var XRCamera: XRCamera3D;
 var ui_offset_distance = 0.7;
 var ui_offset := Vector3(0,0,-ui_offset_distance);
+
+var godot_mpv = load("res://godot_mpv.gd");
+@onready var mpv = godot_mpv.new();
 func _ready():
 	xr_interface = XRServer.find_interface("OpenXR")
 	if xr_interface and xr_interface.is_initialized():
@@ -14,9 +17,10 @@ func _ready():
 	get_viewport().use_xr = true;
 	var XRControllerRight : XRController3D = $XROrigin3D/XRController3D_right;
 	var XRControllerLeft : XRController3D = $XROrigin3D/XRController3D_left;
-	XRControllerLeft.connect("button_pressed", Callable(self, "_on_button_pressed"))
+	XRControllerLeft.connect("button_pressed", Callable(self, "_on_button_pressed"));
 	StateMachine.connect("UIPlayerRequest", Callable(self, "_on_player_request"));
 	StateMachine.connect("ToggleUiNavBar", Callable(self, "on_toggle_ui_navbar"));
+	StateMachine.connect("ToggleUIFloatingButtons", Callable(self, "_on_toggle_ui_floating_buttons"));
 	var data := UIStateData.new();
 	data.state = UIStateData.UIState.CONTENT;
 	print(StateMachine.current_state.state)
@@ -25,18 +29,29 @@ func _ready():
 	XRCamera = $XROrigin3D/XRCamera3D;
 
 func _on_player_request(data):
-	var godot_mpv = load("res://godot_mpv.gd");
-	var mpv = godot_mpv.new();
-	mpv.trailer_request = data.trailer_request;
-	mpv.content_item = data.item;
-	add_child(mpv);
-	
+	match data.play_state:
+		UIPlayerState.PlayState.PLAY:
+			mpv.trailer_request = data.trailer_request;
+			mpv.content_item = data.item;
+			add_child(mpv);
+		UIPlayerState.PlayState.PAUSE:
+			mpv.pause();
+		UIPlayerState.PlayState.RESUME:
+			mpv.resume();
+		UIPlayerState.PlayState.STOP:
+			mpv.stop();
+
+
 func _on_button_pressed(name):
 	match name:
 		"menu_button":
 			open_close_menu()
 		"by_button":
 			open_close_keyboard()
+
+func _on_toggle_ui_floating_buttons(value: bool):
+	var ui_floating_buttons = $PlayerUI_Floating_Buttons;
+	ui_floating_buttons.visible = value;
 
 func open_close_keyboard():
 	if Keyboard.visible == false and UI.visible == true:

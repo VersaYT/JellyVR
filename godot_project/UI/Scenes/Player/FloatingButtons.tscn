@@ -1,0 +1,143 @@
+[gd_scene load_steps=14 format=3 uid="uid://c3e7se20aet5k"]
+
+[ext_resource type="Script" uid="uid://hgg2l6atvoh7" path="res://UI/scripts/Player/floating_buttons.gd" id="1_beon8"]
+[ext_resource type="Texture2D" uid="uid://u4giuth5ffxg" path="res://UI/assets/img/Player/Stop.png" id="1_mf5ll"]
+[ext_resource type="Texture2D" uid="uid://dnf7lkoljj5v6" path="res://UI/assets/img/Player/restart.png" id="1_rwnel"]
+[ext_resource type="Texture2D" uid="uid://dde6eg8pcus1c" path="res://UI/assets/img/Player/Volume.png" id="3_57yae"]
+[ext_resource type="Texture2D" uid="uid://da2kxyabuly5n" path="res://UI/assets/img/Player/Sound_Track.png" id="4_dgpp1"]
+[ext_resource type="Texture2D" uid="uid://b2y1c3myarh82" path="res://UI/assets/img/Player/Subtitle_Track.png" id="5_dgpp1"]
+[ext_resource type="Texture2D" uid="uid://ynsvduwup8k8" path="res://UI/assets/img/Player/Settings.png" id="6_41b5j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k18ef"]
+bg_color = Color(0.3137255, 0.31764707, 0.32156864, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf5ll"]
+bg_color = Color(0.14901961, 0.15686275, 0.16078432, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.10980392)
+shadow_size = 4
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57yae"]
+bg_color = Color(0.19215687, 0.29803923, 0.34901962, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.10980392)
+shadow_size = 4
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwnel"]
+bg_color = Color(0.14901961, 0.15686275, 0.16078432, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.10980392)
+shadow_size = 4
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjc61"]
+bg_color = Color(0.14901961, 0.15686275, 0.16078432, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.10980392)
+shadow_size = 1
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="Theme" id="Theme_mf5ll"]
+Button/styles/focus = SubResource("StyleBoxFlat_mf5ll")
+Button/styles/hover = SubResource("StyleBoxFlat_57yae")
+Button/styles/normal = SubResource("StyleBoxFlat_rwnel")
+Button/styles/pressed = SubResource("StyleBoxFlat_cjc61")
+
+[node name="FloatingButtons" type="Control"]
+custom_minimum_size = Vector2(730, 131)
+layout_direction = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 730.0
+offset_bottom = 131.0
+script = ExtResource("1_beon8")
+
+[node name="bg" type="Panel" parent="."]
+custom_minimum_size = Vector2(730, 131)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_k18ef")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(698, 0)
+layout_mode = 0
+offset_left = 16.0
+offset_right = 714.0
+offset_bottom = 131.0
+theme = SubResource("Theme_mf5ll")
+theme_override_constants/separation = 16
+
+[node name="stop_button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(103, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("1_mf5ll")
+icon_alignment = 1
+
+[node name="restart_button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(103, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("1_rwnel")
+icon_alignment = 1
+
+[node name="volume_button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(103, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("3_57yae")
+icon_alignment = 1
+
+[node name="audio_track_button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(103, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("4_dgpp1")
+icon_alignment = 1
+
+[node name="subtitle_track_button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(103, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("5_dgpp1")
+icon_alignment = 1
+
+[node name="settings_button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(103, 99)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("6_41b5j")
+icon_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/stop_button" to="." method="_on_stop_button_pressed"]
