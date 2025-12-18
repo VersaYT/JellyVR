@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bs1ri8muysuqt"]
+
+[ext_resource type="FontFile" uid="uid://d0lqflf016dlf" path="res://UI/assets/fonts/Quicksand/static/Quicksand-SemiBold.ttf" id="2_gryjs"]
+[ext_resource type="PackedScene" uid="uid://dfapluhvhfli4" path="res://UI/Scenes/Player/FloatingControlsPages/Settings.tscn" id="2_k17fv"]
+
+[sub_resource type="Theme" id="Theme_8br8i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxdvi"]
+bg_color = Color(0.3137255, 0.31764707, 0.32156864, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="FloatingControls" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_8br8i")
+
+[node name="bg" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 412.0
+offset_bottom = 652.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vxdvi")
+
+[node name="title" type="Label" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 140.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+theme_override_fonts/font = ExtResource("2_gryjs")
+theme_override_font_sizes/font_size = 32
+
+[node name="Settings" parent="." instance=ExtResource("2_k17fv")]
+layout_mode = 0

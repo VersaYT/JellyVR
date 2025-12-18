@@ -80,6 +80,9 @@ func _on_trailer_button_pressed():
 	StateMachine.change_player_ui_state(data);
 
 func _on_item_received(item):
+	var duration_in_ticks = item["MediaSources"][0]["RunTimeTicks"];
+	var duration_in_seconds = duration_in_ticks / 10_000_000.0;
+	StateMachine.duration_update(duration_in_seconds);
 	var data = UIPlayerState.new();
 	data.play_state = UIPlayerState.PlayState.PLAY;
 	data.item = item;

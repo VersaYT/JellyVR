@@ -1,0 +1,337 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfapluhvhfli4"]
+
+[ext_resource type="FontFile" uid="uid://da0sanx10glca" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Medium.ttf" id="2_06glu"]
+[ext_resource type="FontFile" uid="uid://d0lqflf016dlf" path="res://UI/assets/fonts/Quicksand/static/Quicksand-SemiBold.ttf" id="2_ufvhl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufvhl"]
+bg_color = Color(0.17254902, 0.20392157, 0.21568628, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nh8be"]
+bg_color = Color(0.29803923, 0.3254902, 0.34117648, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06glu"]
+bg_color = Color(0.14509805, 0.32156864, 0.77254903, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_06glu"]
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("2_06glu")
+Button/styles/focus = SubResource("StyleBoxFlat_ufvhl")
+Button/styles/hover = SubResource("StyleBoxFlat_nh8be")
+Button/styles/normal = SubResource("StyleBoxFlat_ufvhl")
+Button/styles/pressed = SubResource("StyleBoxFlat_06glu")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2g7nc"]
+bg_color = Color(0.14901961, 0.15686275, 0.16078432, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 412.0
+offset_bottom = 696.0
+
+[node name="aspect_ratio" type="Control" parent="."]
+custom_minimum_size = Vector2(380, 93)
+layout_mode = 1
+anchor_left = 0.036000002
+anchor_top = 0.10300001
+anchor_right = 0.036000002
+anchor_bottom = 0.10300001
+offset_left = 0.16799927
+offset_top = 0.31199646
+offset_right = 380.168
+offset_bottom = 93.312
+theme = SubResource("Theme_06glu")
+
+[node name="bg" type="Panel" parent="aspect_ratio"]
+custom_minimum_size = Vector2(380, 93)
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 93.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2g7nc")
+
+[node name="AspectRatio" type="Label" parent="aspect_ratio"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 7.0
+offset_right = 158.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+theme_override_fonts/font = ExtResource("2_ufvhl")
+theme_override_font_sizes/font_size = 24
+text = "Aspect Ratio"
+
+[node name="default" type="Button" parent="aspect_ratio"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 48.0
+offset_right = 113.0
+offset_bottom = 86.0
+toggle_mode = true
+text = "Default"
+
+[node name="normal" type="Button" parent="aspect_ratio"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 48.0
+offset_right = 223.0
+offset_bottom = 86.0
+toggle_mode = true
+button_pressed = true
+text = "Normal"
+
+[node name="16_9" type="Button" parent="aspect_ratio"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 48.0
+offset_right = 289.0
+offset_bottom = 86.0
+toggle_mode = true
+text = "16:9"
+
+[node name="4_3" type="Button" parent="aspect_ratio"]
+layout_mode = 0
+offset_left = 298.0
+offset_top = 48.0
+offset_right = 345.0
+offset_bottom = 86.0
+toggle_mode = true
+text = "4:3"
+
+[node name="playback_speed" type="Control" parent="."]
+custom_minimum_size = Vector2(380, 93)
+layout_mode = 1
+anchor_left = 0.036000002
+anchor_top = 0.10300001
+anchor_right = 0.036000002
+anchor_bottom = 0.10300001
+offset_left = 1.1679993
+offset_top = 109.312
+offset_right = 381.168
+offset_bottom = 202.312
+theme = SubResource("Theme_06glu")
+
+[node name="bg" type="Panel" parent="playback_speed"]
+custom_minimum_size = Vector2(380, 93)
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 93.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2g7nc")
+
+[node name="PlaybackSpeed" type="Label" parent="playback_speed"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 7.0
+offset_right = 158.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+theme_override_fonts/font = ExtResource("2_ufvhl")
+theme_override_font_sizes/font_size = 24
+text = "Playback Speed"
+
+[node name="1x" type="Button" parent="playback_speed"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 48.0
+offset_right = 50.0
+offset_bottom = 86.0
+toggle_mode = true
+button_pressed = true
+text = "1x"
+
+[node name="2x" type="Button" parent="playback_speed"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 48.0
+offset_right = 100.0
+offset_bottom = 86.0
+toggle_mode = true
+text = "2x"
+
+[node name="3x" type="Button" parent="playback_speed"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 48.0
+offset_right = 150.0
+offset_bottom = 86.0
+toggle_mode = true
+text = "3x"
+
+[node name="quality" type="Control" parent="."]
+custom_minimum_size = Vector2(380, 93)
+layout_mode = 1
+anchor_left = 0.036000002
+anchor_top = 0.10300001
+anchor_right = 0.036000002
+anchor_bottom = 0.10300001
+offset_left = 1.1679993
+offset_top = 217.312
+offset_right = 381.168
+offset_bottom = 406.312
+theme = SubResource("Theme_06glu")
+
+[node name="bg" type="Panel" parent="quality"]
+custom_minimum_size = Vector2(380, 93)
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 189.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2g7nc")
+
+[node name="Quality" type="Label" parent="quality"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 7.0
+offset_right = 158.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+theme_override_fonts/font = ExtResource("2_ufvhl")
+theme_override_font_sizes/font_size = 24
+text = "Quality"
+
+[node name="Direct" type="Button" parent="quality"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 50.0
+offset_right = 95.0
+offset_bottom = 88.0
+toggle_mode = true
+button_pressed = true
+text = "Direct"
+
+[node name="8" type="Button" parent="quality"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 50.0
+offset_right = 201.0
+offset_bottom = 87.0
+toggle_mode = true
+text = "8 Mpbs"
+
+[node name="6" type="Button" parent="quality"]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 50.0
+offset_right = 307.0
+offset_bottom = 87.0
+toggle_mode = true
+text = "6 Mbps"
+
+[node name="4" type="Button" parent="quality"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 97.0
+offset_right = 109.0
+offset_bottom = 134.0
+toggle_mode = true
+text = "4 Mbps"
+
+[node name="3" type="Button" parent="quality"]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 97.0
+offset_right = 214.0
+offset_bottom = 134.0
+toggle_mode = true
+text = "3 Mbps"
+
+[node name="1_5" type="Button" parent="quality"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 96.0
+offset_right = 334.0
+offset_bottom = 134.0
+toggle_mode = true
+text = "1.5 Mbps"
+
+[node name="720" type="Button" parent="quality"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 144.0
+offset_right = 129.0
+offset_bottom = 181.0
+toggle_mode = true
+text = "720 kbps"
+
+[node name="420" type="Button" parent="quality"]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 144.0
+offset_right = 255.0
+offset_bottom = 181.0
+toggle_mode = true
+text = "420 kbps"
+
+[node name="repeat_mode" type="Control" parent="."]
+custom_minimum_size = Vector2(380, 93)
+layout_mode = 1
+anchor_left = 0.036000002
+anchor_top = 0.10300001
+anchor_right = 0.036000002
+anchor_bottom = 0.10300001
+offset_left = 1.1679993
+offset_top = 421.312
+offset_right = 381.168
+offset_bottom = 561.312
+theme = SubResource("Theme_06glu")
+
+[node name="bg" type="Panel" parent="repeat_mode"]
+custom_minimum_size = Vector2(380, 93)
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 143.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2g7nc")
+
+[node name="RepeatMode" type="Label" parent="repeat_mode"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 7.0
+offset_right = 158.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+theme_override_fonts/font = ExtResource("2_ufvhl")
+theme_override_font_sizes/font_size = 24
+text = "Repeat Mode"
+
+[node name="none" type="Button" parent="repeat_mode"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 48.0
+offset_right = 88.0
+offset_bottom = 87.0
+toggle_mode = true
+button_pressed = true
+text = "None
+"
+
+[node name="repeat_all" type="Button" parent="repeat_mode"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 48.0
+offset_right = 228.0
+offset_bottom = 87.0
+toggle_mode = true
+text = "Repeat all"
+
+[node name="repeat_once" type="Button" parent="repeat_mode"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 95.0
+offset_right = 172.0
+offset_bottom = 134.0
+toggle_mode = true
+text = "Repeat once"

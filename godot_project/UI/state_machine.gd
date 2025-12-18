@@ -11,6 +11,13 @@ signal ToggleUiNavBar(value: bool)
 signal UIChangeSettNavBar(data: NavBarUIStateData)
 signal UIPlayerRequest(data: UIPlayerState)
 signal ToggleUIFloatingButtons(value: bool)
+signal TogglePlayerUI(value: bool);
+signal PlayerVolumeChange(value: float)
+signal PlayerContentTimelineUpdate(value: float);
+signal PlayerContentDurationUpdate(value: int);
+signal PlayerSeekPos(pos: float);
+
+@export var ContentSliderUserGrab : bool = false;
 
 var ui_state = UIStateData.new();
 var nav_ui_state = NavBarUIStateData.new();
@@ -63,6 +70,22 @@ func change_settings_nav_bar_state(data: NavBarUIStateData) -> void:
 			emit_signal("UIChangeSettNavBar", data);
 			emit_signal("ActiveSettNavBarBtn", "Client");
 			
+func toggle_player_ui(value: bool) -> void:
+	emit_signal("TogglePlayerUI", value);
+
 func change_player_ui_state(data: UIPlayerState) ->void:
 			current_ui_player_state = data;
 			emit_signal("UIPlayerRequest", data);
+
+func set_player_volume(value: float) -> void:
+	emit_signal("PlayerVolumeChange", value);
+
+func set_time_pos(pos: float) -> void:
+	emit_signal("PlayerSeekPos", pos);
+
+func update_timeline(value: float) -> void:
+	if ContentSliderUserGrab == false:
+		emit_signal("PlayerContentTimelineUpdate", value);
+	
+func duration_update(value: int) -> void:
+	emit_signal("PlayerContentDurationUpdate", value);

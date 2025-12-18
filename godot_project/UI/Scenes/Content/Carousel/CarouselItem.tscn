@@ -96,7 +96,6 @@ theme = SubResource("Theme_hjhhe")
 
 [node name="content_infos" type="Control" parent="."]
 z_index = 10
-layout_mode = 3
 anchors_preset = 0
 offset_left = 6.5
 offset_top = 121.5
@@ -108,7 +107,7 @@ size_flags_horizontal = 0
 mouse_filter = 2
 
 [node name="title" type="Label" parent="content_infos"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 1.5
 offset_top = -25.5
 offset_right = 251.5
@@ -116,7 +115,7 @@ offset_bottom = 4.5
 theme = SubResource("Theme_o4mvm")
 
 [node name="categories" type="Label" parent="content_infos"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 1.5
 offset_top = 6.5
 offset_right = 251.5
@@ -124,7 +123,7 @@ offset_bottom = 29.5
 theme = SubResource("Theme_5snfd")
 
 [node name="description" type="RichTextLabel" parent="content_infos"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 2.0
 offset_top = 31.0
 offset_right = 252.0
@@ -139,7 +138,7 @@ visible_characters = 130
 [node name="rating" type="HBoxContainer" parent="content_infos"]
 z_index = 20
 custom_minimum_size = Vector2(80, 9)
-layout_mode = 2
+layout_mode = 0
 offset_left = 2.0
 offset_top = 90.0
 offset_right = 252.0

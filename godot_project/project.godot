@@ -34,10 +34,17 @@ enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/
 
 pointing/emulate_touch_from_mouse=true
 
+[layer_names]
+
+3d_physics/layer_1="Environment"
+3d_physics/layer_2="UI"
+3d_physics/layer_3="PlayerUI"
+
 [rendering]
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/msaa_2d=2
 anti_aliasing/quality/msaa_3d=2
 
 [xr]

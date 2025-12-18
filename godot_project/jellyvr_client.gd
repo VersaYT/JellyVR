@@ -4,6 +4,11 @@ var xr_interface = XRInterface;
 @onready var UI : Node3D = $UI;
 @onready var Keyboard : Node3D = $UI/Keyboard;
 @onready var navbar: Node3D = $UI/Right_Pane;
+@onready var floating_controls := $PlayerUI_Floating_Controls;
+@onready var floating_buttons := $PlayerUI_Floating_Buttons;
+@onready var floating_volume_slider = $PlayerUI_Floating_Volume_Slider;
+var XRControllerLeft : XRController3D;
+var XRControllerRight : XRController3D;
 var XRCamera: XRCamera3D;
 var ui_offset_distance = 0.7;
 var ui_offset := Vector3(0,0,-ui_offset_distance);
@@ -15,11 +20,13 @@ func _ready():
 	if xr_interface and xr_interface.is_initialized():
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	get_viewport().use_xr = true;
-	var XRControllerRight : XRController3D = $XROrigin3D/XRController3D_right;
-	var XRControllerLeft : XRController3D = $XROrigin3D/XRController3D_left;
+	XRControllerRight = $XROrigin3D/XRController3D_right;
+	XRControllerLeft = $XROrigin3D/XRController3D_left;
 	XRControllerLeft.connect("button_pressed", Callable(self, "_on_button_pressed"));
+	XRControllerRight.connect("button_pressed", Callable(self, "_on_button_pressed"));
 	StateMachine.connect("UIPlayerRequest", Callable(self, "_on_player_request"));
 	StateMachine.connect("ToggleUiNavBar", Callable(self, "on_toggle_ui_navbar"));
+	StateMachine.connect("TogglePlayerUI", Callable(self, "_on_toggle_player_ui"));
 	StateMachine.connect("ToggleUIFloatingButtons", Callable(self, "_on_toggle_ui_floating_buttons"));
 	var data := UIStateData.new();
 	data.state = UIStateData.UIState.CONTENT;
@@ -27,6 +34,14 @@ func _ready():
 	if StateMachine.current_state.state == data.state:
 		on_toggle_ui_navbar(true);
 	XRCamera = $XROrigin3D/XRCamera3D;
+
+func _on_toggle_player_ui(value: bool) -> void:
+	if value == false:
+		floating_buttons.visible = value;
+		floating_controls.visible = value;
+		floating_volume_slider.visible = value;
+	else:
+		floating_buttons.visible = value;
 
 func _on_player_request(data):
 	match data.play_state:
@@ -36,14 +51,25 @@ func _on_player_request(data):
 			add_child(mpv);
 		UIPlayerState.PlayState.PAUSE:
 			mpv.pause();
+		UIPlayerState.PlayState.RESTART:
+			mpv.restart();
+		UIPlayerState.PlayState.SET_VOLUME:
+			floating_volume_slider.visible = !floating_volume_slider.visible;
 		UIPlayerState.PlayState.RESUME:
 			mpv.resume();
+			floating_volume_slider.visible = false;
 		UIPlayerState.PlayState.STOP:
 			mpv.stop();
+			floating_volume_slider.visible = false;
 
 
 func _on_button_pressed(name):
 	match name:
+		"trigger_click":
+			var controller_ray := $XROrigin3D/XRController3D_right/FunctionPointer/RayCast;
+			var collider = controller_ray.get_collider();
+			if collider == null:
+				StateMachine.toggle_player_ui(false);
 		"menu_button":
 			open_close_menu()
 		"by_button":

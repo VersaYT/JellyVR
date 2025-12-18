@@ -51,7 +51,7 @@ shadow_size = 4
 shadow_offset = Vector2(0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjc61"]
-bg_color = Color(0.14901961, 0.15686275, 0.16078432, 1)
+bg_color = Color(0.14509805, 0.32156864, 0.77254903, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -113,6 +113,7 @@ custom_minimum_size = Vector2(103, 99)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+toggle_mode = true
 icon = ExtResource("3_57yae")
 icon_alignment = 1
 
@@ -121,6 +122,7 @@ custom_minimum_size = Vector2(103, 99)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+toggle_mode = true
 icon = ExtResource("4_dgpp1")
 icon_alignment = 1
 
@@ -129,6 +131,7 @@ custom_minimum_size = Vector2(103, 99)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+toggle_mode = true
 icon = ExtResource("5_dgpp1")
 icon_alignment = 1
 
@@ -137,7 +140,10 @@ custom_minimum_size = Vector2(103, 99)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+toggle_mode = true
 icon = ExtResource("6_41b5j")
 icon_alignment = 1
 
 [connection signal="pressed" from="HBoxContainer/stop_button" to="." method="_on_stop_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/volume_button" to="." method="_on_volume_button_pressed"]

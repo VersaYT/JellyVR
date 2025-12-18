@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo3uexxy7i052"
-path="res://.godot/imported/Screen UI.png-a5312e3319ce6a9b6e437b5b9fb8cd29.ctex"
+uid="uid://tyt7bgqjhw5p"
+path="res://.godot/imported/VolumeSliderGrabber.svg-fe824e1ef4a7aea5fde407c697968723.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Scenes/Player/Screen UI.png"
-dest_files=["res://.godot/imported/Screen UI.png-a5312e3319ce6a9b6e437b5b9fb8cd29.ctex"]
+source_file="res://UI/assets/img/Player/VolumeSliderGrabber.svg"
+dest_files=["res://.godot/imported/VolumeSliderGrabber.svg-fe824e1ef4a7aea5fde407c697968723.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

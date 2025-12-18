@@ -55,7 +55,7 @@ Ref<Json> JellyAPI::fetch_recently_added_items_from_collection(Node *node, Strin
 Ref<Json> JellyAPI::fetch_item(Node *node, String item_id, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config) {
         String http_url = "http://" + network_config->get_server_url();
         String user_id = app_config->get_user_id();
-        String endpoint = "/Users/" + user_id + "/Items/" + item_id;
+        String endpoint = "/Users/" + user_id + "/Items/" + item_id + "?fields=MediaSources";
         String full_url = http_url + endpoint;
 
         Ref<Json> json = memnew(Json(node, network_config));

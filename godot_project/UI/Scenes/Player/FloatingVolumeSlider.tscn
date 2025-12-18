@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7gk0wvegdv2c"]
+
+[ext_resource type="Texture2D" uid="uid://dcnfb1isgurhm" path="res://UI/Scenes/Player/volume slider.png" id="1_kfji5"]
+[ext_resource type="Script" uid="uid://foppqmvbgaky" path="res://UI/scripts/Player/floating_volume_slider.gd" id="1_s1vm4"]
+[ext_resource type="Texture2D" uid="uid://tyt7bgqjhw5p" path="res://UI/assets/img/Player/VolumeSliderGrabber.svg" id="2_02exb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlpiq"]
+bg_color = Color(0.3137255, 0.31764707, 0.32156864, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02exb"]
+bg_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckrkl"]
+bg_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1vm4"]
+bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
+border_blend = true
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="Theme" id="Theme_02exb"]
+HSlider/icons/grabber = ExtResource("2_02exb")
+HSlider/icons/grabber_highlight = ExtResource("2_02exb")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_02exb")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_ckrkl")
+HSlider/styles/slider = SubResource("StyleBoxFlat_s1vm4")
+
+[node name="FloatingVolumeSlider" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 730.0
+offset_bottom = 48.0
+script = ExtResource("1_s1vm4")
+
+[node name="bg" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qlpiq")
+
+[node name="volume_slider" type="HSlider" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 22.0
+offset_top = -8.0
+offset_right = -25.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_02exb")
+step = 5.0
+value = 70.0
+
+[node name="VolumeSlider" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(365, 21)
+texture = ExtResource("1_kfji5")

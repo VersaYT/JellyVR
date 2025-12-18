@@ -9,6 +9,7 @@ enum PlayState {
 	PLAY,
 	PAUSE,
 	STOP,
+	SET_VOLUME,
 	RESUME,
 	RESTART
 }
