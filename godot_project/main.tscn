@@ -118,6 +118,7 @@ scene_properties_keys = PackedStringArray("floating_buttons.gd")
 
 [node name="PlayerUI_Floating_Controls" parent="." groups=["player_body"] instance=ExtResource("6_7mycd")]
 transform = Transform3D(0.004170248, 0, -0.0027584478, 0, 0.005, 0, 0.0027584478, 0, 0.004170248, 3, 1.5646269, -5.105279)
+visible = false
 screen_size = Vector2(412, 696)
 collision_layer = 5242884
 scene = ExtResource("10_efxa6")

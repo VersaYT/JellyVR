@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7gk0wvegdv2c"]
+[gd_scene load_steps=8 format=3 uid="uid://c7gk0wvegdv2c"]
 
-[ext_resource type="Texture2D" uid="uid://dcnfb1isgurhm" path="res://UI/Scenes/Player/volume slider.png" id="1_kfji5"]
 [ext_resource type="Script" uid="uid://foppqmvbgaky" path="res://UI/scripts/Player/floating_volume_slider.gd" id="1_s1vm4"]
 [ext_resource type="Texture2D" uid="uid://tyt7bgqjhw5p" path="res://UI/assets/img/Player/VolumeSliderGrabber.svg" id="2_02exb"]
 
@@ -74,9 +73,3 @@ grow_vertical = 2
 theme = SubResource("Theme_02exb")
 step = 5.0
 value = 70.0
-
-[node name="VolumeSlider" type="Sprite2D" parent="."]
-visible = false
-z_index = -1
-position = Vector2(365, 21)
-texture = ExtResource("1_kfji5")

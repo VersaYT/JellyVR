@@ -3,6 +3,7 @@ extends Node
 @export var current_state: UIStateData
 var current_settings_nav_state: NavBarUIStateData
 var current_ui_player_state: UIPlayerState
+var current_floating_controls_state: UIFloatingControlsState
 
 signal UIChange(data: UIStateData)
 signal ActiveBtn(value: String)
@@ -11,13 +12,19 @@ signal ToggleUiNavBar(value: bool)
 signal UIChangeSettNavBar(data: NavBarUIStateData)
 signal UIPlayerRequest(data: UIPlayerState)
 signal ToggleUIFloatingButtons(value: bool)
+signal SetFloatingControlsActiveContent(data: UIFloatingControlsState);
+signal ToggleFloatingControls(value: bool);
 signal TogglePlayerUI(value: bool);
 signal PlayerVolumeChange(value: float)
 signal PlayerContentTimelineUpdate(value: float);
 signal PlayerContentDurationUpdate(value: int);
 signal PlayerSeekPos(pos: float);
+signal PlayerSetAspectRatio(value: String);
+signal PlaybackSpeed(speed: String);
+signal SetRepeatFile(value: String);
 
 @export var ContentSliderUserGrab : bool = false;
+@export var ContentAspectRatio : float;
 
 var ui_state = UIStateData.new();
 var nav_ui_state = NavBarUIStateData.new();
@@ -89,3 +96,21 @@ func update_timeline(value: float) -> void:
 	
 func duration_update(value: int) -> void:
 	emit_signal("PlayerContentDurationUpdate", value);
+
+func set_player_aspect_ratio(value: String) -> void:
+	emit_signal("PlayerSetAspectRatio", value);
+
+func set_playback_speed(speed: String) -> void:
+	emit_signal("PlaybackSpeed", speed);
+
+func toggle_floating_controls(value: bool) -> void:
+	emit_signal("ToggleFloatingControls", value);
+
+func set_floating_controls_active_content(data: UIFloatingControlsState) -> void:
+	emit_signal("SetFloatingControlsActiveContent", data);
+	
+func set_repeat_file(value: String) -> void:
+	emit_signal("SetRepeatFile", value);
+
+func get_content_aspect_ratio() -> float:
+	return ContentAspectRatio;

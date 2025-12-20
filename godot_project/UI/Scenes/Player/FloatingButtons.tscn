@@ -147,3 +147,6 @@ icon_alignment = 1
 [connection signal="pressed" from="HBoxContainer/stop_button" to="." method="_on_stop_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/volume_button" to="." method="_on_volume_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/audio_track_button" to="." method="_on_audio_track_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/subtitle_track_button" to="." method="_on_subtitle_track_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/settings_button" to="." method="_on_settings_button_pressed"]

@@ -13,6 +13,17 @@
         "Home": {
             "CarouselContentSelector": 0,
             "ActiveCarouselCollectionFolderId": ""
+        },
+        "Playback": {
+            "Audio": {
+                "MaximumAllowedAudioChannels": "",
+                "PreferredAudioLanguage": "",
+                "PlayDefaultAudioTrack": true
+            },
+            "Video": {
+                "HomeNetworkQuality": "",
+                "InternetQuality": ""
+            }
         }
     },
     "YtDlp": {

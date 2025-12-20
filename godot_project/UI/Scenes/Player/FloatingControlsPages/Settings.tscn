@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfapluhvhfli4"]
+[gd_scene load_steps=9 format=3 uid="uid://dfapluhvhfli4"]
 
+[ext_resource type="Script" uid="uid://cr4rcdqodvgm0" path="res://UI/scripts/Player/FloatingControls/settings.gd" id="1_06glu"]
 [ext_resource type="FontFile" uid="uid://da0sanx10glca" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Medium.ttf" id="2_06glu"]
 [ext_resource type="FontFile" uid="uid://d0lqflf016dlf" path="res://UI/assets/fonts/Quicksand/static/Quicksand-SemiBold.ttf" id="2_ufvhl"]
 
@@ -44,6 +45,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 412.0
 offset_bottom = 696.0
+script = ExtResource("1_06glu")
 
 [node name="aspect_ratio" type="Control" parent="."]
 custom_minimum_size = Vector2(380, 93)
@@ -83,6 +85,7 @@ offset_top = 48.0
 offset_right = 113.0
 offset_bottom = 86.0
 toggle_mode = true
+button_pressed = true
 text = "Default"
 
 [node name="normal" type="Button" parent="aspect_ratio"]
@@ -92,7 +95,6 @@ offset_top = 48.0
 offset_right = 223.0
 offset_bottom = 86.0
 toggle_mode = true
-button_pressed = true
 text = "Normal"
 
 [node name="16_9" type="Button" parent="aspect_ratio"]
@@ -335,3 +337,14 @@ offset_right = 172.0
 offset_bottom = 134.0
 toggle_mode = true
 text = "Repeat once"
+
+[connection signal="pressed" from="aspect_ratio/default" to="." method="_on_default_pressed"]
+[connection signal="pressed" from="aspect_ratio/normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="aspect_ratio/16_9" to="." method="_on_16_9_pressed"]
+[connection signal="pressed" from="aspect_ratio/4_3" to="." method="_on_4_3_pressed"]
+[connection signal="pressed" from="playback_speed/1x" to="." method="_on_1x_pressed"]
+[connection signal="pressed" from="playback_speed/2x" to="." method="_on_2x_pressed"]
+[connection signal="pressed" from="playback_speed/3x" to="." method="_on_3x_pressed"]
+[connection signal="pressed" from="repeat_mode/none" to="." method="_on_none_pressed"]
+[connection signal="pressed" from="repeat_mode/repeat_all" to="." method="_on_repeat_all_pressed"]
+[connection signal="pressed" from="repeat_mode/repeat_once" to="." method="_on_repeat_once_pressed"]

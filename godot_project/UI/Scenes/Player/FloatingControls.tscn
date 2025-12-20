@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bs1ri8muysuqt"]
 
+[ext_resource type="Script" uid="uid://crwwi1wcvn7lu" path="res://UI/scripts/Player/floating_controls.gd" id="1_k17fv"]
 [ext_resource type="FontFile" uid="uid://d0lqflf016dlf" path="res://UI/assets/fonts/Quicksand/static/Quicksand-SemiBold.ttf" id="2_gryjs"]
-[ext_resource type="PackedScene" uid="uid://dfapluhvhfli4" path="res://UI/Scenes/Player/FloatingControlsPages/Settings.tscn" id="2_k17fv"]
 
 [sub_resource type="Theme" id="Theme_8br8i"]
 
@@ -16,6 +16,7 @@ corner_radius_bottom_left = 16
 layout_mode = 3
 anchors_preset = 0
 theme = SubResource("Theme_8br8i")
+script = ExtResource("1_k17fv")
 
 [node name="bg" type="Panel" parent="."]
 layout_mode = 0
@@ -34,5 +35,7 @@ theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
 theme_override_fonts/font = ExtResource("2_gryjs")
 theme_override_font_sizes/font_size = 32
 
-[node name="Settings" parent="." instance=ExtResource("2_k17fv")]
-layout_mode = 0
+[node name="content_container" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 412.0
+offset_bottom = 731.0

@@ -14,6 +14,9 @@ var debug_level = 2;
 func _ready():
 	StateMachine.connect("PlayerVolumeChange", Callable(self, "set_player_volume"));
 	StateMachine.connect("PlayerSeekPos", Callable(self, "seek_content_pos"));
+	StateMachine.connect("PlayerSetAspectRatio", Callable(self, "set_aspect_ratio"));
+	StateMachine.connect("PlaybackSpeed", Callable(self, "set_playback_speed"));
+	StateMachine.connect("SetRepeatFile", Callable(self, "set_repeat_file"));
 	print("Initializing MPV video player...")
 	
 	# Create the MPV player instance
@@ -72,7 +75,8 @@ func _ready():
 		mpv_player.load_file(url, headers_dict_to_lavf(headers_dict), full_yt_dlp_path);
 	else:
 		mpv_player.load_file(content_item["RemoteTrailers"][0]["Url"], "", full_yt_dlp_path);
-	mpv_player.play() 
+	mpv_player.play()
+	StateMachine.ContentAspectRatio = mpv_player.get_content_aspect_ratio();
 
 func resume() -> void:
 	mpv_player.play();
@@ -91,6 +95,15 @@ func set_player_volume(value: float) -> void:
 
 func _timeline_update(time: float) -> void:
 	StateMachine.update_timeline(time);
+
+func set_aspect_ratio(value: String) -> void:
+	mpv_player.set_aspect_ratio(value);
+
+func set_playback_speed(speed: String) -> void:
+	mpv_player.set_playback_speed(speed);
+
+func set_repeat_file(value: String) -> void:
+	mpv_player.set_repeat_file(value);
 
 func stop() -> void:
 	mpv_player.stop();

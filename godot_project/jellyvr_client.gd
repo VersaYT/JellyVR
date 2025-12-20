@@ -28,6 +28,7 @@ func _ready():
 	StateMachine.connect("ToggleUiNavBar", Callable(self, "on_toggle_ui_navbar"));
 	StateMachine.connect("TogglePlayerUI", Callable(self, "_on_toggle_player_ui"));
 	StateMachine.connect("ToggleUIFloatingButtons", Callable(self, "_on_toggle_ui_floating_buttons"));
+	StateMachine.connect("ToggleFloatingControls", Callable(self, "_on_toggle_floating_controls"));
 	var data := UIStateData.new();
 	data.state = UIStateData.UIState.CONTENT;
 	print(StateMachine.current_state.state)
@@ -96,3 +97,6 @@ func open_close_menu():
 
 func on_toggle_ui_navbar(value: bool):
 	navbar.visible = value;
+
+func _on_toggle_floating_controls(value: bool) -> void:
+	floating_controls.visible = value;
