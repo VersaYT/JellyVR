@@ -23,6 +23,8 @@ func _ready():
 	get_viewport().use_xr = true;
 	XRControllerRight = $XROrigin3D/XRController3D_right;
 	XRControllerLeft = $XROrigin3D/XRController3D_left;
+	XRControllerLeft.show_when_tracked = true;
+	XRControllerRight.show_when_tracked = true;
 	XRControllerLeft.connect("button_pressed", Callable(self, "_on_button_pressed"));
 	XRControllerRight.connect("button_pressed", Callable(self, "_on_button_pressed"));
 	StateMachine.connect("UIPlayerRequest", Callable(self, "_on_player_request"));

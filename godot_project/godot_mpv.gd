@@ -9,6 +9,7 @@ var debug_level = 2;
 @export var content_item: Dictionary;
 @export var trailer_request: bool;
 @onready var mesh_instance_3d = get_parent().get_node("Screen_Container/Screen");
+@onready var material = mesh_instance_3d.get_surface_override_material(0);
 @onready var headers_dict;
 @onready var full_yt_dlp_path;
 func _ready():
@@ -23,18 +24,21 @@ func _ready():
 	mpv_player = MPVPlayer.new()
 	debug_level = mpv_player.get_debug_level();
 	mpv_player.connect("time_changed", Callable(self, "_timeline_update"));
-	
 	add_child(mpv_player)
-	
 	# Initialize the player
 	mpv_player.initialize()
+		# Connect to the texture_updated signal to update the material when new frames are available
+	print("Connecting to texture_updated signal...")
+	mpv_player.connect("texture_updated", _on_texture_updated)
+
+
+func play() -> void:
 	
 	if mesh_instance_3d:
 		print("Found Screen mesh, preparing material...")
-		
-		# Keep your original mesh and just update its material with the video texture
-		# First, make sure it has a material
-		var material = mesh_instance_3d.get_surface_override_material(0)
+	
+	# Keep your original mesh and just update its material with the video texture
+	# First, make sure it has a material
 		if not material:
 			# Create a new material if none exists
 			print("Creating new StandardMaterial3D...")
@@ -42,26 +46,16 @@ func _ready():
 			mesh_instance_3d.set_surface_override_material(0, material)
 		else:	
 			print("Using existing material: ", material)
-		
-		# Make sure the material is visible and properly configured
-		if material is StandardMaterial3D:
-			material.roughness = 1.0
-			material.metallic = 0.0
-			material.shading_mode = StandardMaterial3D.SHADING_MODE_UNSHADED
-			material.transparency = StandardMaterial3D.TRANSPARENCY_DISABLED
-			material.cull_mode = StandardMaterial3D.CULL_DISABLED  # Show both sides
-			material.vertex_color_use_as_albedo = false
-			print("Material configured for video display")
-		
-		# Connect to the texture_updated signal to update the material when new frames are available
-		print("Connecting to texture_updated signal...")
-		mpv_player.connect("texture_updated", _on_texture_updated)
-	else:
-		print("ERROR: No MeshInstance3D named 'Screen' found in the scene")
 	
-
-
-func play() -> void:
+	# Make sure the material is visible and properly configured
+	if material is StandardMaterial3D:
+		material.roughness = 1.0
+		material.metallic = 0.0
+		material.shading_mode = StandardMaterial3D.SHADING_MODE_UNSHADED
+		material.transparency = StandardMaterial3D.TRANSPARENCY_DISABLED
+		material.cull_mode = StandardMaterial3D.CULL_DISABLED  # Show both sides
+		material.vertex_color_use_as_albedo = false
+		print("Material configured for video display")
 	var url;
 	if not trailer_request:
 		headers_dict = {

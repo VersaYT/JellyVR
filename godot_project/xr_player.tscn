@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqst0hyg1e03x"]
+[gd_scene load_steps=9 format=3 uid="uid://bqst0hyg1e03x"]
 
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="1_1a2f8"]
+[ext_resource type="Script" uid="uid://xjwul372dcom" path="res://xr_controller_3d_left.gd" id="1_nj6l2"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_bnxs6"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="2_trxbx"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="3_bnxs6"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_ubp34"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_ubp34"]
+[ext_resource type="Script" uid="uid://job2f8tq3al8" path="res://xr_controller_3d_right.gd" id="5_ixt5h"]
 
 [node name="XROrigin3D" type="XROrigin3D"]
 current = true
@@ -14,6 +16,7 @@ current = true
 
 [node name="XRController3D_left" type="XRController3D" parent="."]
 tracker = &"left_hand"
+script = ExtResource("1_nj6l2")
 
 [node name="LeftHand" parent="XRController3D_left" instance=ExtResource("1_1a2f8")]
 
@@ -27,6 +30,7 @@ enabled = false
 
 [node name="XRController3D_right" type="XRController3D" parent="."]
 tracker = &"right_hand"
+script = ExtResource("5_ixt5h")
 
 [node name="RightHand" parent="XRController3D_right" instance=ExtResource("2_trxbx")]
 
