@@ -11,6 +11,8 @@
 #include "../utils/Array.h"
 #include <fstream>
 #include <godot_cpp/variant/variant.hpp>
+#include "../utils/DebugCurl.hpp"
+#include <string.h>
 
 
 using namespace godot;
@@ -27,7 +29,7 @@ Auth::~Auth() {
 }
 
 void Auth::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("ping", "url"), &Auth::ping);
+    ClassDB::bind_method(D_METHOD("ping", "url", "config"), &Auth::ping);
     ClassDB::bind_method(D_METHOD("login", "Username", "Pw"), &Auth::login);
     ClassDB::bind_method(D_METHOD("logout"), &Auth::logout);
     ClassDB::bind_method(D_METHOD("get_public_users"), &Auth::get_public_users);
@@ -35,6 +37,8 @@ void Auth::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_is_logged_in"), &Auth::get_is_logged_in);
     ClassDB::bind_method(D_METHOD("_on_json_request_completed"), &Auth::_on_json_request_completed);
     ADD_SIGNAL(MethodInfo("error_occurred", PropertyInfo(Variant::STRING, "message")));
+    ADD_SIGNAL(MethodInfo("user_info_received"));
+    ADD_SIGNAL(MethodInfo("HTTPSRedirect"));
 }
 
 void Auth::_on_json_request_completed(Variant data, Ref<Json> json) {
@@ -55,12 +59,12 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config, Ref<NetworkC
     CURL *curl;
     CURLcode result;
     long http_code = 0;
-    std::regex protocol_regex(R"(https?://)");
+    // std::regex protocol_regex(R"(https?://)");
     std::string DeviceId = config->get_device_id().utf8().get_data();
     std::string response;
     std::string endpoint_str = "/Users/AuthenticateByName";
     std::string server_url = network_config->get_server_url().utf8().get_data();
-    std::string host_name = std::regex_replace(server_url, std::regex(R"(https?://)"), "");
+    // std::string host_name = std::regex_replace(server_url, std::regex(R"(https?://)"), "");
 
     std::string c_full_url = server_url + endpoint_str;
     String full_url = String::utf8(c_full_url.c_str());
@@ -75,7 +79,13 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config, Ref<NetworkC
         UtilityFunctions::print("HTTP request failed");
         return false;
     }
-
+    String cacert_file_path = config->SSLPath + "cacert.pem";
+    // curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+    // curl_easy_setopt(curl, CURLOPT_DEBUGFUNCTION, my_curl_debug_callback);
+    // curl_easy_setopt(curl, CURLOPT_DEBUGDATA, nullptr);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
+    curl_easy_setopt(curl, CURLOPT_CAINFO, cacert_file_path.utf8().get_data());
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_URL, c_full_url.c_str());
     curl_easy_setopt(curl, CURLOPT_POST, 1L);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_body.c_str());
@@ -185,7 +195,7 @@ Ref<Json> Auth::get_public_users(Node *node, Ref<NetworkConfig> network_config) 
     std::string server_url = network_config->get_server_url().utf8().get_data();
     UtilityFunctions::print(server_url.c_str());
     std::string endpoint_str = "/Users/Public";
-    std::string c_full_url = "http://" + server_url + endpoint_str;
+    std::string c_full_url = server_url + endpoint_str;
     String full_url = c_full_url.c_str();
 
     Ref<Json> json = memnew(Json(node, network_config));
@@ -200,7 +210,7 @@ Ref<Json> Auth::get_user_profile_pic(Node *node, String user_id, Ref<NetworkConf
     std::string server_url = network_config->get_server_url().utf8().get_data();
     UtilityFunctions::print(server_url.c_str());
     String endpoint_str = "/UserImage?userId=" + user_id + "&tag=true&format=Webp";
-    std::string c_full_url = "http://" + server_url + endpoint_str.utf8().get_data();
+    std::string c_full_url = server_url + endpoint_str.utf8().get_data();
     String full_url = c_full_url.c_str();
 
     Ref<Json> json = memnew(Json(node, network_config));
@@ -212,12 +222,14 @@ Ref<Json> Auth::get_user_profile_pic(Node *node, String user_id, Ref<NetworkConf
 }
 
 
-bool Auth::ping(String url) {
+bool Auth::ping(String url, Ref<AppConfig> config) {
     CURL *curl;
     CURLcode result;
     String endpoint_str = "/System/Info/Public";
     std::string response;
     std::regex pattern("jellyfin", std::regex_constants::icase);
+    struct curl_slist *headers = NULL;
+    headers = curl_slist_append(headers, "Accept: application/json");
 
 
     curl = curl_easy_init();
@@ -225,8 +237,15 @@ bool Auth::ping(String url) {
         UtilityFunctions::print("HTTP request failed");
         return false;
     }
-
+    String cacert_file_path = config->SSLPath + "cacert.pem";
+    // curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+    // curl_easy_setopt(curl, CURLOPT_DEBUGFUNCTION, my_curl_debug_callback);
+    // curl_easy_setopt(curl, CURLOPT_DEBUGDATA, nullptr);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
+    curl_easy_setopt(curl, CURLOPT_CAINFO, cacert_file_path.utf8().get_data());
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_URL, (url + endpoint_str).utf8().get_data());
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
@@ -241,6 +260,21 @@ bool Auth::ping(String url) {
 
     try {
         if (!response.empty()) {
+            std::regex protocol_regex(R"(https://.*)");
+            char *effective_url = NULL;
+            curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &effective_url);
+            CharString c_godot_url = url.utf8();
+            const char *c_url = c_godot_url.get_data();
+            UtilityFunctions::print("cURL effective url is: ");
+            UtilityFunctions::print(effective_url);
+            UtilityFunctions::print("input url is: ");
+            UtilityFunctions::print(c_url);
+            if(std::regex_match(effective_url, protocol_regex) && strcmp(effective_url, c_url) != 0) {
+                UtilityFunctions::print("HTTPS redirection when server was pinged");
+                emit_signal("HTTPSRedirect");
+            }
+
+            UtilityFunctions::print(response.c_str());
             json j = json::parse(response);
             if (j.contains("ProductName")) {
                 std::string productName = j["ProductName"];

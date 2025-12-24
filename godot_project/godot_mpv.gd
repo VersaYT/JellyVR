@@ -24,14 +24,6 @@ func _ready():
 	debug_level = mpv_player.get_debug_level();
 	mpv_player.connect("time_changed", Callable(self, "_timeline_update"));
 	
-	var url;
-	if not trailer_request:
-		headers_dict = {
-			"Authorization": "MediaBrowser Client=\"JellyVR\", Version=\"" + AppManager.config.get_app_version() + ", DeviceId=\"" + AppManager.config.get_device_id() + ", Device=\"JellyVR Client\", Token=\"" + AppManager.config.get_access_token() + "\""
-		}
-		print(headers_dict_to_lavf(headers_dict));
-		url = "http://" + AppManager.network.get_server_url() + "/Videos/" + content_item["Id"] + "/stream?static=true&mediaSourceId=" + content_item["MediaSources"][0]["Id"] + "&tag=" + content_item["Etag"] + "&directPlay=true";
-	
 	add_child(mpv_player)
 	
 	# Initialize the player
@@ -67,6 +59,16 @@ func _ready():
 	else:
 		print("ERROR: No MeshInstance3D named 'Screen' found in the scene")
 	
+
+
+func play() -> void:
+	var url;
+	if not trailer_request:
+		headers_dict = {
+			"Authorization": "MediaBrowser Client=\"JellyVR\", Version=\"" + AppManager.config.get_app_version() + ", DeviceId=\"" + AppManager.config.get_device_id() + ", Device=\"JellyVR Client\", Token=\"" + AppManager.config.get_access_token() + "\""
+		}
+		print(headers_dict_to_lavf(headers_dict));
+		url = AppManager.network.get_server_url() + "/Videos/" + content_item["Id"] + "/stream?static=true&mediaSourceId=" + content_item["MediaSources"][0]["Id"] + "&tag=" + content_item["Etag"] + "&directPlay=true";
 	var user_path = ProjectSettings.globalize_path("user://")
 	full_yt_dlp_path = user_path + "/Bin/yt-dlp/" + AppManager.config.yt_dlp_binary_name;
 	# Load and play the video

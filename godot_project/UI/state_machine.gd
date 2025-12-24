@@ -9,6 +9,7 @@ signal UIChange(data: UIStateData)
 signal ActiveBtn(value: String)
 signal ActiveSettNavBarBtn(value: String)
 signal ToggleUiNavBar(value: bool)
+signal ToggleUiLeftNavBar(value: bool)
 signal UIChangeSettNavBar(data: NavBarUIStateData)
 signal UIPlayerRequest(data: UIPlayerState)
 signal ToggleUIFloatingButtons(value: bool)
@@ -24,6 +25,7 @@ signal PlaybackSpeed(speed: String);
 signal SetRepeatFile(value: String);
 
 @export var ContentSliderUserGrab : bool = false;
+@export var HTTPSRedirect : bool = false;
 @export var ContentAspectRatio : float;
 
 var ui_state = UIStateData.new();
@@ -114,3 +116,15 @@ func set_repeat_file(value: String) -> void:
 
 func get_content_aspect_ratio() -> float:
 	return ContentAspectRatio;
+	
+func convert_http_to_https() -> void:
+	var url = AppManager.network.get_server_url();
+	if url.is_empty() == false:
+		var keys : PackedStringArray = ["Network", "ServerUrl"];
+		var https = url.insert(4, "s");
+		AppManager.network.set_server_url(https);
+		AppManager.config.set_config_value(keys, https);
+	
+func HandleNewUrl() -> void:
+	if HTTPSRedirect:
+		convert_http_to_https();

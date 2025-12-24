@@ -34,5 +34,6 @@ func _on_connect_with_password_pressed() -> void:
 func _on_change_server_pressed() -> void:
 	var data := UIStateData.new();
 	data.state = UIStateData.UIState.SERVER_CONNECT;
-	StateMachine.change_state(data)
+	StateMachine.change_state(data);
+	StateMachine.HTTPSRedirect = false;
 	AppManager.client.clean_server_related_config();

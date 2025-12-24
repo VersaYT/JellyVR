@@ -25,6 +25,7 @@ void Json::_bind_methods() {
     ClassDB::bind_method(D_METHOD("_on_request_completed", "result", "response_code", "headers", "body"), &Json::_on_request_completed);
     ClassDB::bind_method(D_METHOD("json_get_request", "url"), &Json::json_get_request);
     ADD_SIGNAL(MethodInfo("request_completed_signal", PropertyInfo(Variant::ARRAY, "result")));
+    ADD_SIGNAL(MethodInfo("unauthorized_request"));
     ADD_SIGNAL(MethodInfo(
     "received_image",
     PropertyInfo(Variant::OBJECT, "result", PROPERTY_HINT_RESOURCE_TYPE, "ImageTexture")
@@ -47,14 +48,15 @@ Json::Json(Node *node, Ref<NetworkConfig> config) {
 void Json::json_get_request(const String &url) {
     UtilityFunctions::print("Requesting: ", url);
     Error err = http_request->request(url, this->headers, HTTPClient::METHOD_GET);
-    UtilityFunctions::print("Request error code: ", err);
 }
 
 void Json::_on_request_completed(int result, int response_code, PackedStringArray headers, PackedByteArray body) {
 
     if (result != HTTPRequest::RESULT_SUCCESS || response_code != 200) {
         UtilityFunctions::print("Request failed: ", response_code);
-        // throw "Failed to fetch image. HTTP code: " + response_code;
+        if(response_code == 401) {
+            emit_signal("unauthorized_request");
+        }
     }
 
     Dictionary headers_dict = parse_headers_to_dict(headers);

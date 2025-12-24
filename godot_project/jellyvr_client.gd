@@ -4,6 +4,7 @@ var xr_interface = XRInterface;
 @onready var UI : Node3D = $UI;
 @onready var Keyboard : Node3D = $UI/Keyboard;
 @onready var navbar: Node3D = $UI/Right_Pane;
+@onready var left_navbar: Node3D = $UI/Left_Pane;
 @onready var floating_controls := $PlayerUI_Floating_Controls;
 @onready var floating_buttons := $PlayerUI_Floating_Buttons;
 @onready var floating_volume_slider = $PlayerUI_Floating_Volume_Slider;
@@ -27,13 +28,16 @@ func _ready():
 	StateMachine.connect("UIPlayerRequest", Callable(self, "_on_player_request"));
 	StateMachine.connect("ToggleUiNavBar", Callable(self, "on_toggle_ui_navbar"));
 	StateMachine.connect("TogglePlayerUI", Callable(self, "_on_toggle_player_ui"));
+	StateMachine.connect("ToggleUiLeftNavBar", Callable(self, "on_toggle_ui_left_navbar"));
 	StateMachine.connect("ToggleUIFloatingButtons", Callable(self, "_on_toggle_ui_floating_buttons"));
 	StateMachine.connect("ToggleFloatingControls", Callable(self, "_on_toggle_floating_controls"));
+	add_child(mpv);
 	var data := UIStateData.new();
 	data.state = UIStateData.UIState.CONTENT;
 	print(StateMachine.current_state.state)
 	if StateMachine.current_state.state == data.state:
 		on_toggle_ui_navbar(true);
+		on_toggle_ui_left_navbar(true);
 	XRCamera = $XROrigin3D/XRCamera3D;
 
 func _on_toggle_player_ui(value: bool) -> void:
@@ -49,7 +53,7 @@ func _on_player_request(data):
 		UIPlayerState.PlayState.PLAY:
 			mpv.trailer_request = data.trailer_request;
 			mpv.content_item = data.item;
-			add_child(mpv);
+			mpv.play();
 		UIPlayerState.PlayState.PAUSE:
 			mpv.pause();
 		UIPlayerState.PlayState.RESTART:
@@ -62,6 +66,7 @@ func _on_player_request(data):
 		UIPlayerState.PlayState.STOP:
 			mpv.stop();
 			floating_volume_slider.visible = false;
+			mpv.queue_free()
 
 
 func _on_button_pressed(name):
@@ -97,6 +102,9 @@ func open_close_menu():
 
 func on_toggle_ui_navbar(value: bool):
 	navbar.visible = value;
+
+func on_toggle_ui_left_navbar(value: bool):
+	left_navbar.visible = value;
 
 func _on_toggle_floating_controls(value: bool) -> void:
 	floating_controls.visible = value;

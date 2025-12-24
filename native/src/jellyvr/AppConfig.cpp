@@ -5,7 +5,6 @@
 #include <iostream>
 #include <random>
 #include "third_party/stduuid/uuid.h"
-#include <nlohmann/json.hpp>
 #include <godot_cpp/classes/project_settings.hpp>
 #include <godot_cpp/variant/string.hpp>
 #include "include/config.h"
@@ -20,7 +19,6 @@
 #include "third_party/zip/zip.h"
 #include <godot_cpp/classes/file_access.hpp>
 
-using json = nlohmann::json;
 namespace fs = std::filesystem;
 
 AppConfig::AppConfig() {
@@ -178,7 +176,7 @@ bool AppConfig::fetch_yt_dlp() {
 
             UtilityFunctions::print(data.download_link.c_str());
             // curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
-            // curl_easy_setopt(curl, CURLOPT_DEBUGFUNCTION, my_curl_debug_callback);
+            curl_easy_setopt(curl, CURLOPT_DEBUGFUNCTION, my_curl_debug_callback);
             // curl_easy_setopt(curl, CURLOPT_DEBUGDATA, nullptr);
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
             curl_easy_setopt(curl, CURLOPT_CAINFO, cacert_file_path.utf8().get_data());
@@ -248,14 +246,14 @@ bool AppConfig::initConfigFile() {
     fs::path config_file_path = this->ConfigFilePath.utf8().get_data();
     UtilityFunctions::print(this->ConfigFilePath);
     json config;
-
+    String default_config_json = FileAccess::get_file_as_string("res://config/default_config.json");
+    config = json::parse(default_config_json.utf8().get_data());
+    float config_version = config["config_version"];
     std::ifstream file(config_file_path);
 
     // generate a new id if config file doesnt exist
     if(!file) {
-        String default_config_json = FileAccess::get_file_as_string("res://config/default_config.json");
-        config = json::parse(default_config_json.utf8().get_data());
-
+        UtilityFunctions::print("no config file, generating one..");
         std::random_device rd;
         std::mt19937 gen(rd());
         uuids::basic_uuid_random_generator<std::mt19937> uuid_gen{gen};
@@ -271,19 +269,39 @@ bool AppConfig::initConfigFile() {
 
         return true;
     } else {
+        json runtime_config;
+        try {
+            runtime_config = json::parse(file);
+        } catch (const json::parse_error& e) {
+            std::cerr << "JSON parse error: " << e.what() << std::endl;
+            return false;
+        }
 
-    try {
-        file >> config;
-    } catch (const json::parse_error& e) {
-        std::cerr << "JSON parse error: " << e.what() << std::endl;
-        return false;
+        float runtime_config_version = runtime_config["config_version"];
+
+    if(config_version != runtime_config_version) {
+        UtilityFunctions::print("config file version mismatch, migrating to the newer version..");
+        migrate_config_file(runtime_config, config);
+        std::ofstream new_file(config_file_path);
+        new_file << config.dump(4);
+        new_file.close();
+
+        return true;
+    } else {
+        UtilityFunctions::print("Parsed config");
+
+        std::string c_DeviceId = runtime_config["User"]["DeviceId"];
+        DeviceId = String::utf8(c_DeviceId.c_str());
+        return true;
+        }
     }
+}
 
-    std::cout << "Parsed config:\n" << config.dump(4) << std::endl;
-
-    std::string c_DeviceId = config["User"]["DeviceId"];
-    DeviceId = String::utf8(c_DeviceId.c_str());
-    return true;
+void AppConfig::migrate_config_file(const json &old_config, json &new_config) {
+    for(auto &[key, value] : old_config.items()) {
+        if(new_config.contains(key)) {
+            new_config[key] = value;
+        }
     }
 }
 

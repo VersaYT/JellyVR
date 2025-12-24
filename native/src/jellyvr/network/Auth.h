@@ -24,7 +24,7 @@ public:
 
     void set_is_logged_in(bool value);
 
-    bool ping(String url);
+    bool ping(String url, Ref<AppConfig> config);
 
     bool login(String Username, String Pw, Ref<AppConfig> config, Ref<NetworkConfig> network_config);
     bool logout(Ref<AppConfig> config);

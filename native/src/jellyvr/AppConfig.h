@@ -7,8 +7,10 @@
 #include "config/Settings.h"
 #include "include/version.h"
 #include "structs/AppConfig.h"
+#include <nlohmann/json.hpp>
 
 using namespace godot;
+using json = nlohmann::json;
 
 class AppConfig : public RefCounted{
     GDCLASS(AppConfig, RefCounted);
@@ -50,6 +52,7 @@ public:
     void set_username(String username) {UserName = username;}
 
     void set_config_value(PackedStringArray keys, Variant value);
+    void migrate_config_file(const json &old_config, json &new_config);
 
     String ConfigPath;
     String CachePath;
