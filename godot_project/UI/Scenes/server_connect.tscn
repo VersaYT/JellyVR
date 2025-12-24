@@ -49,7 +49,7 @@ offset_bottom = 406.0
 script = ExtResource("1_c0m4i")
 
 [node name="Host name" type="Label" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 206.0
 offset_top = 238.0
 offset_right = 526.0
@@ -58,7 +58,7 @@ theme = ExtResource("1_f3535")
 text = "Host name"
 
 [node name="url_input_field" type="LineEdit" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 221.0
 offset_top = 259.0
 offset_right = 465.0
@@ -66,7 +66,7 @@ offset_bottom = 290.0
 theme = ExtResource("1_f3535")
 
 [node name="url info" type="Label" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 206.0
 offset_top = 294.0
 offset_right = 526.0
