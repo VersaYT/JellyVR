@@ -12,7 +12,7 @@
 #include <fstream>
 #include <godot_cpp/variant/variant.hpp>
 #include "../utils/DebugCurl.hpp"
-#include <string.h>
+#include <string>
 
 
 using namespace godot;
@@ -263,13 +263,13 @@ bool Auth::ping(String url, Ref<AppConfig> config) {
             std::regex protocol_regex(R"(https://.*)");
             char *effective_url = NULL;
             curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &effective_url);
-            CharString c_godot_url = url.utf8();
-            const char *c_url = c_godot_url.get_data();
-            UtilityFunctions::print("cURL effective url is: ");
-            UtilityFunctions::print(effective_url);
-            UtilityFunctions::print("input url is: ");
-            UtilityFunctions::print(c_url);
-            if(std::regex_match(effective_url, protocol_regex) && strcmp(effective_url, c_url) != 0) {
+            // UtilityFunctions::print("cURL effective url is: ");
+            // UtilityFunctions::print(effective_url);
+            // UtilityFunctions::print("input url is: ");
+            // UtilityFunctions::print(url);
+            std::string cpp_effective_url(effective_url);
+            std::string input_url = url.utf8().get_data();
+            if(std::regex_match(effective_url, protocol_regex) && input_url.compare(0,5, cpp_effective_url, 0,5) != 0) {
                 UtilityFunctions::print("HTTPS redirection when server was pinged");
                 emit_signal("HTTPSRedirect");
             }
