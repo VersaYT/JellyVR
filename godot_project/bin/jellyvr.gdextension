@@ -4,11 +4,15 @@ entry_symbol = "jellyvr_client_library_init"
 
 [libraries]
 linux = "res://bin/libjellyvr.linux.so"
+windows = "res://bin/libjellyvr.windows.dll"
 android.arm64 = "res://bin/arm64/libjellyvr.android.so"
 
 [dependencies]
 linux = [
     "res://bin/libgodot_mpv.linux.template_debug.x86_64.so"
+]
+windows = [
+    "res://bin/libgodot_mpv.windows.template_debug.x86_64.dll"
 ]
 android.arm64 = [
     "res://bin/arm64/libgodot_mpv.arm64.so"

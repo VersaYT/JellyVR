@@ -10,6 +10,7 @@
                 "${workspaceFolder}/native/src/jellyvr/include",
                 "${workspaceFolder}/native/src/jellyvr/network",
                 "${workspaceFolder}/native/src/jellyvr/config",
+                "${workspaceFolder}/dependencies/curl/**",
                 "/home/versaroumane/Android/Sdk/ndk/29.0.14206865/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
                 "${workspaceFolder}/engine/**",
                 "${workspaceFolder}/native/src/jellyvr/third_party/aarch64_android/openssl/include",

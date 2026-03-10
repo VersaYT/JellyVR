@@ -1,5 +1,5 @@
 #include "Auth.h"
-#include <curl.h>
+#include <curl/curl.h>
 #include <stdio.h>
 #include "../utils/Network.h"
 #include <godot_cpp/variant/utility_functions.hpp>
@@ -114,7 +114,6 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config, Ref<NetworkC
 
             std::ifstream file_in(config_file_path);
             if (!file_in.is_open()) {
-                std::cerr << "Failed to open config.json\n";
                 return 1;
             }
             json j;
@@ -133,7 +132,6 @@ bool Auth::login(String Username, String Pw, Ref<AppConfig> config, Ref<NetworkC
 
             std::ofstream file_out(config_file_path);
             if (!file_out.is_open()) {
-                std::cerr << "Failed to open config.json for writing\n";
                 return 1;
             }
             file_out << j.dump(4);
@@ -167,7 +165,6 @@ bool Auth::logout(Ref<AppConfig> config) {
 
     std::ifstream file_in(config_file_path);
     if (!file_in.is_open()) {
-        std::cerr << "Failed to open config.json\n";
         return false;
     }
     json j;
@@ -178,7 +175,6 @@ bool Auth::logout(Ref<AppConfig> config) {
 
     std::ofstream file_out(config_file_path);
     if (!file_out.is_open()) {
-        std::cerr << "Failed to open config.json for writing\n";
         return false;
     }
     file_out << j.dump(4);

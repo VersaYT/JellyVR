@@ -2,7 +2,7 @@ extends Control
 
 @onready var user_card_button := $user_card_button;
 
-func _on_visibility_changed():
+func _ready() -> void:
 	user_card_button.text = AppManager.config.get_username();
 	var request = Node.new();
 	add_child(request);

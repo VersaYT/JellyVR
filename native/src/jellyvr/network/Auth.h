@@ -2,7 +2,7 @@
 #define AUTH_H
 
 // #include "User.h"
-#include <curl.h>
+#include <curl/curl.h>
 #include <godot_cpp/classes/ref_counted.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/dictionary.hpp>

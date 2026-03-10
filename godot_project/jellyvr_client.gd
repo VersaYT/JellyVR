@@ -4,7 +4,7 @@ var xr_interface = XRInterface;
 @onready var UI : Node3D = $UI;
 @onready var Keyboard : Node3D = $UI/Keyboard;
 @onready var navbar: Node3D = $UI/Right_Pane;
-@onready var left_navbar: Node3D = $UI/Left_Pane;
+@onready var left_navbar: XRToolsViewport2DIn3D = $UI/Left_Pane;
 @onready var floating_controls := $PlayerUI_Floating_Controls;
 @onready var floating_buttons := $PlayerUI_Floating_Buttons;
 @onready var floating_volume_slider = $PlayerUI_Floating_Volume_Slider;
@@ -107,6 +107,8 @@ func on_toggle_ui_navbar(value: bool):
 
 func on_toggle_ui_left_navbar(value: bool):
 	left_navbar.visible = value;
+	var left_navbar_scene = load("res://UI/Scenes/Left_Pane/UI.tscn") as PackedScene;
+	left_navbar.scene = left_navbar_scene;
 
 func _on_toggle_floating_controls(value: bool) -> void:
 	floating_controls.visible = value;

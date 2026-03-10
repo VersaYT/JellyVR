@@ -4,13 +4,13 @@ using namespace std;
 namespace fs = std::filesystem;
 
 #if defined(_WIN32)
-#include <Windows.h>
 
 bool write_buffer_to_file(const wstring &filepath, const vector<uint8_t> &buffer, const wstring &filename, const wstring &file_extension) {
     wstring full_path {filepath + filename + file_extension};
     wstring tmp_path = filepath + L".tmp";
 
-    ofstream file(tmp_path, ios::out | ios::trunc | ios::binary);
+    std::filesystem::path path(tmp_path);
+    ofstream file(path, ios::out | ios::trunc | ios::binary);
     if(!file.is_open()) {
         return false;
     }

@@ -6,6 +6,7 @@ signal CollectionFolderIdSet;
 func _ready() -> void:
 	print("Content constructor called")
 	StateMachine.emit_signal("ToggleUiNavBar", true);
+	StateMachine.emit_signal("ToggleUiLeftNavBar", true);
 	if !AppManager.config.get_collection_folders():
 		var request = Node.new();
 		add_child(request);

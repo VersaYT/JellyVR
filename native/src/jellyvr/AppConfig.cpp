@@ -9,7 +9,7 @@
 #include <godot_cpp/variant/string.hpp>
 #include "include/config.h"
 #include"include/version.h"
-#include <curl.h>
+#include <curl/curl.h>
 #include "utils/Network.h"
 #include "utils/File.h"
 #include "utils/DebugCurl.hpp"
@@ -47,7 +47,7 @@ void AppConfig::init() {
     initPaths();
     initConfigFile();
     initSSL();
-    #if defined(_WIN32) || defined(__linux__)
+    #if defined(__linux__)
     // for now no yt-dlp on android, need a way to get a runtime binary for android for it
         fetch_yt_dlp();
     #endif

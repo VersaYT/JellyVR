@@ -1,0 +1,7 @@
+{
+  "name": "jellyvr",
+  "version-string": "0.1",
+  "dependencies": [
+    "curl"
+  ]
+}

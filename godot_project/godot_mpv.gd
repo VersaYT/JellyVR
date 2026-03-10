@@ -4,7 +4,7 @@ extends Node3D
 var mpv_player: MPVPlayer;
 var texture_update_count = 0
 
-var debug_level = 2;
+var debug_level = 0010;
 
 @export var content_item: Dictionary;
 @export var trailer_request: bool;
@@ -22,7 +22,7 @@ func _ready():
 	
 	# Create the MPV player instance
 	mpv_player = MPVPlayer.new()
-	debug_level = mpv_player.get_debug_level();
+	mpv_player.set_debug_level(debug_level);
 	mpv_player.connect("time_changed", Callable(self, "_timeline_update"));
 	add_child(mpv_player)
 	# Initialize the player

@@ -4,11 +4,15 @@ entry_symbol = "godot_mpv_library_init"
 
 [libraries]
 linux.debug.x86_64 = "res://bin/libgodot_mpv.linux.template_debug.x86_64.so"
+windows.x86_64 = "res://bin/libgodot_mpv.windows.template_debug.x86_64.dll"
 android.arm64 = "res://bin/arm64/libgodot_mpv.arm64.so"
 
 [dependencies]
 linux.debug.x86_64 = [
     "res://bin/libmpv.so"
+]
+windows.x86_64 = [
+    "res://bin/libmpv-2.dll"
 ]
 android.arm64 = [
     "res://bin/arm64/libmpv.so"

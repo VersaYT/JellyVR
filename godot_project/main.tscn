@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b5r02e0k4den2"]
+[gd_scene load_steps=17 format=3 uid="uid://b5r02e0k4den2"]
 
 [ext_resource type="Script" uid="uid://5tyodmbj7qp5" path="res://jellyvr_client.gd" id="1_lquwl"]
 [ext_resource type="Texture2D" uid="uid://bplm2geut5pm1" path="res://UI/assets/img/virtual_screen_no_content_bg.jpg" id="2_kek77"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bqst0hyg1e03x" path="res://xr_player.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bq2tsw0vgujtj" path="res://UI/Scenes/Right_Pane/UI.tscn" id="6_272bh"]
-[ext_resource type="PackedScene" uid="uid://c6eaxoth14gvy" path="res://UI/Scenes/Left_Pane/UI.tscn" id="6_dg77c"]
 [ext_resource type="PackedScene" uid="uid://dgdb1texynduw" path="res://addons/godot-xr-tools/objects/virtual_keyboard.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://c3e7se20aet5k" path="res://UI/Scenes/Player/FloatingButtons.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://c7gk0wvegdv2c" path="res://UI/Scenes/Player/FloatingVolumeSlider.tscn" id="10_4c57u"]
@@ -48,6 +47,7 @@ screen_size = Vector2(10.515, 5.63)
 collision_layer = 5242884
 scene = ExtResource("3_5vw27")
 viewport_size = Vector2(1920, 1080)
+transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("ui.gd")
 
@@ -82,16 +82,17 @@ visible = false
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -0.431828, 0, 0)
 visible = false
 screen_size = Vector2(163, 406)
-scene = ExtResource("6_dg77c")
 viewport_size = Vector2(163, 406)
+transparent = 1
 unshaded = true
-scene_properties_keys = PackedStringArray("ui.gd")
+scene_properties_keys = PackedStringArray()
 
 [node name="Main_Pane" parent="UI" instance=ExtResource("6_7mycd")]
 transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
 screen_size = Vector2(679, 406)
 scene = ExtResource("5_7mycd")
 viewport_size = Vector2(679, 406)
+transparent = 1
 unshaded = true
 filter = false
 scene_properties_keys = PackedStringArray("UI.gd")
@@ -102,6 +103,7 @@ visible = false
 screen_size = Vector2(102, 330)
 scene = ExtResource("6_272bh")
 viewport_size = Vector2(102, 330)
+transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray()
 
@@ -116,6 +118,7 @@ screen_size = Vector2(730, 131)
 collision_layer = 5242884
 scene = ExtResource("8_5vw27")
 viewport_size = Vector2(730, 131)
+transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("floating_buttons.gd")
 
@@ -126,6 +129,7 @@ screen_size = Vector2(412, 696)
 collision_layer = 5242884
 scene = ExtResource("10_efxa6")
 viewport_size = Vector2(412, 696)
+transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("floating_controls.gd")
 
@@ -136,5 +140,8 @@ screen_size = Vector2(730, 48)
 collision_layer = 5242884
 scene = ExtResource("10_4c57u")
 viewport_size = Vector2(730, 48)
+transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("floating_volume_slider.gd")
+
+[connection signal="visibility_changed" from="UI/Left_Pane" to="." method="_on_left_pane_visibility_changed"]

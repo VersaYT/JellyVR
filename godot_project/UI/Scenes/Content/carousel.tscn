@@ -14,14 +14,10 @@ Panel/styles/panel = SubResource("StyleBoxFlat_7oufj")
 
 [sub_resource type="Resource" id="Resource_03t0p"]
 script = ExtResource("3_4oowj")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="Resource" id="Resource_4oowj"]
 script = ExtResource("3_4oowj")
 friction = 10.0
-minimum_velocity = 0.4
 rebound_strength = 0.0
 
 [node name="Carousel" type="Control"]

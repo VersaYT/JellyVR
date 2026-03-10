@@ -12,6 +12,10 @@ config_version=5
 
 curved_lines_2d/snap_to_pixel=false
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="JellyVR"
@@ -44,8 +48,6 @@ pointing/emulate_touch_from_mouse=true
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
-anti_aliasing/quality/msaa_2d=2
-anti_aliasing/quality/msaa_3d=2
 
 [xr]
 

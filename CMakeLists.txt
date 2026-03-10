@@ -9,7 +9,6 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(nlohmann_json)
-
 # Replace with your Godot 4.x install path
 set(GODOT_CPP_PATH "engine/godot-cpp")
 set(PROJECT_NAME jellyvr)
@@ -47,7 +46,31 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     native/src/jellyvr/*.h
 )
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    find_package(CURL CONFIG REQUIRED)
+
+    add_library(${PROJECT_NAME} SHARED ${SOURCES})
+    target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        godot-cpp
+        CURL::libcurl
+        nlohmann_json::nlohmann_json
+    )
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+    OUTPUT_NAME ${PROJECT_NAME}.${PLATFORM}
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/godot_project/bin/
+    )
+
+    target_include_directories(${PROJECT_NAME}
+    PRIVATE
+        ${GODOT_CPP_PATH}/include
+        ${CMAKE_CURRENT_BINARY_DIR}
+        ${nlohmann_json_SOURCE_DIR}/include/nlohmann
+        ${CURL_INCLUDE_DIRS}
+    )
+
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 
     set(CURL_INCLUDE_DIR "/usr/include/x86_64-linux-gnu/curl")
     set(CURL_LIBRARY "/lib/x86_64-linux-gnu/libcurl.so")
@@ -66,6 +89,13 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set_target_properties(${PROJECT_NAME} PROPERTIES
     OUTPUT_NAME ${PROJECT_NAME}.${PLATFORM}
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/godot_project/bin/
+    )
+
+    target_include_directories(${PROJECT_NAME}
+    PRIVATE
+    ${GODOT_CPP_PATH}/include
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${nlohmann_json_SOURCE_DIR}/include/nlohmann
     )
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Android")
 
@@ -123,18 +153,18 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Android")
     OUTPUT_NAME ${PROJECT_NAME}.${PLATFORM}
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/godot_project/bin/arm64/
     )
+
+    target_include_directories(${PROJECT_NAME}
+    PRIVATE
+        ${GODOT_CPP_PATH}/include
+        ${CMAKE_CURRENT_BINARY_DIR}
+        ${nlohmann_json_SOURCE_DIR}/include/nlohmann
+    )
 endif()
 
 
 # Compiler settings
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_compile_options(${PROJECT_NAME} PRIVATE -fexceptions)
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-    ${GODOT_CPP_PATH}/include
-    src
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${nlohmann_json_SOURCE_DIR}/include/nlohmann
-)
 
 # Platform-specific settings

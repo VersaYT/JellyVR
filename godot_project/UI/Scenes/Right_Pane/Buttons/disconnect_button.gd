@@ -6,4 +6,5 @@ func _on_pressed() -> void:
 	data.state = UIStateData.UIState.LOGIN;
 	StateMachine.change_state(data)
 	StateMachine.emit_signal("ToggleUiNavBar", false);
+	StateMachine.emit_signal("ToggleUiLeftNavBar", false);
 	AppManager.auth.logout(AppManager.config);
