@@ -47,7 +47,6 @@ screen_size = Vector2(10.515, 5.63)
 collision_layer = 5242884
 scene = ExtResource("3_5vw27")
 viewport_size = Vector2(1920, 1080)
-transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("ui.gd")
 
@@ -83,7 +82,6 @@ transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -0.431828, 0, 0)
 visible = false
 screen_size = Vector2(163, 406)
 viewport_size = Vector2(163, 406)
-transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray()
 
@@ -92,7 +90,6 @@ transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
 screen_size = Vector2(679, 406)
 scene = ExtResource("5_7mycd")
 viewport_size = Vector2(679, 406)
-transparent = 1
 unshaded = true
 filter = false
 scene_properties_keys = PackedStringArray("UI.gd")
@@ -103,7 +100,6 @@ visible = false
 screen_size = Vector2(102, 330)
 scene = ExtResource("6_272bh")
 viewport_size = Vector2(102, 330)
-transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray()
 
@@ -118,7 +114,6 @@ screen_size = Vector2(730, 131)
 collision_layer = 5242884
 scene = ExtResource("8_5vw27")
 viewport_size = Vector2(730, 131)
-transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("floating_buttons.gd")
 
@@ -129,7 +124,6 @@ screen_size = Vector2(412, 696)
 collision_layer = 5242884
 scene = ExtResource("10_efxa6")
 viewport_size = Vector2(412, 696)
-transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("floating_controls.gd")
 
@@ -140,7 +134,6 @@ screen_size = Vector2(730, 48)
 collision_layer = 5242884
 scene = ExtResource("10_4c57u")
 viewport_size = Vector2(730, 48)
-transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("floating_volume_slider.gd")
 

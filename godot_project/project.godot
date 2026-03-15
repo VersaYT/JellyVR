@@ -34,6 +34,10 @@ XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
 
 enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true

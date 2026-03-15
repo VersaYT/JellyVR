@@ -1,4 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
+
+if (VCPKG_TARGET_ANDROID)
+    include("cmake/vcpkg_android.cmake")
+endif()
+
 project(jellyvr)
 include(FetchContent)
 
@@ -98,55 +103,13 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     ${nlohmann_json_SOURCE_DIR}/include/nlohmann
     )
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Android")
+    find_package(CURL CONFIG REQUIRED)
 
-    #
-    # Import libcurl (static)
-    #
-    add_library(curl STATIC IMPORTED)
-    set_target_properties(curl PROPERTIES
-        IMPORTED_LOCATION
-            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/curl/libcurl.a
-        INTERFACE_INCLUDE_DIRECTORIES
-            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/curl/include
-    )
-
-    #
-    # Import OpenSSL (static)
-    #
-    add_library(ssl STATIC IMPORTED)
-    set_target_properties(ssl PROPERTIES
-        IMPORTED_LOCATION
-            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/openssl/libssl.a
-        INTERFACE_INCLUDE_DIRECTORIES
-            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/openssl/include
-    )
-
-    add_library(crypto STATIC IMPORTED)
-    set_target_properties(crypto PROPERTIES
-        IMPORTED_LOCATION
-            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/openssl/libcrypto.a
-        INTERFACE_INCLUDE_DIRECTORIES
-            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/openssl/include
-    )
-
-    #
-    # Import your custom zlib (STATIC)
-    #
-    add_library(zlib STATIC IMPORTED)
-    set_target_properties(zlib PROPERTIES
-        IMPORTED_LOCATION
-            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/zlib/libz.a
-        INTERFACE_INCLUDE_DIRECTORIES
-            ${CMAKE_SOURCE_DIR}/native/src/jellyvr/third_party/aarch64_android/zlib/include
-    )
     add_library(${PROJECT_NAME} SHARED ${SOURCES})
     target_link_libraries(${PROJECT_NAME}
     PRIVATE
         godot-cpp
-        curl
-        ssl
-        crypto
-        zlib
+        CURL::libcurl
         nlohmann_json::nlohmann_json
     )
     set_target_properties(${PROJECT_NAME} PROPERTIES

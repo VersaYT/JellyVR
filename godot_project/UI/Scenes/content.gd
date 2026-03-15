@@ -1,6 +1,7 @@
 extends Control
 
 var jellyfin_api = JellyAPI.new();
+@onready var collection_title_container = $nav_collection_title_container/HBoxContainer;
 signal CollectionFolderIdSet;
 
 func _ready() -> void:
@@ -17,6 +18,11 @@ func _ready() -> void:
 
 func _on_collection_folders_received(folders_collection) -> void:
 	AppManager.config.set_collection_folders(folders_collection["Items"]);
+	for collection_title in folders_collection["Items"]:
+		var collection_title_btn = LinkButton.new();
+		collection_title_btn.text = collection_title.Name;
+		collection_title_btn.underline = LinkButton.UNDERLINE_MODE_NEVER;
+		collection_title_container.add_child(collection_title_btn);
 	if AppManager.config.settings.home.get_ActiveCarouselCollectionFolderId() == "":
 		var keys = ["Settings", "Home", "ActiveCarouselCollectionFolderId"];
 		AppManager.config.set_config_value(keys, folders_collection["Items"][0]["Id"]);

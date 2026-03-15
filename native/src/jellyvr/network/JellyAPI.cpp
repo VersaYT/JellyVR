@@ -11,6 +11,7 @@ void JellyAPI::_bind_methods() {
     ClassDB::bind_method(D_METHOD("fetch_item_image", "node", "item_id", "image_type", "width", "height", "app_config", "network_config"), &JellyAPI::fetch_item_image);
     ClassDB::bind_method(D_METHOD("_on_json_request_completed"), &JellyAPI::_on_json_request_completed);
     ClassDB::bind_method(D_METHOD("search", "node", "search_value", "network_config"), &JellyAPI::search);
+    ClassDB::bind_method(D_METHOD("fetch_continue_watch_items", "node", "num_of_items", "app_config", "network_config"), &JellyAPI::fetch_continue_watch_items);
 }
 
 void JellyAPI::_on_json_request_completed(Variant data, Ref<Json> json) {
@@ -94,3 +95,16 @@ Ref<Json> JellyAPI::search(Node *node, String search_value, Ref<NetworkConfig> n
         return json;
 }
 
+Ref<Json> JellyAPI::fetch_continue_watch_items(Node *node, int num_of_items, Ref<AppConfig> app_config, Ref<NetworkConfig> network_config) {
+    String http_url = network_config->get_server_url();
+    String user_id = app_config->get_user_id();
+    String endpoint = "/UserItems/Resume?userId=" + user_id + "&startIndex=0&Limit=" + UtilityFunctions::str(num_of_items) + "&Fields=BasicSyncInfo,UserData,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary,Backdrop,Thumb&EnableTotalRecordCount=false&MediaTypes=Video";
+    String full_url = http_url + endpoint;
+
+    Ref<Json> json = memnew(Json(node, network_config));
+    json_requests.push_back(json);
+    json->connect("request_completed_signal", Callable(this, "_on_json_request_completed").bind(json));
+    json->json_get_request(full_url);
+
+    return json;
+}

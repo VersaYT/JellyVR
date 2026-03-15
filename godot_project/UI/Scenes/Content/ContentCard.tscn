@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://5kmemspq37fk"]
+
+[ext_resource type="Texture2D" uid="uid://bt8gw2eemk6m1" path="res://UI/assets/img/Content/ContentCard/under_progress.png" id="1_4i51p"]
+[ext_resource type="FontFile" uid="uid://d0lqflf016dlf" path="res://UI/assets/fonts/Quicksand/static/Quicksand-SemiBold.ttf" id="1_88uys"]
+[ext_resource type="FontFile" uid="uid://bxmpc2kl3fdrw" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Light.ttf" id="2_44tty"]
+[ext_resource type="Texture2D" uid="uid://byfljwo3hmdfy" path="res://UI/assets/img/Content/ContentCard/progress.png" id="2_l6lvq"]
+
+[node name="ContentCard" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="bg" type="Panel" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(146, 214)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="item_infos" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 169.0
+offset_right = 142.0
+offset_bottom = 209.0
+
+[node name="title" type="Label" parent="item_infos"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 498.0
+offset_bottom = 53.0
+scale = Vector2(0.25, 0.25)
+theme_override_fonts/font = ExtResource("1_88uys")
+theme_override_font_sizes/font_size = 40
+
+[node name="sub_info" type="Label" parent="item_infos"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 16.0
+offset_right = 502.0
+offset_bottom = 66.0
+scale = Vector2(0.25, 0.25)
+theme_override_fonts/font = ExtResource("2_44tty")
+theme_override_font_sizes/font_size = 40
+
+[node name="content_progress" type="TextureProgressBar" parent="item_infos"]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 33.0
+offset_right = 502.0
+offset_bottom = 46.0
+scale = Vector2(0.25, 0.25)
+texture_under = ExtResource("1_4i51p")
+texture_progress = ExtResource("2_l6lvq")
