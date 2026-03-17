@@ -23,5 +23,5 @@ func _on_content_received(content : Dictionary) -> void:
 				content_card.sub_info = "S" + str(int(item["ParentIndexNumber"]))  + " - EP " + str(int(item["IndexNumber"]));
 			"Movie":
 				content_card.sub_info = str(int(item["ProductionYear"]));
-		content_card.item_id = item["Id"];
+		content_card.item_id = item["ParentThumbItemId"];
 		items_container.add_child(content_card);

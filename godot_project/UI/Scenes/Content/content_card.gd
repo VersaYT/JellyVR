@@ -26,9 +26,9 @@ func _ready() -> void:
 	content_progress_node.value = progress;
 	var image_request_node = Node.new();
 	add_child(image_request_node);
-	var imageWidth = "146";
-	var imageHeight = "214";
-	var imageType = "Primary";
+	var imageWidth = "292";
+	var imageHeight = "428";
+	var imageType = "Thumb";
 
 	var image_request = jelly_api.fetch_item_image(image_request_node, item_id, imageType, imageWidth, imageHeight, AppManager.config, AppManager.network);
 	image_request.connect("received_image", Callable(self, "_on_image_received"));
