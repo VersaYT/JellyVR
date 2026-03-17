@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://x66r4x60vcs4"]
 
-[ext_resource type="FontFile" uid="uid://lw3l5qectmfk" path="res://UI/assets/fonts/Manrope/static/Manrope-Regular.ttf" id="1_f264w"]
+[ext_resource type="FontFile" uid="uid://degotiibvbo32" path="res://UI/assets/fonts/manrope/ttf/manrope-latin-400-normal.ttf" id="1_f264w"]
 [ext_resource type="Script" uid="uid://ccvxx8uq6fit7" path="res://UI/Scenes/Right_Pane/Buttons/disconnect_button.gd" id="2_qkgbw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f264w"]

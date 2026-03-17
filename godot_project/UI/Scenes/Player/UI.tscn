@@ -1,12 +1,12 @@
 [gd_scene load_steps=25 format=3 uid="uid://1iumicuygjxh"]
 
 [ext_resource type="Script" uid="uid://dmcl1h06bo3ld" path="res://UI/scripts/Player/ui.gd" id="1_74lpj"]
-[ext_resource type="FontFile" uid="uid://da0sanx10glca" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Medium.ttf" id="1_wdgx0"]
-[ext_resource type="FontFile" uid="uid://cxypnlshevtjb" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Bold.ttf" id="2_82f1m"]
+[ext_resource type="FontFile" uid="uid://d0k15n6cqt5vd" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-500-normal.ttf" id="1_wdgx0"]
+[ext_resource type="FontFile" uid="uid://clo77tlnhtph1" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-600-normal.ttf" id="2_82f1m"]
 [ext_resource type="Texture2D" uid="uid://cnrqxaja0i0h7" path="res://UI/assets/img/Player/Pause.png" id="4_74lpj"]
 [ext_resource type="Texture2D" uid="uid://codyqj5r6fjpi" path="res://UI/assets/img/Player/Forward.png" id="4_82f1m"]
 [ext_resource type="Texture2D" uid="uid://by8nkkqdkixtt" path="res://UI/assets/img/Player/Rewind.png" id="5_ibgnd"]
-[ext_resource type="FontFile" uid="uid://05pmrxu1vcuv" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Regular.ttf" id="7_88yy7"]
+[ext_resource type="FontFile" uid="uid://j52dw2y8fjy5" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-400-normal.ttf" id="7_88yy7"]
 [ext_resource type="Texture2D" uid="uid://s4h7dpthvhvc" path="res://UI/assets/img/Player/TimelineSliderGrabberDefault.svg" id="9_kqgpq"]
 [ext_resource type="Texture2D" uid="uid://1usvkeyan3te" path="res://UI/assets/img/Player/TimelineSliderGrabber.svg" id="9_mbmhl"]
 

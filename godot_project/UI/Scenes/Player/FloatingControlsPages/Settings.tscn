@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dfapluhvhfli4"]
 
 [ext_resource type="Script" uid="uid://cr4rcdqodvgm0" path="res://UI/scripts/Player/FloatingControls/settings.gd" id="1_06glu"]
-[ext_resource type="FontFile" uid="uid://da0sanx10glca" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Medium.ttf" id="2_06glu"]
-[ext_resource type="FontFile" uid="uid://d0lqflf016dlf" path="res://UI/assets/fonts/Quicksand/static/Quicksand-SemiBold.ttf" id="2_ufvhl"]
+[ext_resource type="FontFile" uid="uid://d0k15n6cqt5vd" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-500-normal.ttf" id="2_06glu"]
+[ext_resource type="FontFile" uid="uid://clo77tlnhtph1" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-600-normal.ttf" id="2_ufvhl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufvhl"]
 bg_color = Color(0.17254902, 0.20392157, 0.21568628, 1)

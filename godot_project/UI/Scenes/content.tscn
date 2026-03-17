@@ -1,11 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://dcgdny3lxd4b0"]
+[gd_scene load_steps=12 format=3 uid="uid://dcgdny3lxd4b0"]
 
 [ext_resource type="Script" uid="uid://dw4gm8w2onmar" path="res://UI/Scenes/content.gd" id="1_8jtsr"]
 [ext_resource type="PackedScene" uid="uid://b4str2mfwgo50" path="res://UI/Scenes/Content/carousel.tscn" id="2_aeafd"]
-[ext_resource type="FontFile" uid="uid://05pmrxu1vcuv" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Regular.ttf" id="3_bx2gf"]
+[ext_resource type="FontFile" uid="uid://j52dw2y8fjy5" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-400-normal.ttf" id="3_bx2gf"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="4_87uhw"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="5_k01jn"]
 [ext_resource type="PackedScene" uid="uid://cbvqhx6k8ofs" path="res://UI/Scenes/Content/ContinueToWatch/ContinueToWatch.tscn" id="6_k01jn"]
+
+[sub_resource type="Resource" id="Resource_k01jn"]
+script = ExtResource("5_k01jn")
+
+[sub_resource type="Resource" id="Resource_jh2sq"]
+script = ExtResource("5_k01jn")
 
 [sub_resource type="Theme" id="Theme_77n4q"]
 LinkButton/colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
@@ -22,48 +28,64 @@ script = ExtResource("5_k01jn")
 script = ExtResource("5_k01jn")
 
 [node name="Content" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 679.0
 offset_bottom = 406.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 script = ExtResource("1_8jtsr")
 
-[node name="Carousel" parent="." instance=ExtResource("2_aeafd")]
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_87uhw")
+wheel_scroll_damper = SubResource("Resource_k01jn")
+dragging_scroll_damper = SubResource("Resource_jh2sq")
+allow_horizontal_scroll = false
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
+
+[node name="content_container" type="Control" parent="SmoothScrollContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(679, 1000)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="Carousel" parent="SmoothScrollContainer/content_container" instance=ExtResource("2_aeafd")]
 z_index = 2
 layout_mode = 0
 offset_left = 32.0
 offset_right = 653.0
+mouse_filter = 1
 
-[node name="nav_collection_title_container" type="ScrollContainer" parent="."]
+[node name="nav_collection_title_container" type="ScrollContainer" parent="SmoothScrollContainer/content_container"]
+custom_minimum_size = Vector2(621, 30)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -301.5
-offset_top = 54.0
-offset_right = 312.5
-offset_bottom = 94.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 33.0
+offset_top = 256.0
+offset_right = 654.0
+offset_bottom = 296.0
 theme = SubResource("Theme_77n4q")
 script = ExtResource("4_87uhw")
 wheel_scroll_damper = SubResource("Resource_ul8st")
 dragging_scroll_damper = SubResource("Resource_ve6pd")
+allow_vertical_scroll = false
 metadata/_custom_type_script = "uid://bgqglerkcylxx"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="nav_collection_title_container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SmoothScrollContainer/content_container/nav_collection_title_container"]
+custom_minimum_size = Vector2(621, 30)
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="ContinueToWatch" parent="." instance=ExtResource("6_k01jn")]
+[node name="ContinueToWatch" parent="SmoothScrollContainer/content_container" instance=ExtResource("6_k01jn")]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 313.0
 offset_right = 655.0
 offset_bottom = 601.0
+mouse_filter = 1

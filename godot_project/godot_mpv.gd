@@ -33,7 +33,7 @@ func _ready():
 
 
 func play() -> void:
-	
+	mpv_player.seek_pos = "";
 	if mesh_instance_3d:
 		print("Found Screen mesh, preparing material...")
 	
@@ -68,9 +68,14 @@ func play() -> void:
 	# Load and play the video
 	print("Loading video file...")
 	if not trailer_request:
-		mpv_player.load_file(url, headers_dict_to_lavf(headers_dict), full_yt_dlp_path);
+		if content_item["UserData"].has("PlayedPercentage") && content_item["UserData"]["PlayedPercentage"] > 0.0:
+			mpv_player.seek_pos = str(content_item["UserData"]["PlaybackPositionTicks"] / 10_000_000);
+			mpv_player.load_file(url, headers_dict_to_lavf(headers_dict), full_yt_dlp_path);
+		else:
+			mpv_player.load_file(url, headers_dict_to_lavf(headers_dict), full_yt_dlp_path);
 	else:
 		mpv_player.load_file(content_item["RemoteTrailers"][0]["Url"], "", full_yt_dlp_path);
+
 	mpv_player.play()
 	StateMachine.ContentAspectRatio = mpv_player.get_content_aspect_ratio();
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://eup4otbdkq14" path="res://UI/Scenes/server_connect.gd" id="1_c0m4i"]
 [ext_resource type="Theme" uid="uid://dp1fbfgsvq6ea" path="res://UI/base_theme.tres" id="1_f3535"]
 [ext_resource type="Texture2D" uid="uid://dt240080b47di" path="res://UI/assets/img/logo_141x126.png" id="2_c0m4i"]
-[ext_resource type="FontFile" uid="uid://bwen4jt3xt1hi" path="res://UI/assets/fonts/Manrope/static/Manrope-ExtraBold.ttf" id="3_xhikt"]
+[ext_resource type="FontFile" uid="uid://cidgc8n5ymql4" path="res://UI/assets/fonts/manrope/ttf/manrope-latin-800-normal.ttf" id="3_xhikt"]
 [ext_resource type="Texture2D" uid="uid://cy1yva16umc0" path="res://UI/assets/img/icon.svg" id="4_evfhh"]
 [ext_resource type="Script" uid="uid://dhfgdbyivdaxh" path="res://UI/scripts/error_message.gd" id="6_xhikt"]
 

@@ -1,0 +1,41 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://d0k15n6cqt5vd"
+path="res://.godot/imported/quicksand-latin-500-normal.ttf-1845350fc569d114f8a03cb6d3bbb906.fontdata"
+
+[deps]
+
+source_file="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-500-normal.ttf"
+dest_files=["res://.godot/imported/quicksand-latin-500-normal.ttf-1845350fc569d114f8a03cb6d3bbb906.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=true
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+modulate_color_glyphs=false
+hinting=1
+subpixel_positioning=4
+keep_rounding_remainders=true
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "Nouvelle configuration",
+"size": Vector2i(16, 0)
+}]
+language_support={}
+script_support={}
+opentype_features={}

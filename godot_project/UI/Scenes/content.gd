@@ -1,7 +1,7 @@
 extends Control
 
 var jellyfin_api = JellyAPI.new();
-@onready var collection_title_container = $nav_collection_title_container/HBoxContainer;
+@onready var collection_title_container = $SmoothScrollContainer/content_container/nav_collection_title_container/HBoxContainer;
 signal CollectionFolderIdSet;
 
 func _ready() -> void:

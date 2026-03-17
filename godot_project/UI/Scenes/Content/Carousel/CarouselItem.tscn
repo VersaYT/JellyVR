@@ -1,12 +1,12 @@
 [gd_scene load_steps=18 format=3 uid="uid://dmsrqexdo6bef"]
 
 [ext_resource type="Script" uid="uid://b25ybadsgyac5" path="res://UI/Scenes/Content/Carousel/carousel_item.gd" id="1_1af2b"]
-[ext_resource type="FontFile" uid="uid://cxypnlshevtjb" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Bold.ttf" id="1_wjkus"]
-[ext_resource type="FontFile" uid="uid://05pmrxu1vcuv" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Regular.ttf" id="2_1af2b"]
-[ext_resource type="FontFile" uid="uid://da0sanx10glca" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Medium.ttf" id="3_c55xm"]
+[ext_resource type="FontFile" uid="uid://3dkiya8ygqrd" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-700-normal.ttf" id="1_wjkus"]
+[ext_resource type="FontFile" uid="uid://j52dw2y8fjy5" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-400-normal.ttf" id="2_1af2b"]
+[ext_resource type="FontFile" uid="uid://d0k15n6cqt5vd" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-500-normal.ttf" id="3_c55xm"]
 [ext_resource type="Script" uid="uid://c1rc5c5yhgxt8" path="res://UI/Scenes/Content/content_rating.gd" id="4_hfpll"]
 [ext_resource type="FontFile" uid="uid://bt6wy1m0m76wy" path="res://UI/assets/fonts/Bowlby_One_SC/BowlbyOneSC-Regular.ttf" id="5_5uxxp"]
-[ext_resource type="FontFile" uid="uid://bxmpc2kl3fdrw" path="res://UI/assets/fonts/Quicksand/static/Quicksand-Light.ttf" id="7_c55xm"]
+[ext_resource type="FontFile" uid="uid://xxov6yux2g34" path="res://UI/assets/fonts/quicksand/ttf/quicksand-latin-300-normal.ttf" id="7_c55xm"]
 
 [sub_resource type="Gradient" id="Gradient_wp2hb"]
 colors = PackedColorArray(0, 0, 0, 0.396078, 1, 1, 1, 0)

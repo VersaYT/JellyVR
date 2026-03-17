@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cbvqhx6k8ofs"]
 
 [ext_resource type="Script" uid="uid://bcge6ac72num8" path="res://UI/Scenes/Content/ContinueToWatch/continue_to_watch.gd" id="1_7qdn0"]
-[ext_resource type="FontFile" uid="uid://bwen4jt3xt1hi" path="res://UI/assets/fonts/Manrope/static/Manrope-ExtraBold.ttf" id="1_rcnch"]
+[ext_resource type="FontFile" uid="uid://cidgc8n5ymql4" path="res://UI/assets/fonts/manrope/ttf/manrope-latin-800-normal.ttf" id="1_rcnch"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="2_325ak"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="3_7qdn0"]
 
@@ -30,6 +30,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 script = ExtResource("1_7qdn0")
 
 [node name="bg" type="Panel" parent="."]
@@ -39,6 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_auvg8")
 
 [node name="Title" type="Label" parent="."]
@@ -53,9 +55,10 @@ text = "Continue to watch"
 [node name="SmoothScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_left = 22.0
-offset_top = 56.0
+offset_top = 50.0
 offset_right = 622.0
-offset_bottom = 273.0
+offset_bottom = 280.0
+mouse_filter = 2
 script = ExtResource("2_325ak")
 wheel_scroll_damper = SubResource("Resource_l81pr")
 dragging_scroll_damper = SubResource("Resource_qflg0")
@@ -63,3 +66,4 @@ metadata/_custom_type_script = "uid://bgqglerkcylxx"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SmoothScrollContainer"]
 layout_mode = 2
+theme_override_constants/separation = 17

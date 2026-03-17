@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://2rtg4veqruxo"]
 
-[ext_resource type="FontFile" uid="uid://bwen4jt3xt1hi" path="res://UI/assets/fonts/Manrope/static/Manrope-ExtraBold.ttf" id="1_qrbo4"]
+[ext_resource type="FontFile" uid="uid://cidgc8n5ymql4" path="res://UI/assets/fonts/manrope/ttf/manrope-latin-800-normal.ttf" id="1_qrbo4"]
 [ext_resource type="Script" uid="uid://dusydcvgukkh5" path="res://UI/Scenes/Right_Pane/Buttons/button.gd" id="2_0mbik"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mbik"]

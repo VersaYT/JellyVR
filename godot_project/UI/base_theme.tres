@@ -1,10 +1,6 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dp1fbfgsvq6ea"]
-
-[ext_resource type="FontFile" uid="uid://b2b8hh6137mmv" path="res://UI/assets/fonts/Manrope/Manrope-VariableFont_wght.ttf" id="1_senvt"]
-[ext_resource type="FontFile" uid="uid://bu385ls7eo61b" path="res://UI/assets/fonts/Manrope/static/Manrope-Medium.ttf" id="2_l30ol"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dp1fbfgsvq6ea"]
 
 [sub_resource type="FontVariation" id="FontVariation_l30ol"]
-base_font = ExtResource("1_senvt")
 variation_opentype = {
 2003265652: 400
 }
@@ -39,7 +35,6 @@ shadow_size = 1
 shadow_offset = Vector2(0, 1.63)
 
 [sub_resource type="FontVariation" id="FontVariation_senvt"]
-base_font = ExtResource("1_senvt")
 variation_opentype = {
 2003265652: 400
 }
@@ -86,7 +81,7 @@ Button/styles/pressed = SubResource("StyleBoxFlat_76sb2")
 Label/font_sizes/font_size = 13
 Label/fonts/font = SubResource("FontVariation_senvt")
 Label/styles/normal = SubResource("StyleBoxEmpty_l30ol")
-LineEdit/fonts/font = ExtResource("2_l30ol")
+LineEdit/fonts/font = null
 LineEdit/styles/focus = SubResource("StyleBoxFlat_tj625")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_senvt")
 Panel/styles/panel = SubResource("StyleBoxFlat_ugxw7")
